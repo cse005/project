@@ -1,0 +1,277 @@
+/* =========================================
+   "Premium AgriTech" Global Styles (Eye-Care Theme)
+   ========================================= */
+
+:root {
+    /* Premium Color Palette - NO PURE WHITE */
+    --bg-color: #E8EDE9;          /* Calming Muted Sage Background */
+    --card-bg: #F4F7F5;           /* Soft Frosted Cream for Cards (No Eye Strain) */
+    
+    --primary-color: #046E58;     /* Rich Emerald/Teal - Trustworthy & Professional */
+    --dark-teal: #024536;         /* Deeper shade for hover effects */
+    --light-primary: #D1E5E0;     /* Very soft tint for active tabs/badges */
+    
+    --accent-gold: #D97706;       /* Premium muted amber for pending statuses */
+    --success-green: #059669;     /* Crisp green for success/delivered */
+    --danger-red: #DC2626;        /* Professional red for rejected/cancelled */
+    
+    --text-dark: #1E293B;         /* Deep Slate - Softer than pure black */
+    --text-muted: #526B64;        /* Muted Forest for secondary text */
+    --border-color: #D3DFD9;      /* Clean, subtle borders matching the theme */
+
+    /* Premium Modern Shadows */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.06), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
+
+    /* Animation Timings */
+    --trans-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    --trans-med: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* =========================================
+   Base Resets and Typography
+   ========================================= */
+body {
+    background-color: var(--bg-color);
+    color: var(--text-dark);
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+    margin: 0;
+    overflow-x: hidden;
+    min-height: 100vh;
+    line-height: 1.6;
+}
+
+/* Ensure text in inputs is always readable */
+input[type="text"],
+input[type="number"],
+input[type="date"],
+input[type="time"],
+select,
+textarea {
+    color: var(--text-dark) !important;
+}
+
+/* Overall Page Layout Containers */
+.container,
+.main-wrapper {
+    padding: 24px;
+    margin-top: 80px;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* =========================================
+   The Background Pattern
+   ========================================= */
+.topography-bg-pattern {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48ZyBmaWxsPSJub25lIiBzdHJva2U9InJnYmEoMCwwLDAsMC4wMikiIHN0cm9rZS13aWR0aD0iMC41Ij48cGF0aCBkPSJNMTAgMTAgQyAyMCAxMCAzMCAyMCA0MCAxMCBDIDUwIDIwIDYwIDEwIDcwIDIwIEMgODAgMTAgOTAgMjAgOTAgMTAiLz48cGF0aCBkPSJNMTAgMjAgQyAyMCAyMCAzMCAxMCA0MCAyMCBDIDUwIDEwIDYwIDIwIDcwIDEwIEMgODAgMjAgOTAgMTAgOTAgMjAiLz48cGF0aCBkPSJNMTAgMzAgQyAyMCAzMCAzMCA0MCA0MCAzMCBDIDUwIDQwIDYwIDMwIDcwIDQwIEMgODAgMzAgOTAgNDAgOTAgMzAiLz48cGF0aCBkPSJNMTAgNDAgQyAyMCA0MCAzMCAzMCA0MCA0MCBDIDUwIDMwIDYwIDQwIDcwIDMwIEMgODAgNDAgOTAgMzAgOTAgNDAiLz48cGF0aCBkPSJNMTAgNTAgQyAyMCA1MCAzMCA2MCA0MCA1MCBDIDUwIDYwIDYwIDUwIDcwIDYwIEMgODAgNTAgOTAgNjAgOTAgNTAiLz48cGF0aCBkPSJNMTAgNjAgQyAyMCA2MCAzMCA1MCA0MCA2MCBDIDUwIDUwIDYwIDYwIDcwIDUwIEMgODAgNjAgOTAgNTAgOTAgNjAiLz48cGF0aCBkPSJNMTAgNzAgQyAyMCA3MCAzMCA4MCA0MCA3MCBDIDUwIDgwIDYwIDcwIDcwIDgwIEMgODAgNzAgOTAgODAgOTAgNzAiLz48cGF0aCBkPSJNMTAgODAgQyAyMCA4MCAzMCA3MCA0MCA4MCBDIDUwIDcwIDYwIDgwIDcwIDcwIEMgODAgODAgOTAgNzAgOTAgODAiLz48cGF0aCBkPSJNMTAgOTAgQyAyMCA5MCAzMCAxMDAgNDAgOTAgQyA1MCAxMDAgNjAgOTAgNzAgMTAwIEMgODAgOTAgOTAgMTAwIDkwIDkwIi8+PC9nPjwvc3ZnPg==');
+    background-size: cover;
+    pointer-events: none;
+}
+
+/* =========================================
+   UI and Component Styling (Cards)
+   ========================================= */
+
+/* Clean, premium solid cards - No Pure White */
+.card,
+.section-card,
+.booking-form-wrapper,
+.login-form-wrapper,
+.register-form-wrapper,
+.booking-card,
+.order-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 32px;
+    margin-bottom: 24px;
+    box-shadow: var(--shadow-md);
+    transition: transform var(--trans-fast), box-shadow var(--trans-fast);
+}
+
+/* Elegant hover lift animation */
+.booking-card:hover,
+.order-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+}
+
+/* =========================================
+   Form Elements
+   ========================================= */
+
+input,
+select,
+textarea {
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    background: #EAEFEA; /* Slightly darker than card for clear input fields */
+    color: var(--text-dark);
+    padding: 14px 16px;
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 0.95rem;
+    transition: all var(--trans-fast);
+}
+
+/* Active focus glow animation */
+input:focus,
+select:focus,
+textarea:focus {
+    background: var(--card-bg);
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 4px rgba(4, 110, 88, 0.15);
+    outline: none;
+}
+
+/* =========================================
+   Buttons
+   ========================================= */
+
+button,
+.btn-primary {
+    background-color: var(--primary-color);
+    color: #FAFAFA; /* Off-white text for buttons */
+    border: none;
+    border-radius: 10px;
+    padding: 12px 24px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    cursor: pointer;
+    box-shadow: var(--shadow-sm);
+    transition: all var(--trans-fast);
+}
+
+button:hover,
+.btn-primary:hover {
+    background-color: var(--dark-teal);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-1px);
+}
+
+button:active,
+.btn-primary:active {
+    transform: translateY(1px);
+    box-shadow: none;
+}
+
+/* =========================================
+   Badges (Statuses)
+   ========================================= */
+
+.status-badge {
+    border-radius: 30px;
+    padding: 6px 14px;
+    font-size: 12px;
+    font-weight: 600;
+    display: inline-block;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+/* Subtle, premium pastel badges */
+.status-badge.pending {
+    background-color: #FDE68A;
+    color: var(--accent-gold);
+}
+
+.status-badge.approved,
+.status-badge.confirmed,
+.status-badge.active {
+    background-color: #A7F3D0;
+    color: var(--success-green);
+}
+
+.status-badge.rejected,
+.status-badge.cancelled {
+    background-color: #FECACA;
+    color: var(--danger-red);
+}
+
+.cancel-request-btn {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 13px;
+    transition: color var(--trans-fast);
+}
+
+.cancel-request-btn:hover {
+    color: var(--danger-red);
+}
+
+/* =========================================
+   Animation Classes
+   ========================================= */
+
+.animate-fade-in {
+    animation: fadeIn var(--trans-med);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.animate-slide-up {
+    animation: slideUp var(--trans-med);
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+
+
+/* =========================================
+   Dashboard Header & Logout Button 
+   ========================================= */
+.dashboard-header {
+    background: var(--primary-color);
+    color: white;
+    border-radius: 16px;
+    padding: 24px 30px;
+    margin-bottom: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: var(--shadow-md);
+}
+
+.dashboard-header h2 { margin: 0; font-size: 24px; }
+.dashboard-header p { margin: 5px 0 0 0; opacity: 0.9; font-size: 14px; }
+
+.logout-btn {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all var(--trans-fast);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.logout-btn:hover { 
+    background: rgba(255, 255, 255, 0.3); 
+    color: white;
+    transform: translateY(-2px);
+}

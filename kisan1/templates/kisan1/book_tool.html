@@ -1,0 +1,403 @@
+{% load i18n %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{% trans "Rent Tools | Kisan Asara" %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* =========================================
+           ULTRA PRO MAX METALLIC UI STYLES
+           ========================================= */
+        :root {
+            --tool-blue: #0288d1;
+            --prime-green: #118a28;
+            --dark-green: #042409;
+            --input-bg: #f7fbf7;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+
+            /* 3D METALLIC GLOSSY GREEN SWIRL BACKGROUND */
+            background-color: #010a02;
+            background-image:
+                radial-gradient(circle at 30% 70%, rgba(25, 171, 64, 0.6) 0%, transparent 45%),
+                radial-gradient(circle at 75% 25%, rgba(13, 102, 37, 0.8) 0%, transparent 55%),
+                radial-gradient(ellipse at 50% 50%, #063d14 0%, #000000 100%);
+            background-attachment: fixed;
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .booking-card {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            width: 100%;
+            max-width: 580px;
+            border-radius: 30px;
+            padding: 40px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            position: relative;
+            z-index: 10;
+            animation: slideUp 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(40px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .provider-info {
+            background: #e1f5fe;
+            border-left: 6px solid var(--tool-blue);
+            padding: 20px 25px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+        }
+
+        .provider-info h3 {
+            margin: 0 0 10px 0;
+            color: #01579b;
+            font-size: 22px;
+            font-weight: 800;
+        }
+
+        .provider-info p {
+            margin: 5px 0;
+            color: #444;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .provider-info span {
+            font-weight: 700;
+            color: var(--tool-blue);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--dark-green);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #e0e0e0;
+            border-radius: 14px;
+            font-family: inherit;
+            font-size: 14px;
+            box-sizing: border-box;
+            outline: none;
+            transition: all 0.3s ease;
+            background: var(--input-bg);
+        }
+
+        input:focus,
+        select:focus {
+            border-color: var(--tool-blue);
+            background: #fff;
+            box-shadow: 0 0 0 4px rgba(2, 136, 209, 0.1);
+            transform: translateY(-1px);
+        }
+
+        .tools-list {
+            background: rgba(0, 0, 0, 0.03);
+            padding: 20px;
+            border-radius: 18px;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            margin-bottom: 20px;
+        }
+
+        .tool-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+
+        .tool-item label {
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            text-transform: none;
+            font-size: 15px;
+        }
+
+        .tool-item input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--tool-blue);
+        }
+
+        .tool-item input[type="number"] {
+            width: 110px;
+            padding: 10px;
+        }
+
+        .delivery-toggle {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 18px;
+            background: #fff3e0;
+            border-radius: 14px;
+            border: 1px dashed #ff9800;
+            cursor: pointer;
+            font-weight: 700;
+            color: #e65100;
+            margin-bottom: 20px;
+            transition: 0.3s;
+        }
+
+        .delivery-toggle:hover {
+            background: #ffe0b2;
+        }
+
+        .delivery-toggle input {
+            width: 20px;
+            height: 20px;
+            accent-color: #f57c00;
+        }
+
+        .total-box {
+            background: #111;
+            padding: 20px;
+            text-align: center;
+            border-radius: 18px;
+            margin-bottom: 25px;
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .total-amount {
+            color: #4fc3f7;
+            font-size: 28px;
+            font-weight: 800;
+            margin-top: 5px;
+            display: block;
+        }
+
+        .btn-hire {
+            background: linear-gradient(135deg, var(--tool-blue), #01579b);
+            color: white;
+            border: none;
+            padding: 18px;
+            width: 100%;
+            border-radius: 16px;
+            font-size: 18px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 10px 25px rgba(2, 136, 209, 0.4);
+        }
+
+        .btn-hire:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(2, 136, 209, 0.5);
+            filter: brightness(1.1);
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #666;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 700;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="booking-card">
+        <div class="provider-info">
+            <h3>{{ tool_shop.shop_name }}</h3>
+            <p><i class="fas fa-user-tie"></i> {% trans "Owner:" %} <span>{{ tool_shop.user.name }}</span></p>
+            <p><i class="fas fa-phone"></i> {% trans "Mobile:" %} <span>{{ tool_shop.user.mobile }}</span></p>
+            <p><i class="fas fa-location-dot"></i> {% trans "Location:" %} <span>{{ tool_shop.user.village }}</span></p>
+            <p style="margin-top: 10px;"><i class="fas fa-tags"></i> {% trans "Available Tools & Rates:" %}<br>
+                <span style="display: block; line-height: 1.6; margin-top: 5px; color: #01579b;">{{ tool_shop.tools_type
+                    }}</span>
+            </p>
+        </div>
+
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <label>{% trans "Choose tools to rent" %}</label>
+                <div class="tools-list">
+                    {% if "Tractor" in tool_shop.tools_type %}
+                    <div class="tool-item">
+                        <label><input type="checkbox" name="tool_Tractor" value="Tractor" onchange="calculateTotal()">
+                            {% trans "Tractor" %}</label>
+                        <input type="number" name="hours_Tractor" id="hrs_Tractor" min="1"
+                            placeholder="{% trans 'Hours' %}" oninput="calculateTotal()" disabled>
+                    </div>
+                    {% endif %}
+                    {% if "Harvester" in tool_shop.tools_type %}
+                    <div class="tool-item">
+                        <label><input type="checkbox" name="tool_Harvester" value="Harvester"
+                                onchange="calculateTotal()"> {% trans "Harvester" %}</label>
+                        <input type="number" name="hours_Harvester" id="hrs_Harvester" min="1"
+                            placeholder="{% trans 'Hours' %}" oninput="calculateTotal()" disabled>
+                    </div>
+                    {% endif %}
+                    {% if "Plough" in tool_shop.tools_type %}
+                    <div class="tool-item">
+                        <label><input type="checkbox" name="tool_Plough" value="Plough" onchange="calculateTotal()"> {%
+                            trans "Plough" %}</label>
+                        <input type="number" name="hours_Plough" id="hrs_Plough" min="1"
+                            placeholder="{% trans 'Hours' %}" oninput="calculateTotal()" disabled>
+                    </div>
+                    {% endif %}
+                    {% if "Rotavator" in tool_shop.tools_type %}
+                    <div class="tool-item">
+                        <label><input type="checkbox" name="tool_Rotavator" value="Rotavator"
+                                onchange="calculateTotal()"> {% trans "Rotavator" %}</label>
+                        <input type="number" name="hours_Rotavator" id="hrs_Rotavator" min="1"
+                            placeholder="{% trans 'Hours' %}" oninput="calculateTotal()" disabled>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <label class="delivery-toggle">
+                <input type="checkbox" name="home_delivery" id="home_delivery" onchange="toggleAddress()">
+                <i class="fas fa-truck"></i> {% trans "Request Home Delivery" %}
+            </label>
+
+            <div id="address-fields" style="display:none; margin-bottom: 20px;">
+                <div class="input-row" style="margin-bottom: 10px;">
+                    <input type="text" name="state" placeholder="{% trans 'State' %}">
+                    <input type="text" name="district" placeholder="{% trans 'District' %}">
+                </div>
+                <div class="input-row">
+                    <input type="text" name="mandal" placeholder="{% trans 'Mandal' %}">
+                    <input type="text" name="village" placeholder="{% trans 'Village' %}">
+                </div>
+            </div>
+
+            <div class="input-row">
+                <div class="form-group">
+                    <label>{% trans "Date of Receiving" %}</label>
+                    <input type="date" name="receive_date" id="receive_date" required>
+                </div>
+                <div class="form-group">
+                    <label>{% trans "Date of Returning" %}</label>
+                    <input type="date" name="return_date" id="return_date" required>
+                </div>
+            </div>
+
+            <div class="total-box">
+                <span style="text-transform: uppercase; font-size: 11px; letter-spacing: 1px; color: #aaa;">{% trans
+                    "Estimated Total" %}</span>
+                <span class="total-amount">₹<span id="displayTotal">0.00</span></span>
+            </div>
+
+            <button type="submit" class="btn-hire">✔️ {% trans "Book Tools Now" %}</button>
+            <a href="javascript:history.back()" class="back-link">⬅ {% trans "Cancel" %}</a>
+        </form>
+    </div>
+
+    <script>
+        const dbString = "{{ tool_shop.tools_type }}";
+        const toolPrices = {};
+        if (dbString) {
+            const items = dbString.split('|');
+            items.forEach(item => {
+                const match = item.match(/([A-Za-z]+)\s*\(₹(\d+)\/hr\)/);
+                if (match) { toolPrices[match[1]] = parseFloat(match[2]); }
+            });
+        }
+
+        function calculateTotal() {
+            let grandTotal = 0;
+            const tools = ['Tractor', 'Harvester', 'Plough', 'Rotavator'];
+            tools.forEach(tool => {
+                const checkbox = document.getElementsByName('tool_' + tool)[0];
+                const input = document.getElementById('hrs_' + tool);
+                if (checkbox && input) {
+                    if (checkbox.checked) {
+                        input.disabled = false; input.required = true;
+                        if (input.value && toolPrices[tool]) { grandTotal += parseFloat(input.value) * toolPrices[tool]; }
+                    } else {
+                        input.disabled = true; input.required = false; input.value = '';
+                    }
+                }
+            });
+            document.getElementById('displayTotal').innerText = grandTotal.toFixed(2);
+        }
+
+        function toggleAddress() {
+            const checkBox = document.getElementById('home_delivery');
+            const addressBox = document.getElementById('address-fields');
+            const inputs = addressBox.querySelectorAll('input[type="text"]');
+            if (checkBox.checked) {
+                addressBox.style.display = "block";
+                inputs.forEach(input => input.required = true);
+            } else {
+                addressBox.style.display = "none";
+                inputs.forEach(input => { input.required = false; input.value = ''; });
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const receiveDateInput = document.getElementById('receive_date');
+            const returnDateInput = document.getElementById('return_date');
+            if (receiveDateInput && returnDateInput) {
+                const today = new Date().toISOString().split('T')[0];
+                receiveDateInput.setAttribute('min', today);
+                returnDateInput.setAttribute('min', today);
+                receiveDateInput.addEventListener('change', function () {
+                    returnDateInput.setAttribute('min', this.value);
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

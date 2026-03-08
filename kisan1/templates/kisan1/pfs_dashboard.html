@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dealer Dashboard | Kisan Asara</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* Premium Eye-Care Theme */
+        :root {
+            --bg-color: #E8EDE9;          
+            --card-bg: #F4F7F5;           
+            --primary-color: #046E58;     
+            --dark-teal: #024536;         
+            --light-primary: #D1E5E0;     
+            --accent-gold: #D97706;       
+            --success-green: #059669;     
+            --danger-red: #DC2626;        
+            --text-dark: #1E293B;         
+            --text-muted: #526B64;        
+            --border-color: #D3DFD9;      
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .dashboard-container {
+            width: 100%;
+            max-width: 900px;
+        }
+
+        /* Top Header Card */
+        .dealer-header {
+            background: var(--primary-color);
+            color: white;
+            border-radius: 16px;
+            padding: 25px 30px;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 10px 15px -3px rgba(4, 110, 88, 0.2);
+        }
+
+        .dealer-header h2 { margin: 0; font-size: 24px; }
+        .dealer-header p { margin: 5px 0 0 0; opacity: 0.9; font-size: 14px; }
+        .logout-btn {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+        .logout-btn:hover { background: rgba(255,255,255,0.3); }
+
+        /* Sections */
+        .section-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 25px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .section-title {
+            font-size: 18px;
+            color: var(--text-dark);
+            margin: 0 0 20px 0;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--light-primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Form Grid */
+        .add-product-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        @media(max-width: 600px) { .add-product-form { grid-template-columns: 1fr; } }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background: #EAEFEA;
+            color: var(--text-dark);
+            font-family: inherit;
+            box-sizing: border-box;
+            outline: none;
+        }
+        .form-input:focus { border-color: var(--primary-color); }
+
+        .btn-add {
+            grid-column: 1 / -1;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .btn-add:hover { background: var(--dark-teal); }
+
+        /* List Items (Stock & Orders) */
+        .list-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px dashed var(--border-color);
+        }
+        .list-item:last-child { border-bottom: none; }
+
+        .item-info h4 { margin: 0 0 5px 0; font-size: 16px; color: var(--text-dark); }
+        .item-info p { margin: 0; font-size: 13px; color: var(--text-muted); }
+        
+        .stock-badge {
+            background: #D1E5E0; color: var(--primary-color);
+            padding: 4px 10px; border-radius: 12px; font-size: 12px; font-weight: 600;
+        }
+
+        /* Action Buttons */
+        .action-btns { display: flex; gap: 10px; }
+        .btn-accept, .btn-reject {
+            border: none; padding: 8px 15px; border-radius: 6px; font-weight: 600; font-size: 13px; cursor: pointer; color: white;
+        }
+        .btn-accept { background: var(--success-green); }
+        .btn-reject { background: var(--danger-red); }
+        
+        .status-label { font-weight: 600; font-size: 13px; padding: 5px 10px; border-radius: 6px; }
+        .status-confirmed { background: #A7F3D0; color: var(--success-green); }
+        .status-rejected { background: #FECACA; color: var(--danger-red); }
+    </style>
+</head>
+<body>
+
+    <div class="dashboard-container">
+        
+        <div class="dealer-header">
+            <div>
+                <h2>{{ shop.shop_name|default:"My Agro Shop" }}</h2>
+                <p><i class="fas fa-user-tie"></i> Dealer: {{ user.name }} | 🪪 LIC: {{ shop.license_id }}</p>
+            </div>
+            <a href="{% url 'logout' %}" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        </div>
+
+        {% if messages %}
+        {% for message in messages %}
+        <div style="background: #D1E5E0; color: var(--primary-color); padding: 12px; border-radius: 8px; margin-bottom: 20px; font-weight: 600; text-align: center;">
+            {{ message }}
+        </div>
+        {% endfor %}
+        {% endif %}
+
+        <div class="section-card">
+            <h3 class="section-title"><i class="fas fa-plus-circle"></i> Add New Stock</h3>
+            <form method="POST" class="add-product-form">
+                {% csrf_token %}
+                <input type="text" name="item_name" class="form-input" placeholder="Product Name (ex: UREA 45kg)" required>
+                <select name="category" class="form-input" required>
+                    <option value="" disabled selected>Select Category</option>
+                    <option value="Fertilizer">Fertilizer</option>
+                    <option value="Pesticide">Pesticide</option>
+                    <option value="Seeds">Seeds</option>
+                </select>
+                <input type="number" name="price" class="form-input" placeholder="Price per unit (₹)" required>
+                <input type="number" name="stock_quantity" class="form-input" placeholder="Total Quantity Available" required>
+                <button type="submit" name="add_product" class="btn-add"><i class="fas fa-save"></i> Save to Inventory</button>
+            </form>
+        </div>
+
+        <div class="section-card">
+            <h3 class="section-title"><i class="fas fa-boxes"></i> My Live Inventory</h3>
+            {% for item in inventory %}
+            <div class="list-item">
+                <div class="item-info">
+                    <h4>{{ item.item_name }}</h4>
+                    <p>{{ item.category }} • ₹{{ item.price }} / unit</p>
+                </div>
+                <div>
+                    <span class="stock-badge">{{ item.stock_quantity }} Units Left</span>
+                </div>
+            </div>
+            {% empty %}
+            <p style="text-align: center; color: var(--text-muted); font-size: 14px;">No stock added yet.</p>
+            {% endfor %}
+        </div>
+
+        <div class="section-card">
+            <h3 class="section-title"><i class="fas fa-file-invoice"></i> Farmer Booking Tokens</h3>
+            {% for req in work_requests %}
+            <div class="list-item">
+                <div class="item-info">
+                    <h4>Token #{{ req.id|stringformat:"04d" }} - {{ req.farmer.name }}</h4>
+                    <p><i class="fas fa-phone"></i> {{ req.farmer.mobile }} • <i class="fas fa-map-marker-alt"></i> {{ req.farmer.village }}</p>
+                    <p style="color: var(--primary-color); font-weight: 600; margin-top: 5px;">{{ req.items_ordered }}</p>
+                </div>
+                
+                <div class="action-btns">
+                    {% if req.status == 'Pending' %}
+                        <form method="POST" action="{% url 'accept_shop_order' req.id %}" style="margin:0;">
+                            {% csrf_token %}
+                            <button type="submit" class="btn-accept"><i class="fas fa-check"></i> Approve</button>
+                        </form>
+                        <form method="POST" action="{% url 'reject_shop_order' req.id %}" style="margin:0;">
+                            {% csrf_token %}
+                            <button type="submit" class="btn-reject"><i class="fas fa-times"></i> Reject</button>
+                        </form>
+                    {% elif req.status == 'Confirmed' %}
+                        <span class="status-label status-confirmed"><i class="fas fa-check-circle"></i> Approved</span>
+                    {% else %}
+                        <span class="status-label status-rejected"><i class="fas fa-times-circle"></i> Rejected</span>
+                    {% endif %}
+                </div>
+            </div>
+            {% empty %}
+            <p style="text-align: center; color: var(--text-muted); font-size: 14px;">No booking requests right now.</p>
+            {% endfor %}
+        </div>
+
+    </div>
+
+</body>
+</html>

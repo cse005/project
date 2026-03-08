@@ -1,0 +1,458 @@
+{% extends 'kisan1/base.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block content %}
+<style>
+    /* =========================================
+       ULTRA PRO MAX DASHBOARD STYLES
+       ========================================= */
+    :root {
+        --labor-green: #2e7d32;
+        --tractor-orange: #e65100;
+        --tool-blue: #0277bd;
+        --lease-purple: #512da8;
+        --pesticide-teal: #00695c;
+        --dark-bg: #010a02;
+    }
+
+    /* Premium Animated Background Overlay */
+    .premium-dashboard-bg {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: -1;
+        background: linear-gradient(135deg, #010a02, #063d14, #011406, #042409);
+        background-size: 300% 300%;
+        animation: gradientMove 15s ease infinite;
+    }
+
+    @keyframes gradientMove {
+        0% {
+            background-position: 0% 50%;
+        }
+
+        50% {
+            background-position: 100% 50%;
+        }
+
+        100% {
+            background-position: 0% 50%;
+        }
+    }
+
+    .portal-container {
+        max-width: 1300px;
+        margin: 0 auto;
+        padding: 40px 20px;
+        font-family: 'Inter', sans-serif;
+        animation: fadeIn 0.8s ease-out;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+
+    /* Floating My Requests Button */
+    .my-requests-btn {
+        position: absolute;
+        top: 25px;
+        right: 30px;
+        background: linear-gradient(135deg, #2e7d32, #1b5e20);
+        color: white;
+        padding: 12px 28px;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 15px;
+        box-shadow: 0 10px 25px rgba(46, 125, 50, 0.5);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        z-index: 1000;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .my-requests-btn:hover {
+        transform: translateY(-5px) scale(1.05);
+        box-shadow: 0 15px 35px rgba(46, 125, 50, 0.7);
+        color: white;
+    }
+
+    /* Welcome Header - Glassmorphism */
+    .welcome-header {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        color: white;
+        padding: 50px 40px;
+        border-radius: 30px;
+        margin-bottom: 50px;
+        text-align: center;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .welcome-header::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 60%);
+        animation: rotateGlow 20s linear infinite;
+    }
+
+    @keyframes rotateGlow {
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+    .welcome-header h1 {
+        font-size: clamp(32px, 4vw, 48px);
+        font-weight: 800;
+        margin-bottom: 10px;
+        text-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+        position: relative;
+        z-index: 2;
+    }
+
+    .welcome-header p {
+        font-size: 18px;
+        color: #c5e1a5;
+        font-weight: 500;
+        position: relative;
+        z-index: 2;
+    }
+
+    /* Section Titles */
+    .section-title {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        font-size: 26px;
+        font-weight: 800;
+        margin-top: 50px;
+        margin-bottom: 30px;
+        color: #ffffff;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .section-title::after {
+        content: "";
+        flex: 1;
+        height: 2px;
+        background: linear-gradient(90deg, rgba(255, 255, 255, 0.3), transparent);
+        border-radius: 2px;
+    }
+
+    /* 3D Glass Grids */
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 30px;
+    }
+
+    /* Premium Item Card */
+    .item-card {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(20px);
+        border-radius: 28px;
+        padding: 30px;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        animation: slideUp 0.6s ease-out backwards;
+    }
+
+    @keyframes slideUp {
+        from {
+            transform: translateY(40px);
+            opacity: 0;
+        }
+
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    /* Add staggered animation to cards */
+    .grid>div:nth-child(1) {
+        animation-delay: 0.1s;
+    }
+
+    .grid>div:nth-child(2) {
+        animation-delay: 0.2s;
+    }
+
+    .grid>div:nth-child(3) {
+        animation-delay: 0.3s;
+    }
+
+    .grid>div:nth-child(4) {
+        animation-delay: 0.4s;
+    }
+
+    .item-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 50%;
+        height: 100%;
+        background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.8), transparent);
+        transform: skewX(-25deg);
+        transition: 0.6s ease;
+        z-index: 1;
+    }
+
+    .item-card:hover::before {
+        left: 150%;
+    }
+
+    .item-card:hover {
+        transform: translateY(-12px) scale(1.02);
+        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
+    }
+
+    .item-card h4 {
+        color: #111;
+        font-size: 22px;
+        font-weight: 800;
+        margin-top: 0;
+        margin-bottom: 15px;
+    }
+
+    .item-card p {
+        color: #444;
+        font-size: 14px;
+        margin-bottom: 8px;
+        font-weight: 500;
+    }
+
+    .item-card p strong {
+        color: #222;
+        font-weight: 700;
+    }
+
+    .price-tag {
+        font-size: 20px !important;
+        font-weight: 800 !important;
+        margin-top: 15px;
+        margin-bottom: 20px !important;
+        background: #f4f9f4;
+        display: inline-block;
+        padding: 8px 15px;
+        border-radius: 12px;
+        border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    /* Pro Buttons */
+    .btn {
+        border: none;
+        padding: 16px;
+        border-radius: 16px;
+        color: white;
+        font-weight: 800;
+        font-size: 15px;
+        cursor: pointer;
+        width: 100%;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        text-align: center;
+        position: relative;
+        z-index: 2;
+        display: inline-block;
+        box-sizing: border-box;
+    }
+
+    .btn:active {
+        transform: scale(0.96);
+    }
+
+    /* Specific Button Colors with Shadows */
+    .btn-labor {
+        background: var(--labor-green);
+        box-shadow: 0 8px 20px rgba(46, 125, 50, 0.4);
+    }
+
+    .btn-tractor {
+        background: var(--tractor-orange);
+        box-shadow: 0 8px 20px rgba(230, 81, 0, 0.4);
+    }
+
+    .btn-tool {
+        background: var(--tool-blue);
+        box-shadow: 0 8px 20px rgba(2, 119, 189, 0.4);
+    }
+
+    .btn-lease {
+        background: var(--lease-purple);
+        box-shadow: 0 8px 20px rgba(81, 45, 168, 0.4);
+    }
+
+    .btn-pesticide {
+        background: var(--pesticide-teal);
+        box-shadow: 0 8px 20px rgba(0, 105, 92, 0.4);
+    }
+
+    .btn:hover {
+        filter: brightness(1.1);
+        box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
+    }
+
+    .empty-msg {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        padding: 30px;
+        border-radius: 20px;
+        border: 1px dashed rgba(255, 255, 255, 0.4);
+        color: #eee;
+        text-align: center;
+        font-weight: 600;
+        font-size: 16px;
+        grid-column: 1 / -1;
+        /* Spans full width */
+    }
+
+    @media (max-width: 768px) {
+        .my-requests-btn {
+            top: 15px;
+            right: 15px;
+            padding: 10px 15px;
+            font-size: 13px;
+        }
+
+        .welcome-header {
+            padding: 30px 20px;
+            margin-top: 40px;
+        }
+
+        .section-title {
+            font-size: 22px;
+        }
+    }
+</style>
+
+<div class="premium-dashboard-bg"></div>
+
+<a href="{% url 'farmer_booking' %}" class="my-requests-btn">
+    📋 {% trans "My Requests" %}
+</a>
+
+<div class="portal-container">
+
+    <div class="welcome-header">
+        <h1>{% trans "Welcome to Farmer Portal" %}</h1>
+        <p>{% trans "Your one-stop solution for Agricultural Services!" %}</p>
+    </div>
+
+    <h3 class="section-title">👷 {% trans "Available Laborers" %}</h3>
+    <div class="grid">
+        {% for labor in labors %}
+        <div class="item-card" style="border-top: 6px solid var(--labor-green);">
+            <div>
+                <h4>{{ labor.user.name }}</h4>
+                <p><strong>{% trans "Skills" %}:</strong> {{ labor.skills }}</p>
+                <p class="price-tag" style="color: var(--labor-green);">₹{{ labor.wage_amount }} / {{ labor.wage_type }}
+                </p>
+            </div>
+            <a href="{% url 'book_labor' labor.id %}" class="btn btn-labor">{% trans "Book Labor" %}</a>
+        </div>
+        {% empty %}
+        <div class="empty-msg">{% trans "No laborers available right now." %}</div>
+        {% endfor %}
+    </div>
+
+    <h3 class="section-title">🚜 {% trans "Tractor Services" %}</h3>
+    <div class="grid">
+        {% for tractor in tractors %}
+        <div class="item-card" style="border-top: 6px solid var(--tractor-orange);">
+            <div>
+                <h4>{{ tractor.user.name }}</h4>
+                <p>📍 <strong>{% trans "Village" %}:</strong> {{ tractor.user.village }}</p>
+                <p class="price-tag" style="color: var(--tractor-orange);">
+                    ₹{{ tractor.wage_amount }} / {% trans "Hour"%}</p>
+            </div>
+            <a href="{% url 'book_tractor' tractor.id %}" class="btn btn-tractor">{% trans "Book Tractor" %}</a>
+        </div>
+        {% empty %}
+        <div class="empty-msg">{% trans "No tractors available." %}</div>
+        {% endfor %}
+    </div>
+
+    <h3 class="section-title">🛠️ {% trans "Farm Tools for Rent" %}</h3>
+    <div class="grid">
+        {% for tool in tools %}
+        <div class="item-card" style="border-top: 6px solid var(--tool-blue);">
+            <div>
+                <h4>{{ tool.shop_name }}</h4>
+                <p>🧰 <strong>{% trans "Available" %}:</strong> {{ tool.tools_type }}</p>
+            </div>
+            <a href="{% url 'book_tool' tool.id %}" class="btn btn-tool">{% trans "Rent Tools Now" %}</a>
+        </div>
+        {% empty %}
+        <div class="empty-msg">{% trans "No tool providers found." %}</div>
+        {% endfor %}
+    </div>
+
+    <h3 class="section-title">🌾 {% trans "Land for Lease" %}</h3>
+    <div class="grid">
+        {% for land in lands %}
+        <div class="item-card" style="border-top: 6px solid var(--lease-purple);">
+            <div>
+                <h4>📍 {{ land.user.village }}</h4>
+                <p>📏 <strong>{% trans "Area" %}:</strong> {{ land.land_area }} {% trans "Acres" %}</p>
+                <p>🌱 <strong>{% trans "Soil" %}:</strong> {{ land.soil_type }}</p>
+                <p class="price-tag" style="color: var(--lease-purple);">₹{{ land.lease_per_day }} / {% trans "Day" %}
+                </p>
+            </div>
+            <a href="{% url 'request_lease' land.id %}" class="btn btn-lease">{% trans "Request Lease" %}</a>
+        </div>
+        {% empty %}
+        <div class="empty-msg">{% trans "No land available for lease." %}</div>
+        {% endfor %}
+    </div>
+
+    <h3 class="section-title">🏪 {% trans "Fertilizer & Pesticide Shops" %}</h3>
+    <div class="grid">
+        {% for shop in pesticides %}
+        <div class="item-card" style="border-top: 6px solid var(--pesticide-teal);">
+            <div>
+                <h4>{{ shop.shop_name }}</h4>
+                <p>👤 <strong>{% trans "Owner" %}:</strong> {{ shop.user.name }}</p>
+                <p>📍 <strong>{% trans "Village" %}:</strong> {{ shop.user.village }}</p>
+                <p>📦 <strong>{% trans "Products" %}:</strong> {{ shop.products_sold }}</p>
+
+                <p style="font-size: 13px; color: #888; margin-top: 15px; font-weight: 600;">
+                    ⭐ {% trans "Trusted for" %} {{ shop.since_years }} {% trans "years" %}
+                </p>
+            </div>
+            <a href="{% url 'book_shop' shop.id %}" class="btn btn-pesticide">{% trans "Buy Products" %}</a>
+        </div>
+        {% empty %}
+        <div class="empty-msg">{% trans "No shops available in your area yet." %}</div>
+        {% endfor %}
+    </div>
+
+</div>
+{% endblock %}

@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart & Orders | Kisan Asara</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            /* FIXED TYPO HERE! No more VS Code errors */
+            --bg-color: #f4f6f8;
+            --sidebar-bg: #004d40;
+            --primary-color: #00796b;
+            --light-primary: #e0f2f1;
+            --text-dark: #333333;
+            --text-muted: #666666;
+            --border-color: #e0e0e0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+            color: var(--text-dark);
+        }
+
+        /* --- SIDEBAR --- */
+        .sidebar {
+            width: 80px;
+            background-color: var(--sidebar-bg);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 20px;
+            gap: 30px;
+            color: white;
+            z-index: 10;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar .brand {
+            writing-mode: vertical-rl;
+            transform: rotate(180deg);
+            font-size: 24px;
+            font-weight: 700;
+            color: #f1c40f;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #b2dfdb;
+            text-decoration: none;
+            font-size: 10px;
+            gap: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .nav-item i {
+            font-size: 20px;
+        }
+
+        .nav-item:hover {
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .nav-item.active {
+            color: white;
+            background: var(--primary-color);
+            padding: 10px;
+            border-radius: 12px;
+            width: 50px;
+            box-shadow: 0 4px 10px rgba(0, 121, 107, 0.4);
+        }
+
+        .logout-btn {
+            margin-top: auto;
+            margin-bottom: 20px;
+            color: #ffab91;
+        }
+
+        .logout-btn:hover {
+            color: #ff7043;
+        }
+
+        /* --- MAIN CONTENT --- */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 0;
+            overflow-y: auto;
+        }
+
+        .top-header {
+            background: white;
+            padding: 20px 40px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            z-index: 5;
+        }
+
+        .top-header h1 {
+            margin: 0;
+            font-size: 22px;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* --- TABS --- */
+        .tab-container {
+            padding: 20px 40px 0;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            background: white;
+            padding: 5px;
+            border-radius: 30px;
+            width: max-content;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .tab-btn {
+            padding: 10px 25px;
+            border: none;
+            background: transparent;
+            font-family: inherit;
+            font-weight: 600;
+            color: var(--text-muted);
+            border-radius: 25px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .tab-btn.active {
+            background: var(--primary-color);
+            color: white;
+            box-shadow: 0 2px 8px rgba(0, 121, 107, 0.3);
+        }
+
+        .content-area {
+            padding: 20px 40px;
+            display: none;
+        }
+
+        .content-area.active {
+            display: block;
+        }
+
+        /* --- CART LAYOUT --- */
+        .cart-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+            align-items: start;
+        }
+
+        .products-box,
+        .summary-box {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+        }
+
+        .products-header h3 {
+            margin: 0 0 20px 0;
+            font-size: 18px;
+            border-bottom: 2px solid var(--light-primary);
+            padding-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+        /* Form Styling */
+        .form-label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 5px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 14px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .form-input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(0, 121, 107, 0.1);
+        }
+
+        /* Payment Options */
+        .payment-modes {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .pay-btn {
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            background: white;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: 600;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            color: var(--text-muted);
+            transition: 0.3s;
+        }
+
+        .pay-btn:hover {
+            border-color: #b2dfdb;
+        }
+
+        .pay-btn.selected {
+            border-color: var(--primary-color);
+            background: var(--light-primary);
+            color: var(--primary-color);
+        }
+
+        .btn-checkout {
+            width: 100%;
+            padding: 15px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-checkout:hover {
+            background: #004d40;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 121, 107, 0.2);
+        }
+
+        /* --- TRACKING TAB (ORDERS) --- */
+        .order-card {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+            margin-bottom: 25px;
+            border-left: 5px solid var(--primary-color);
+        }
+
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px dashed var(--border-color);
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .order-id {
+            font-weight: 700;
+            font-size: 16px;
+            display: block;
+            margin-bottom: 5px;
+            color: var(--text-dark);
+        }
+
+        .order-meta {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .order-status {
+            background: #e3f2fd;
+            color: #1976d2;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .order-status.delivered {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .order-status.rejected {
+            background: #ffebee;
+            color: #c62828;
+        }
+
+        /* Timeline Styling */
+        .tracking-box {
+            background: var(--light-primary);
+            border-radius: 12px;
+            padding: 30px;
+            color: var(--text-dark);
+            position: relative;
+            border: 1px solid #b2dfdb;
+        }
+
+        .tracking-title {
+            margin: 0 0 20px 0;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--primary-color);
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 11px;
+            top: 10px;
+            bottom: 10px;
+            width: 2px;
+            background: #b2dfdb;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 25px;
+        }
+
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .timeline-icon {
+            position: absolute;
+            left: -30px;
+            top: 0;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            z-index: 2;
+        }
+
+        .timeline-item.done .timeline-icon {
+            background: var(--primary-color);
+            color: white;
+            box-shadow: 0 0 0 4px white;
+        }
+
+        .timeline-item.current .timeline-icon {
+            background: #f39c12;
+            color: white;
+            box-shadow: 0 0 0 4px white;
+        }
+
+        .timeline-item.pending .timeline-icon {
+            background: #cfd8dc;
+            color: transparent;
+            box-shadow: 0 0 0 4px white;
+        }
+
+        .timeline-content h4 {
+            margin: 0 0 3px 0;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--sidebar-bg);
+        }
+
+        .timeline-content p {
+            margin: 0;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .timeline-item.pending .timeline-content {
+            opacity: 0.5;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="sidebar">
+        <div class="brand">Kisan Asara</div>
+        <a href="{% url 'main_home' %}" class="nav-item"><i class="fas fa-home"></i> Home</a>
+        <a href="{% url 'farmer_booking' %}" class="nav-item"><i class="fas fa-history"></i> History</a>
+        <a href="{% url 'cart' %}" class="nav-item active"><i class="fas fa-shopping-cart"></i> Cart</a>
+        <a href="{% url 'logout' %}" class="nav-item logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+    </div>
+
+    <div class="main-content">
+
+        <div class="top-header">
+            <h1><i class="fas fa-shopping-cart"></i> Cart & Orders</h1>
+        </div>
+
+        <div id="main-ui">
+
+            <div class="tab-container">
+                <div class="tabs">
+                    <button class="tab-btn {% if cart_data %}active{% endif %}" onclick="switchTab('cart')">Current
+                        Cart</button>
+                    <button class="tab-btn {% if not cart_data %}active{% endif %}" onclick="switchTab('tracking')">My
+                        Orders & Tracking</button>
+                </div>
+            </div>
+
+            <div id="cart-tab" class="content-area {% if cart_data %}active{% endif %}">
+                <div class="cart-grid">
+
+                    <div class="products-box">
+                        <div class="products-header">
+                            <h3><i class="fas fa-shopping-basket"></i> Your Cart {% if cart_data %} - {{
+                                cart_data.shop_name }}{% else %} is Empty{% endif %}</h3>
+                        </div>
+
+                        {% if cart_data %}
+                        <ul style="list-style: none; padding: 0; margin: 0;">
+                            {% for item in cart_data.items_ordered %}
+                            <li
+                                style="padding: 15px 0; border-bottom: 1px dashed var(--border-color); font-size: 15px; font-weight: 500; color: var(--text-dark); display: flex; align-items: center; gap: 15px;">
+                                <div
+                                    style="width: 40px; height: 40px; background: var(--light-primary); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--primary-color);">
+                                    <i class="fas fa-box"></i>
+                                </div>
+                                {{ item }}
+                            </li>
+                            {% endfor %}
+                        </ul>
+                        <div
+                            style="margin-top: 20px; font-size: 24px; font-weight: 700; color: var(--primary-color); text-align: right; background: var(--light-primary); padding: 15px; border-radius: 10px;">
+                            <span style="font-size: 14px; color: var(--text-muted); font-weight: 500;">Total
+                                Amount:</span> ₹{{ cart_data.total_cost }}
+                        </div>
+                        {% else %}
+                        <div style="text-align: center; color: var(--text-muted); padding: 40px;">
+                            <i class="fas fa-shopping-cart"
+                                style="font-size: 40px; color: #ccc; margin-bottom: 15px;"></i>
+                            <p>Your cart is currently empty. Go to the Home page to browse Fertilizer Shops.</p>
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    {% if cart_data %}
+                    <div class="summary-box">
+                        <h3
+                            style="margin-top: 0; margin-bottom: 20px; color: var(--primary-color); border-bottom: 2px solid var(--light-primary); padding-bottom: 15px;">
+                            📍 Delivery Details
+                        </h3>
+
+                        <form method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="confirm_checkout" value="1">
+                            <input type="hidden" name="payment_method" id="payment_method" value="Online Pay">
+
+                            <label class="form-label">Full Name</label>
+                            <input type="text" name="delivery_name" class="form-input" value="{{ farmer.name }}"
+                                minlength="3" maxlength="80" pattern="[A-Za-z\s]{3,80}" required>
+
+                            <label class="form-label">Mobile Number</label>
+                            <input type="text" name="delivery_mobile" class="form-input" value="{{ farmer.mobile }}"
+                                maxlength="10" pattern="[6789][0-9]{9}" required>
+
+                            <label class="form-label">Delivery Location (Address)</label>
+                            <textarea name="delivery_location" class="form-input" rows="3" minlength="8" maxlength="300"
+                                required>{{ farmer.village }}, {{ farmer.mandal }}, {{ farmer.district }}, {{ farmer.state }}</textarea>
+
+                            <label class="form-label" style="margin-top: 10px;">Payment Mode</label>
+                            <div class="payment-modes">
+                                <button type="button" class="pay-btn selected" onclick="selectPay(this, 'Online Pay')">
+                                    <i class="fas fa-credit-card" style="font-size: 18px;"></i> Online Pay
+                                </button>
+                                <button type="button" class="pay-btn" onclick="selectPay(this, 'Cash on Delivery')">
+                                    <i class="fas fa-money-bill-wave" style="font-size: 18px;"></i> Cash on Delivery
+                                </button>
+                            </div>
+
+                            <button type="submit" class="btn-checkout"><i class="fas fa-check"></i> Confirm
+                                Order</button>
+                        </form>
+                    </div>
+                    {% endif %}
+
+                </div>
+            </div>
+
+            <div id="tracking-tab" class="content-area {% if not cart_data %}active{% endif %}">
+                <h3 style="margin-bottom: 20px; color: var(--sidebar-bg);">My Orders (Previous & Current)</h3>
+
+                {% if orders %}
+                {% for order in orders %}
+                <div class="order-card">
+                    <div class="order-header">
+                        <div>
+                            <span class="order-id">ORD-{{ order.id|stringformat:"04d" }}</span>
+                            <span class="order-meta"><i class="far fa-calendar-alt"></i> {{ order.created_at|date:"d M
+                                Y, h:i A" }} • {{ order.items_ordered }}</span><br>
+                            <span class="order-meta"><i class="fas fa-map-marker-alt"
+                                    style="color: var(--primary-color);"></i> {{ farmer.village }}, {{ farmer.district
+                                }}</span>
+                        </div>
+                        <div style="text-align: right;">
+                            {% if order.status == 'Confirmed' %}
+                            <span class="order-status delivered">Confirmed</span>
+                            {% elif order.status == 'Rejected' %}
+                            <span class="order-status rejected">Rejected</span>
+                            {% else %}
+                            <span class="order-status">Pending</span>
+                            {% endif %}
+                            <h3 style="margin: 5px 0 0 0; color: var(--primary-color);">₹{{ order.total_cost }}</h3>
+                        </div>
+                    </div>
+
+                    <div class="tracking-box">
+                        <h4 class="tracking-title"><i class="fas fa-box-open"></i> Order Status</h4>
+                        <div class="timeline">
+                            <div class="timeline-item done">
+                                <div class="timeline-icon"><i class="fas fa-check"></i></div>
+                                <div class="timeline-content">
+                                    <h4>Order Placed</h4>
+                                    <p>{{ order.created_at|date:"d M Y, h:i A" }}</p>
+                                </div>
+                            </div>
+
+                            {% if order.status == 'Confirmed' %}
+                            <div class="timeline-item done">
+                                <div class="timeline-icon"><i class="fas fa-check"></i></div>
+                                <div class="timeline-content">
+                                    <h4>Seller Confirmed</h4>
+                                    <p>Stock updated and reserved</p>
+                                </div>
+                            </div>
+                            <div class="timeline-item current">
+                                <div class="timeline-icon"><i class="fas fa-truck"></i></div>
+                                <div class="timeline-content">
+                                    <h4>Ready for Delivery / Pickup</h4>
+                                    <p>Please contact the shop to collect</p>
+                                </div>
+                            </div>
+                            {% elif order.status == 'Rejected' %}
+                            <div class="timeline-item current" style="opacity: 0.7;">
+                                <div class="timeline-icon" style="background: #e74c3c; box-shadow: 0 0 0 4px white;"><i
+                                        class="fas fa-times"></i></div>
+                                <div class="timeline-content">
+                                    <h4 style="color: #c62828;">Order Cancelled</h4>
+                                    <p>The shop owner rejected this order.</p>
+                                </div>
+                            </div>
+                            {% else %}
+                            <div class="timeline-item current">
+                                <div class="timeline-icon"><i class="fas fa-clock"></i></div>
+                                <div class="timeline-content">
+                                    <h4>Awaiting Seller Confirmation</h4>
+                                    <p>Shop owner is reviewing your order</p>
+                                </div>
+                            </div>
+                            <div class="timeline-item pending">
+                                <div class="timeline-icon"><i class="fas fa-truck"></i></div>
+                                <div class="timeline-content">
+                                    <h4>Delivery</h4>
+                                    <p>Pending confirmation</p>
+                                </div>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                {% else %}
+                <div
+                    style="text-align: center; color: var(--text-muted); padding: 40px; background: white; border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.03);">
+                    <i class="fas fa-box-open" style="font-size: 40px; margin-bottom: 15px; color: #ccc;"></i>
+                    <h4>No orders found.</h4>
+                    <p>You haven't placed any fertilizer or pesticide orders yet.</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.content-area').forEach(area => area.classList.remove('active'));
+
+            let clickedBtn = event ? event.target : null;
+            if (!clickedBtn) {
+                const buttons = document.querySelectorAll('.tab-btn');
+                buttons.forEach(b => { if (b.innerText.toLowerCase().includes(tabId.toLowerCase())) clickedBtn = b; });
+            }
+            if (clickedBtn) clickedBtn.classList.add('active');
+
+            document.getElementById(tabId + '-tab').classList.add('active');
+        }
+
+        function selectPay(element, mode) {
+            document.querySelectorAll('.pay-btn').forEach(btn => btn.classList.remove('selected'));
+            element.classList.add('selected');
+            document.getElementById('payment_method').value = mode;
+        }
+    </script>
+</body>
+
+</html>

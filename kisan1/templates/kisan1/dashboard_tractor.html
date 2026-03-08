@@ -1,0 +1,214 @@
+{% extends 'kisan1/base.html' %}
+{% load i18n %}
+
+{% block content %}
+<style>
+    :root {
+        --tractor-green: #2e7d32;
+        --tractor-dark: #1b5e20;
+        --accent-yellow: #fbc02d;
+        --bg-light: #f1f8e9;
+    }
+
+    .dashboard-container {
+        max-width: 1000px;
+        margin: 30px auto;
+        font-family: 'Poppins', sans-serif;
+        animation: slideIn 0.5s ease-out;
+    }
+
+    @keyframes slideIn {
+        from {
+            opacity: 0;
+            transform: scale(0.95);
+        }
+
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    /* Owner Profile Card */
+    .owner-banner {
+        background: linear-gradient(135deg, var(--tractor-dark), var(--tractor-green));
+        border-radius: 20px;
+        padding: 40px;
+        color: white;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 10px 25px rgba(46, 125, 50, 0.2);
+        margin-bottom: 40px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .owner-banner::before {
+        content: '🚜';
+        position: absolute;
+        right: -10px;
+        bottom: -20px;
+        font-size: 150px;
+        opacity: 0.1;
+        transform: rotate(-10deg);
+    }
+
+    .owner-info h2 {
+        margin: 0;
+        font-size: 30px;
+        font-weight: 800;
+    }
+
+    .location-tag {
+        margin-top: 8px;
+        background: rgba(255, 255, 255, 0.2);
+        padding: 5px 15px;
+        border-radius: 50px;
+        font-size: 14px;
+        display: inline-block;
+    }
+
+    /* Bookings Section */
+    .section-title {
+        color: #333;
+        font-weight: 700;
+        margin-bottom: 25px;
+        border-left: 5px solid var(--tractor-green);
+        padding-left: 15px;
+    }
+
+    .booking-grid {
+        display: grid;
+        gap: 20px;
+    }
+
+    .booking-card {
+        background: white;
+        border-radius: 18px;
+        padding: 25px;
+        border: 1px solid #eee;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: all 0.3s ease;
+    }
+
+    .booking-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1);
+        border-color: var(--tractor-green);
+    }
+
+    .customer-name {
+        font-size: 18px;
+        font-weight: 700;
+        color: #2c3e50;
+    }
+
+    .details-text {
+        color: #666;
+        font-size: 14px;
+        margin-top: 5px;
+        font-style: italic;
+    }
+
+    /* Buttons */
+    .confirm-btn {
+        background: var(--tractor-green);
+        color: white;
+        border: none;
+        padding: 12px 25px;
+        border-radius: 10px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: 0.3s;
+        box-shadow: 0 4px 15px rgba(46, 125, 50, 0.3);
+    }
+
+    .confirm-btn:hover {
+        background: var(--tractor-dark);
+        transform: scale(1.05);
+    }
+
+    .status-confirmed {
+        background: #e8f5e9;
+        color: #2e7d32;
+        padding: 10px 20px;
+        border-radius: 10px;
+        font-weight: 800;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .empty-state {
+        text-align: center;
+        padding: 60px;
+        background: white;
+        border-radius: 20px;
+        border: 2px dashed #ccc;
+        color: #888;
+    }
+</style>
+<div class="dashboard-header">
+    <div>
+        <h2>{{ user.name }}'s Dashboard</h2>
+        <p><i class="fas fa-user-circle"></i> Role: {{ user.role|title }}</p>
+    </div>
+    <a href="{% url 'logout' %}" class="logout-btn">
+        <i class="fas fa-sign-out-alt"></i> Logout
+    </a>
+</div>
+
+<div class="dashboard-container">
+    <div class="owner-banner">
+        <div class="owner-info">
+            <h2>{{ user.name }}</h2>
+            <div class="location-tag">📍 {{ user.village }}, {{ user.mandal }}</div>
+        </div>
+        <div style="text-align: center;">
+            <div style="font-size: 14px; opacity: 0.8;">{% trans "Status" %}</div>
+            <div style="font-weight: bold; color: var(--accent-yellow);">{% trans "ACTIVE SERVICE" %}</div>
+        </div>
+    </div>
+
+    <h3 class="section-title">🚜 {% trans "New Booking Requests" %}</h3>
+
+    <div class="booking-grid">
+        {% for req in work_requests %}
+        <div class="booking-card">
+            <div>
+                <div class="customer-name">👨‍🌾 Farmer: {{ req.farmer.name }}</div>
+                <div class="details-text">📞 Mobile: {{ req.farmer.mobile }}</div>
+                <div class="details-text">📍 Location: {{ req.location }}</div>
+                <div class="details-text" style="font-weight: 600; color: #444;">📅 {{ req.booking_date }} at {{
+                    req.start_time }}</div>
+                <div class="details-text">⏱️ Duration: {{ req.duration_hours }} Hours | 💰 Total: ₹{{ req.total_cost }}
+                </div>
+            </div>
+
+            <div>
+                {% if req.status == 'Pending' %}
+                <form action="{% url 'accept_tractor_booking' req.id %}" method="POST">
+                    {% csrf_token %}
+                    <button type="submit" class="confirm-btn">Accept Booking</button>
+                </form>
+                {% else %}
+                <div class="status-confirmed">
+                    ✅ {{ req.status }}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        {% empty %}
+        <div class="empty-state">
+            <div style="font-size: 40px; margin-bottom: 15px;">⚙️</div>
+            <p>{% trans "No active bookings for your tractor right now." %}</p>
+            <small>{% trans "Available bookings will appear here." %}</small>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

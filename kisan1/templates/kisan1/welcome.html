@@ -1,0 +1,219 @@
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% trans "Welcome | Kisan Asara" %}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            background: #0b2e24;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(15, 61, 46, 0.7), rgba(27, 94, 32, 0.8)), 
+                        url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&q=80&w=2000');
+            background-size: cover;
+            background-position: center;
+            z-index: -1;
+            transform: scale(1.1);
+            animation: slowZoom 20s infinite alternate;
+        }
+
+        @keyframes slowZoom {
+            from { transform: scale(1); }
+            to { transform: scale(1.15); }
+        }
+
+        /* ✅ Language Dropdown Styling (Blends with your theme) */
+        .language-switcher {
+            position: absolute;
+            top: 25px;
+            right: 30px;
+            z-index: 100;
+        }
+
+        .language-switcher select {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            outline: none;
+            cursor: pointer;
+            backdrop-filter: blur(5px);
+        }
+
+        .language-switcher select option {
+            color: #0b2e24; /* Dark green text when dropdown opens */
+        }
+
+        .container {
+            text-align: center;
+            max-width: 900px;
+            padding: 0 20px;
+        }
+
+        .welcome-text {
+            overflow: hidden;
+        }
+
+        h1 {
+            font-size: clamp(40px, 8vw, 72px);
+            color: #ffffff;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            animation: revealText 1s cubic-bezier(0.77, 0, 0.175, 1) forwards;
+            opacity: 0;
+        }
+
+        @keyframes revealText {
+            from { transform: translateY(100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        p {
+            font-size: clamp(14px, 2vw, 20px);
+            color: #c5e1a5;
+            margin-bottom: 45px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 400;
+            animation: fadeIn 2s ease forwards;
+            opacity: 0;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Button Group Styling */
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px; /* Space between buttons */
+            flex-wrap: wrap; /* Wrap buttons on small screens */
+            animation: fadeInUp 1.2s ease forwards;
+            opacity: 0;
+        }
+
+        @keyframes fadeInUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .btn {
+            position: relative;
+            display: inline-block;
+            min-width: 180px;
+            padding: 18px 40px;
+            font-size: 18px;
+            font-weight: 700;
+            color: #0f3d2e;
+            background: #ffffff;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            text-align: center;
+        }
+
+        .btn:hover {
+            transform: translateY(-5px);
+            background: #a5d6a7;
+            color: #0b2e24;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+        }
+
+        /* Optional: Outline effect for one button to distinguish them */
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            border: 2px solid #ffffff;
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-secondary:hover {
+            background: #ffffff;
+            color: #0f3d2e;
+        }
+
+        .decoration {
+            position: absolute;
+            bottom: 40px;
+            width: 100%;
+            text-align: center;
+            color: rgba(255,255,255,0.4);
+            font-size: 12px;
+            letter-spacing: 3px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="hero-bg"></div>
+
+    <div class="language-switcher">
+        <form action="{% url 'set_language' %}" method="post">
+            {% csrf_token %}
+            <input name="next" type="hidden" value="{{ request.get_full_path }}">
+            <select name="language" onchange="this.form.submit()">
+                {% get_current_language as LANGUAGE_CODE %}
+                {% get_available_languages as LANGUAGES %}
+                {% get_language_info_list for LANGUAGES as languages %}
+                {% for language in languages %}
+                    <option value="{{ language.code }}" {% if language.code == LANGUAGE_CODE %}selected{% endif %}>
+                        {{ language.name_local }}
+                    </option>
+                {% endfor %}
+            </select>
+        </form>
+    </div>
+
+    <div class="container">
+        <div class="welcome-text">
+            <h1>{% trans "Kisan Asara" %}</h1>
+        </div>
+        <p>{% trans "Empowering Farmers • Supporting Agriculture" %}</p>
+
+        <div class="btn-container">
+            <a href="{% url 'login' %}" class="btn">
+                {% trans "Login" %}
+            </a>
+            
+            <a href="{% url 'register_choice' %}" class="btn">
+                {% trans "Register" %}
+            </a>
+        </div>
+    </div>
+
+    <div class="decoration">
+        {% trans "SMART FARMING • SECURE FUTURE" %}
+    </div>
+
+</body>
+</html>
