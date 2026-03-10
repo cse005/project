@@ -4,20 +4,31 @@
 
 :root {
     /* Premium Color Palette - NO PURE WHITE */
-    --bg-color: #E8EDE9;          /* Calming Muted Sage Background */
-    --card-bg: #F4F7F5;           /* Soft Frosted Cream for Cards (No Eye Strain) */
-    
-    --primary-color: #046E58;     /* Rich Emerald/Teal - Trustworthy & Professional */
-    --dark-teal: #024536;         /* Deeper shade for hover effects */
-    --light-primary: #D1E5E0;     /* Very soft tint for active tabs/badges */
-    
-    --accent-gold: #D97706;       /* Premium muted amber for pending statuses */
-    --success-green: #059669;     /* Crisp green for success/delivered */
-    --danger-red: #DC2626;        /* Professional red for rejected/cancelled */
-    
-    --text-dark: #1E293B;         /* Deep Slate - Softer than pure black */
-    --text-muted: #526B64;        /* Muted Forest for secondary text */
-    --border-color: #D3DFD9;      /* Clean, subtle borders matching the theme */
+    --bg-color: #E8EDE9;
+    /* Calming Muted Sage Background */
+    --card-bg: #F4F7F5;
+    /* Soft Frosted Cream for Cards (No Eye Strain) */
+
+    --primary-color: #046E58;
+    /* Rich Emerald/Teal - Trustworthy & Professional */
+    --dark-teal: #024536;
+    /* Deeper shade for hover effects */
+    --light-primary: #D1E5E0;
+    /* Very soft tint for active tabs/badges */
+
+    --accent-gold: #D97706;
+    /* Premium muted amber for pending statuses */
+    --success-green: #059669;
+    /* Crisp green for success/delivered */
+    --danger-red: #DC2626;
+    /* Professional red for rejected/cancelled */
+
+    --text-dark: #1E293B;
+    /* Deep Slate - Softer than pure black */
+    --text-muted: #526B64;
+    /* Muted Forest for secondary text */
+    --border-color: #D3DFD9;
+    /* Clean, subtle borders matching the theme */
 
     /* Premium Modern Shadows */
     --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
@@ -56,7 +67,7 @@ textarea {
 .container,
 .main-wrapper {
     padding: 24px;
-    margin-top: 80px;
+    margin-top: 20px;
     max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
@@ -74,13 +85,12 @@ textarea {
     background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48ZyBmaWxsPSJub25lIiBzdHJva2U9InJnYmEoMCwwLDAsMC4wMikiIHN0cm9rZS13aWR0aD0iMC41Ij48cGF0aCBkPSJNMTAgMTAgQyAyMCAxMCAzMCAyMCA0MCAxMCBDIDUwIDIwIDYwIDEwIDcwIDIwIEMgODAgMTAgOTAgMjAgOTAgMTAiLz48cGF0aCBkPSJNMTAgMjAgQyAyMCAyMCAzMCAxMCA0MCAyMCBDIDUwIDEwIDYwIDIwIDcwIDEwIEMgODAgMjAgOTAgMTAgOTAgMjAiLz48cGF0aCBkPSJNMTAgMzAgQyAyMCAzMCAzMCA0MCA0MCAzMCBDIDUwIDQwIDYwIDMwIDcwIDQwIEMgODAgMzAgOTAgNDAgOTAgMzAiLz48cGF0aCBkPSJNMTAgNDAgQyAyMCA0MCAzMCAzMCA0MCA0MCBDIDUwIDMwIDYwIDQwIDcwIDMwIEMgODAgNDAgOTAgMzAgOTAgNDAiLz48cGF0aCBkPSJNMTAgNTAgQyAyMCA1MCAzMCA2MCA0MCA1MCBDIDUwIDYwIDYwIDUwIDcwIDYwIEMgODAgNTAgOTAgNjAgOTAgNTAiLz48cGF0aCBkPSJNMTAgNjAgQyAyMCA2MCAzMCA1MCA0MCA2MCBDIDUwIDUwIDYwIDYwIDcwIDUwIEMgODAgNjAgOTAgNTAgOTAgNjAiLz48cGF0aCBkPSJNMTAgNzAgQyAyMCA3MCAzMCA4MCA0MCA3MCBDIDUwIDgwIDYwIDcwIDcwIDgwIEMgODAgNzAgOTAgODAgOTAgNzAiLz48cGF0aCBkPSJNMTAgODAgQyAyMCA4MCAzMCA3MCA0MCA4MCBDIDUwIDcwIDYwIDgwIDcwIDcwIEMgODAgODAgOTAgNzAgOTAgODAiLz48cGF0aCBkPSJNMTAgOTAgQyAyMCA5MCAzMCAxMDAgNDAgOTAgQyA1MCAxMDAgNjAgOTAgNzAgMTAwIEMgODAgOTAgOTAgMTAwIDkwIDkwIi8+PC9nPjwvc3ZnPg==');
     background-size: cover;
     pointer-events: none;
+    z-index: -1;
 }
 
 /* =========================================
    UI and Component Styling (Cards)
    ========================================= */
-
-/* Clean, premium solid cards - No Pure White */
 .card,
 .section-card,
 .booking-form-wrapper,
@@ -97,7 +107,6 @@ textarea {
     transition: transform var(--trans-fast), box-shadow var(--trans-fast);
 }
 
-/* Elegant hover lift animation */
 .booking-card:hover,
 .order-card:hover {
     transform: translateY(-4px);
@@ -107,13 +116,12 @@ textarea {
 /* =========================================
    Form Elements
    ========================================= */
-
 input,
 select,
 textarea {
     border: 1px solid var(--border-color);
     border-radius: 10px;
-    background: #EAEFEA; /* Slightly darker than card for clear input fields */
+    background: #EAEFEA;
     color: var(--text-dark);
     padding: 14px 16px;
     width: 100%;
@@ -122,7 +130,6 @@ textarea {
     transition: all var(--trans-fast);
 }
 
-/* Active focus glow animation */
 input:focus,
 select:focus,
 textarea:focus {
@@ -135,11 +142,10 @@ textarea:focus {
 /* =========================================
    Buttons
    ========================================= */
-
 button,
 .btn-primary {
     background-color: var(--primary-color);
-    color: #FAFAFA; /* Off-white text for buttons */
+    color: #FAFAFA;
     border: none;
     border-radius: 10px;
     padding: 12px 24px;
@@ -166,7 +172,6 @@ button:active,
 /* =========================================
    Badges (Statuses)
    ========================================= */
-
 .status-badge {
     border-radius: 30px;
     padding: 6px 14px;
@@ -177,7 +182,6 @@ button:active,
     text-transform: uppercase;
 }
 
-/* Subtle, premium pastel badges */
 .status-badge.pending {
     background-color: #FDE68A;
     color: var(--accent-gold);
@@ -196,29 +200,157 @@ button:active,
     color: var(--danger-red);
 }
 
-.cancel-request-btn {
-    color: var(--text-muted);
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 13px;
-    transition: color var(--trans-fast);
+/* =========================================
+   Dashboard Universal Header & Navigation
+   ========================================= */
+.dash-nav {
+    background: var(--primary-color);
+    color: white;
+    border-radius: 16px;
+    padding: 18px 24px;
+    margin-bottom: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: var(--shadow-md);
 }
 
-.cancel-request-btn:hover {
-    color: var(--danger-red);
+.dash-nav h2,
+.dash-nav h3 {
+    margin: 0;
+    font-size: 22px;
+    letter-spacing: 0.5px;
+}
+
+/* Header Buttons (Back, Logout) */
+.back-btn,
+.logout-btn {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    padding: 10px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration: none;
+    transition: all var(--trans-fast);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.back-btn:hover,
+.logout-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+}
+
+/* Dropdown Menu Container */
+.menu-container {
+    position: relative;
+    display: inline-block;
+}
+
+.menu-btn {
+    background: var(--card-bg);
+    color: var(--primary-color);
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: var(--shadow-sm);
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: var(--card-bg);
+    min-width: 180px;
+    box-shadow: var(--shadow-lg);
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    z-index: 100;
+    overflow: hidden;
+    margin-top: 10px;
+}
+
+.dropdown-content a {
+    color: var(--text-dark);
+    padding: 14px 18px;
+    text-decoration: none;
+    display: block;
+    font-weight: 600;
+    font-size: 14px;
+    border-bottom: 1px solid var(--border-color);
+    transition: background var(--trans-fast);
+}
+
+.dropdown-content a:last-child {
+    border-bottom: none;
+}
+
+.dropdown-content a:hover {
+    background-color: var(--light-primary);
+    color: var(--primary-color);
+}
+
+.menu-container:hover .dropdown-content {
+    display: block;
+}
+
+/* =========================================
+   Filter Bar Section
+   ========================================= */
+.filter-bar {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: var(--card-bg);
+    padding: 16px 24px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+}
+
+.filter-bar label {
+    font-weight: 700;
+    color: var(--text-dark);
+    font-size: 15px;
+    margin: 0;
+}
+
+.filter-bar select {
+    padding: 10px 16px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    outline: none;
+    font-weight: 600;
+    color: var(--text-dark);
+    background: #EAEFEA;
+    width: auto;
+    min-width: 200px;
+    cursor: pointer;
 }
 
 /* =========================================
    Animation Classes
    ========================================= */
-
 .animate-fade-in {
     animation: fadeIn var(--trans-med);
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
 .animate-slide-up {
@@ -230,48 +362,9 @@ button:active,
         transform: translateY(20px);
         opacity: 0;
     }
+
     to {
         transform: translateY(0);
         opacity: 1;
     }
-}
-
-
-
-/* =========================================
-   Dashboard Header & Logout Button 
-   ========================================= */
-.dashboard-header {
-    background: var(--primary-color);
-    color: white;
-    border-radius: 16px;
-    padding: 24px 30px;
-    margin-bottom: 25px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: var(--shadow-md);
-}
-
-.dashboard-header h2 { margin: 0; font-size: 24px; }
-.dashboard-header p { margin: 5px 0 0 0; opacity: 0.9; font-size: 14px; }
-
-.logout-btn {
-    background: rgba(255, 255, 255, 0.2);
-    color: white;
-    text-decoration: none;
-    padding: 10px 20px;
-    border-radius: 8px;
-    font-weight: 600;
-    font-size: 14px;
-    transition: all var(--trans-fast);
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.logout-btn:hover { 
-    background: rgba(255, 255, 255, 0.3); 
-    color: white;
-    transform: translateY(-2px);
 }

@@ -71,23 +71,6 @@
         gap: 8px;
     }
 
-    .status-badge {
-        text-align: right;
-        z-index: 1;
-    }
-
-    .status-label {
-        font-size: 13px;
-        opacity: 0.8;
-        margin-bottom: 2px;
-    }
-
-    .status-text {
-        font-weight: 800;
-        color: var(--accent-yellow);
-        font-size: 18px;
-    }
-
     .section-title {
         color: #333;
         font-weight: 700;
@@ -173,14 +156,33 @@
     }
 </style>
 
-<div class="dashboard-header">
-    <div>
-        <h2>{{ user.name }}'s Dashboard</h2>
-        <p><i class="fas fa-user-circle"></i> Role: {{ user.role|title }}</p>
+<div class="dash-nav">
+    <button onclick="history.back()" class="back-btn">⬅ Back</button>
+
+    <h3 style="margin: 0; text-transform: uppercase;">
+        {{ user.name }}'s Dashboard
+        <span style="font-size: 0.7em; opacity: 0.9; font-weight: 400; margin-left: 10px;">
+            (Role: {{ role|title }})
+        </span>
+    </h3>
+    <div class="menu-container">
+        <button class="menu-btn">☰ Menu</button>
+        <div class="dropdown-content">
+            <a href="{% url 'register_choice' %}">🏠 Home (Select Role)</a>
+            <a href="{% url 'logout' %}">🚪 Logout</a>
+        </div>
     </div>
-    <a href="{% url 'logout' %}" class="logout-btn">
-        <i class="fas fa-sign-out-alt"></i> Logout
-    </a>
+</div>
+
+<div class="filter-bar"
+    style="margin: 20px auto; max-width: 1000px; display: flex; align-items: center; gap: 15px; background: white; padding: 15px 20px; border-radius: 12px; border: 1px solid #eee;">
+    <label style="font-weight: bold; color: #042409;">Filter Requests:</label>
+    <select id="dashboardFilter" onchange="filterDashboard()"
+        style="padding: 8px 12px; border-radius: 8px; border: 1px solid #ccc; outline: none; cursor: pointer;">
+        <option value="all">All Requests</option>
+        <option value="pending">⏳ Pending (Accept Rental)</option>
+        <option value="accepted">✅ Accepted / Confirmed</option>
+    </select>
 </div>
 
 <div class="dashboard-container">
@@ -191,9 +193,10 @@
                 📍 {{ user.village }}, {{ user.mandal }}
             </div>
         </div>
-        <div class="status-badge">
-            <div class="status-label">{% trans "Status" %}</div>
-            <div class="status-text">{% trans "ACTIVE SERVICE" %}</div>
+        <div class="status-badge" style="text-align: right;">
+            <div style="font-size: 13px; opacity: 0.8; margin-bottom: 2px;">{% trans "Status" %}</div>
+            <div style="font-weight: 800; color: var(--accent-yellow); font-size: 18px;">{% trans "ACTIVE SERVICE" %}
+            </div>
         </div>
     </div>
 
@@ -201,7 +204,7 @@
 
     <div class="booking-grid">
         {% for req in work_requests %}
-        <div class="booking-card">
+        <div class="booking-card" data-status="{{ req.status|lower }}">
             <div class="farmer-details">
                 <h4>🧑‍🌾 {% trans "Farmer" %}: {{ req.farmer.name }}</h4>
                 <div class="info-row">📞 {% trans "Mobile" %}: {{ req.farmer.mobile }}</div>
@@ -238,5 +241,23 @@
     </div>
 </div>
 
+<script>
+    function filterDashboard() {
+        const filterValue = document.getElementById('dashboardFilter').value.toLowerCase();
+        const cards = document.querySelectorAll('.booking-card');
+
+        cards.forEach(card => {
+            const status = card.getAttribute('data-status');
+
+            if (filterValue === 'all') {
+                card.style.display = 'flex';
+            } else if (status === filterValue) {
+                card.style.display = 'flex';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    }
+</script>
 
 {% endblock %}

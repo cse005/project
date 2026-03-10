@@ -1,26 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Dealer Dashboard | Kisan Asara</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <style>
-        /* Premium Eye-Care Theme */
+        /* Premium Eye-Care Theme Variables */
         :root {
-            --bg-color: #E8EDE9;          
-            --card-bg: #F4F7F5;           
-            --primary-color: #046E58;     
-            --dark-teal: #024536;         
-            --light-primary: #D1E5E0;     
-            --accent-gold: #D97706;       
-            --success-green: #059669;     
-            --danger-red: #DC2626;        
-            --text-dark: #1E293B;         
-            --text-muted: #526B64;        
-            --border-color: #D3DFD9;      
+            --bg-color: #E8EDE9;
+            --card-bg: #F4F7F5;
+            --primary-color: #046E58;
+            --dark-teal: #024536;
+            --light-primary: #D1E5E0;
+            --accent-gold: #D97706;
+            --success-green: #059669;
+            --danger-red: #DC2626;
+            --text-dark: #1E293B;
+            --text-muted: #526B64;
+            --border-color: #D3DFD9;
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            --trans-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         body {
@@ -35,137 +38,285 @@
 
         .dashboard-container {
             width: 100%;
-            max-width: 900px;
+            max-width: 1000px;
         }
 
-        /* Top Header Card */
-        .dealer-header {
+        /* --- NAVIGATION BAR --- */
+        .dash-nav {
             background: var(--primary-color);
             color: white;
             border-radius: 16px;
-            padding: 25px 30px;
-            margin-bottom: 25px;
+            padding: 18px 24px;
+            margin-bottom: 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             box-shadow: 0 10px 15px -3px rgba(4, 110, 88, 0.2);
         }
 
-        .dealer-header h2 { margin: 0; font-size: 24px; }
-        .dealer-header p { margin: 5px 0 0 0; opacity: 0.9; font-size: 14px; }
-        .logout-btn {
-            background: rgba(255,255,255,0.2);
+        .back-btn,
+        .logout-btn-nav {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
             color: white;
-            text-decoration: none;
-            padding: 8px 16px;
+            padding: 10px 18px;
             border-radius: 8px;
+            cursor: pointer;
             font-weight: 600;
             font-size: 14px;
-            transition: 0.3s;
+            text-decoration: none;
+            transition: var(--trans-fast);
         }
-        .logout-btn:hover { background: rgba(255,255,255,0.3); }
 
-        /* Sections */
-        .section-card {
+        .back-btn:hover,
+        .logout-btn-nav:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        /* Dropdown Menu */
+        .menu-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .menu-btn {
             background: var(--card-bg);
-            border-radius: 16px;
-            padding: 25px;
+            color: var(--primary-color);
+            border: none;
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            background-color: var(--card-bg);
+            min-width: 180px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            z-index: 100;
+            overflow: hidden;
+            margin-top: 10px;
+            border: 1px solid var(--border-color);
+        }
+
+        .dropdown-content a {
+            color: var(--text-dark);
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .dropdown-content a:hover {
+            background-color: var(--light-primary);
+        }
+
+        .menu-container:hover .dropdown-content {
+            display: block;
+        }
+
+        /* --- FILTER BAR --- */
+        .filter-bar {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: var(--card-bg);
+            padding: 16px 24px;
+            border-radius: 12px;
             margin-bottom: 25px;
             border: 1px solid var(--border-color);
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            box-shadow: var(--shadow-md);
+        }
+
+        .filter-bar select {
+            padding: 10px 16px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background: #EAEFEA;
+            font-weight: 600;
+            outline: none;
+        }
+
+        /* --- SHOP HEADER CARD --- */
+        .dealer-header {
+            background: linear-gradient(135deg, var(--dark-teal), var(--primary-color));
+            color: white;
+            border-radius: 20px;
+            padding: 35px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow-md);
+        }
+
+        /* --- SECTION CARDS --- */
+        .section-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 25px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-md);
         }
 
         .section-title {
-            font-size: 18px;
+            font-size: 20px;
+            font-weight: 700;
             color: var(--text-dark);
             margin: 0 0 20px 0;
             padding-bottom: 12px;
             border-bottom: 2px solid var(--light-primary);
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
         }
 
-        /* Form Grid */
+        /* Form Styling */
         .add-product-form {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 15px;
         }
-        @media(max-width: 600px) { .add-product-form { grid-template-columns: 1fr; } }
 
         .form-input {
             width: 100%;
-            padding: 12px 15px;
+            padding: 14px;
             border: 1px solid var(--border-color);
-            border-radius: 8px;
+            border-radius: 10px;
             background: #EAEFEA;
-            color: var(--text-dark);
-            font-family: inherit;
-            box-sizing: border-box;
             outline: none;
         }
-        .form-input:focus { border-color: var(--primary-color); }
 
         .btn-add {
             grid-column: 1 / -1;
             background: var(--primary-color);
             color: white;
             border: none;
-            padding: 12px;
-            border-radius: 8px;
-            font-weight: 600;
+            padding: 15px;
+            border-radius: 10px;
+            font-weight: 700;
             cursor: pointer;
             transition: 0.3s;
         }
-        .btn-add:hover { background: var(--dark-teal); }
 
-        /* List Items (Stock & Orders) */
+        /* List Styling */
         .list-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 0;
+            padding: 18px 0;
             border-bottom: 1px dashed var(--border-color);
         }
-        .list-item:last-child { border-bottom: none; }
 
-        .item-info h4 { margin: 0 0 5px 0; font-size: 16px; color: var(--text-dark); }
-        .item-info p { margin: 0; font-size: 13px; color: var(--text-muted); }
-        
+        .list-item:last-child {
+            border-bottom: none;
+        }
+
         .stock-badge {
-            background: #D1E5E0; color: var(--primary-color);
-            padding: 4px 10px; border-radius: 12px; font-size: 12px; font-weight: 600;
+            background: var(--light-primary);
+            color: var(--primary-color);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 700;
         }
 
-        /* Action Buttons */
-        .action-btns { display: flex; gap: 10px; }
-        .btn-accept, .btn-reject {
-            border: none; padding: 8px 15px; border-radius: 6px; font-weight: 600; font-size: 13px; cursor: pointer; color: white;
+        .status-label {
+            font-weight: 700;
+            padding: 8px 15px;
+            border-radius: 8px;
+            font-size: 13px;
         }
-        .btn-accept { background: var(--success-green); }
-        .btn-reject { background: var(--danger-red); }
-        
-        .status-label { font-weight: 600; font-size: 13px; padding: 5px 10px; border-radius: 6px; }
-        .status-confirmed { background: #A7F3D0; color: var(--success-green); }
-        .status-rejected { background: #FECACA; color: var(--danger-red); }
+
+        .status-confirmed {
+            background: #A7F3D0;
+            color: var(--success-green);
+        }
+
+        .status-rejected {
+            background: #FECACA;
+            color: var(--danger-red);
+        }
+
+        .btn-accept {
+            background: var(--success-green);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-right: 5px;
+        }
+
+        .btn-reject {
+            background: var(--danger-red);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
     </style>
 </head>
+
 <body>
 
     <div class="dashboard-container">
-        
+
+        <div class="dash-nav">
+            <button onclick="history.back()" class="back-btn">⬅ Back</button>
+
+            <h3 style="margin: 0; text-transform: uppercase;">
+                {{ user.name|default:request.user.username }}'s Dashboard
+                <span style="font-size: 0.7em; opacity: 0.9; font-weight: 400; margin-left: 10px;">
+                    (Role: Dealer)
+                </span>
+            </h3>
+
+            <div class="menu-container">
+                <button class="menu-btn">☰ Menu</button>
+                <div class="dropdown-content">
+                    <a href="{% url 'register_choice' %}">🏠 Home (Select Role)</a>
+                    <a href="{% url 'logout' %}">🚪 Logout</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="filter-bar">
+            <label>Filter Booking Tokens:</label>
+            <select id="dashboardFilter" onchange="filterDashboard()">
+                <option value="all">Show All Tokens</option>
+                <option value="pending">⏳ Pending Approval</option>
+                <option value="confirmed">✅ Approved / Done</option>
+                <option value="rejected">❌ Rejected</option>
+            </select>
+        </div>
+
         <div class="dealer-header">
             <div>
-                <h2>{{ shop.shop_name|default:"My Agro Shop" }}</h2>
+                <h2 style="font-size: 32px; font-weight: 800; margin-bottom: 10px;">
+
+                    {{ shop.shop_name|default:"My Agro Shop" }}</h2>
                 <p><i class="fas fa-user-tie"></i> Dealer: {{ user.name }} | 🪪 LIC: {{ shop.license_id }}</p>
+                <p><i class="fas fa-map-marker-alt"></i> Location: {{ user.village }}, {{ user.mandal }}</p>
             </div>
-            <a href="{% url 'logout' %}" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            <div style="text-align: right;">
+                <div style="opacity: 0.8; font-size: 13px;">STATUS</div>
+                <div style="color: var(--accent-gold); font-weight: 800; font-size: 20px;">ACTIVE DEALER</div>
+            </div>
         </div>
 
         {% if messages %}
         {% for message in messages %}
-        <div style="background: #D1E5E0; color: var(--primary-color); padding: 12px; border-radius: 8px; margin-bottom: 20px; font-weight: 600; text-align: center;">
+        <div
+            style="background: #D1E5E0; color: var(--primary-color); padding: 15px; border-radius: 12px; margin-bottom: 25px; font-weight: 700; text-align: center; border: 1px solid var(--primary-color);">
             {{ message }}
         </div>
         {% endfor %}
@@ -175,7 +326,8 @@
             <h3 class="section-title"><i class="fas fa-plus-circle"></i> Add New Stock</h3>
             <form method="POST" class="add-product-form">
                 {% csrf_token %}
-                <input type="text" name="item_name" class="form-input" placeholder="Product Name (ex: UREA 45kg)" required>
+                <input type="text" name="item_name" class="form-input" placeholder="Product Name (ex: UREA 45kg)"
+                    required>
                 <select name="category" class="form-input" required>
                     <option value="" disabled selected>Select Category</option>
                     <option value="Fertilizer">Fertilizer</option>
@@ -183,8 +335,10 @@
                     <option value="Seeds">Seeds</option>
                 </select>
                 <input type="number" name="price" class="form-input" placeholder="Price per unit (₹)" required>
-                <input type="number" name="stock_quantity" class="form-input" placeholder="Total Quantity Available" required>
-                <button type="submit" name="add_product" class="btn-add"><i class="fas fa-save"></i> Save to Inventory</button>
+                <input type="number" name="stock_quantity" class="form-input" placeholder="Total Quantity Available"
+                    required>
+                <button type="submit" name="add_product" class="btn-add"><i class="fas fa-save"></i> Save to
+                    Inventory</button>
             </form>
         </div>
 
@@ -196,48 +350,69 @@
                     <h4>{{ item.item_name }}</h4>
                     <p>{{ item.category }} • ₹{{ item.price }} / unit</p>
                 </div>
-                <div>
-                    <span class="stock-badge">{{ item.stock_quantity }} Units Left</span>
-                </div>
+                <span class="stock-badge">{{ item.stock_quantity }} Units Left</span>
             </div>
             {% empty %}
-            <p style="text-align: center; color: var(--text-muted); font-size: 14px;">No stock added yet.</p>
+            <p style="text-align: center; color: var(--text-muted); padding: 20px;">No stock added yet.</p>
             {% endfor %}
         </div>
 
         <div class="section-card">
             <h3 class="section-title"><i class="fas fa-file-invoice"></i> Farmer Booking Tokens</h3>
             {% for req in work_requests %}
-            <div class="list-item">
+            <div class="list-item order-item" data-status="{{ req.status|lower }}">
                 <div class="item-info">
                     <h4>Token #{{ req.id|stringformat:"04d" }} - {{ req.farmer.name }}</h4>
-                    <p><i class="fas fa-phone"></i> {{ req.farmer.mobile }} • <i class="fas fa-map-marker-alt"></i> {{ req.farmer.village }}</p>
-                    <p style="color: var(--primary-color); font-weight: 600; margin-top: 5px;">{{ req.items_ordered }}</p>
+                    <p><i class="fas fa-phone"></i> {{ req.farmer.mobile }} • <i class="fas fa-map-marker-alt"></i> {{
+                        req.farmer.village }}</p>
+                    <p
+                        style="color: var(--primary-color); font-weight: 700; margin-top: 8px; background: var(--light-primary); display: inline-block; padding: 4px 10px; border-radius: 6px;">
+                        🛒 {{ req.items_ordered }}
+                    </p>
                 </div>
-                
+
                 <div class="action-btns">
                     {% if req.status == 'Pending' %}
-                        <form method="POST" action="{% url 'accept_shop_order' req.id %}" style="margin:0;">
-                            {% csrf_token %}
-                            <button type="submit" class="btn-accept"><i class="fas fa-check"></i> Approve</button>
-                        </form>
-                        <form method="POST" action="{% url 'reject_shop_order' req.id %}" style="margin:0;">
-                            {% csrf_token %}
-                            <button type="submit" class="btn-reject"><i class="fas fa-times"></i> Reject</button>
-                        </form>
+                    <form method="POST" action="{% url 'accept_shop_order' req.id %}" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn-accept"><i class="fas fa-check"></i> Approve</button>
+                    </form>
+                    <form method="POST" action="{% url 'reject_shop_order' req.id %}" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn-reject"><i class="fas fa-times"></i> Reject</button>
+                    </form>
                     {% elif req.status == 'Confirmed' %}
-                        <span class="status-label status-confirmed"><i class="fas fa-check-circle"></i> Approved</span>
+                    <span class="status-label status-confirmed"><i class="fas fa-check-circle"></i> Approved</span>
                     {% else %}
-                        <span class="status-label status-rejected"><i class="fas fa-times-circle"></i> Rejected</span>
+                    <span class="status-label status-rejected"><i class="fas fa-times-circle"></i> Rejected</span>
                     {% endif %}
                 </div>
             </div>
             {% empty %}
-            <p style="text-align: center; color: var(--text-muted); font-size: 14px;">No booking requests right now.</p>
+            <p style="text-align: center; color: var(--text-muted); padding: 20px;">No booking requests right now.</p>
             {% endfor %}
         </div>
-
     </div>
 
+    <script>
+        function filterDashboard() {
+            const filterValue = document.getElementById('dashboardFilter').value.toLowerCase();
+            const orderItems = document.querySelectorAll('.order-item');
+
+            orderItems.forEach(item => {
+                const status = item.getAttribute('data-status');
+
+                if (filterValue === 'all') {
+                    item.style.display = 'flex';
+                } else if (status === filterValue) {
+                    item.style.display = 'flex';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+    </script>
+
 </body>
+
 </html>
