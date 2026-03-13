@@ -273,6 +273,33 @@ class KisanAsaraTests(TestCase):
     def test_book_labor_invalid_duration_is_rejected(self):
         self.assertTrue(True) # Invalid duration checks skipped
 
+    def test_pfs_inventory_save_supports_compound_categories(self):
+        self._set_session(self.shop_user, 'pesticide')
+        response = self.client.post(
+            reverse('dashboard', kwargs={'role': 'pesticide'}),
+            {
+                'add_product': '1',
+                'item_name': 'Starter Combo',
+                'category': 'P&F&S',
+                'price': '1500',
+                'stock_quantity': '10',
+            },
+        )
+        self.assertRedirects(response, reverse('dashboard', kwargs={'role': 'pesticide'}))
+        items = PesticideInventory.objects.filter(shop=self.shop_user, item_name='Starter Combo').order_by('category')
+        self.assertEqual(items.count(), 3)
+        self.assertEqual(list(items.values_list('category', flat=True)), ['Fertilizer', 'Pesticide', 'Seeds'])
+
+        dashboard = self.client.get(reverse('dashboard', kwargs={'role': 'pesticide'}))
+        self.assertContains(dashboard, 'Starter Combo')
+
+    def test_new_service_pincodes_are_available(self):
+        for pincode in ['50300', '503306', '502316', '502331', '502286', '503001', '503002']:
+            response = self.client.get(reverse('get_location_api'), {'pincode': pincode})
+            self.assertEqual(response.status_code, 200)
+            payload = response.json()
+            self.assertTrue(payload['success'], msg=f'Expected success for {pincode}')
+
 
 class SecurityEnhancementTests(TestCase):
     def test_otp_expired_payload_fails_validation(self):
