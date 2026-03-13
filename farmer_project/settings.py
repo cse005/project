@@ -82,6 +82,7 @@ default_db_name = str(BASE_DIR / 'db.sqlite3')
 db_engine = os.getenv('DJANGO_DB_ENGINE', default_db_engine)
 db_name = os.getenv('DJANGO_DB_NAME', default_db_name)
 
+# Single centralized database definition shared by every role/workflow.
 DATABASES = {
     'default': {
         'ENGINE': db_engine,
@@ -94,26 +95,10 @@ DATABASES = {
     }
 }
 
-if not DEBUG and db_engine == default_db_engine:
-    raise ImproperlyConfigured('Production deployments must set a non-SQLite database via DJANGO_DB_ENGINE.')
+if DJANGO_ENV in {'staging', 'production'} and db_engine == default_db_engine:
+    raise ImproperlyConfigured('Staging/production deployments must set non-SQLite database settings.')
 
 CSRF_TRUSTED_ORIGINS = env_list('DJANGO_CSRF_TRUSTED_ORIGINS')
-
-# Database config
-is_sqlite_default = os.getenv('DJANGO_DB_ENGINE', 'django.db.backends.sqlite3') == 'django.db.backends.sqlite3'
-DATABASES = {
-    'default': {
-        'ENGINE': os.getenv('DJANGO_DB_ENGINE', 'django.db.backends.sqlite3'),
-        'NAME': os.getenv('DJANGO_DB_NAME', str(BASE_DIR / 'db.sqlite3')),
-        'USER': os.getenv('DJANGO_DB_USER', ''),
-        'PASSWORD': os.getenv('DJANGO_DB_PASSWORD', ''),
-        'HOST': os.getenv('DJANGO_DB_HOST', ''),
-        'PORT': os.getenv('DJANGO_DB_PORT', ''),
-        'CONN_MAX_AGE': env_int('DJANGO_DB_CONN_MAX_AGE', 60),
-    }
-}
-if DJANGO_ENV in {'staging', 'production'} and is_sqlite_default:
-    raise ImproperlyConfigured('Staging/production deployments must set non-SQLite database settings.')
 
 INSTALLED_APPS = [
     'django.contrib.admin',
