@@ -1,0 +1,105 @@
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% trans "Verify OTP" %} | Kisan Asara</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: linear-gradient(135deg, #0b2e24 0%, #1b5e20 100%);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .otp-card {
+            width: 100%;
+            max-width: 430px;
+            padding: 36px;
+            border-radius: 30px;
+            background: rgba(255, 255, 255, 0.96);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
+        }
+
+        .top-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .back-link {
+            color: #1b5e20;
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        .timer-chip {
+            padding: 8px 12px;
+            border-radius: 999px;
+            background: #edf7ee;
+            color: #1b5e20;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .otp-input {
+            width: 100%;
+            box-sizing: border-box;
+            margin: 18px 0;
+            padding: 16px;
+            border: 2px solid #dbe6dc;
+            border-radius: 16px;
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: 14px;
+            text-align: center;
+            outline: none;
+        }
+
+        .btn-verify {
+            width: 100%;
+            border: none;
+            border-radius: 16px;
+            background: #2e7d32;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 800;
+            padding: 16px;
+        }
+    </style>
+</head>
+<body>
+    {% include 'kisan1/includes/language_switcher.html' %}
+    <div class="otp-card">
+        <div class="top-row">
+            <a href="{{ back_url|default:'javascript:history.back()' }}" class="back-link">{% trans "Back" %}</a>
+            <span class="timer-chip">{% trans "OTP expires in" %} {{ otp_remaining_seconds|default:0 }}s</span>
+        </div>
+
+        <h2>{% trans "Verify OTP" %}</h2>
+        <p>{% trans "Enter the 4-digit code to continue." %}</p>
+        <p>{% trans "Attempts remaining" %}: {{ attempts_remaining|default:0 }} / {{ otp_attempt_limit|default:5 }}</p>
+
+        {% if messages %}
+        {% for message in messages %}
+        <div class="message-box">{{ message }}</div>
+        {% endfor %}
+        {% endif %}
+
+        <form method="post">
+            {% csrf_token %}
+            <input type="text" name="otp" class="otp-input" placeholder="0000" maxlength="4" inputmode="numeric" required>
+            <button type="submit" class="btn-verify">{% trans "Verify" %}</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,401 @@
+{% load static %}
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tractor Driver Registration | Kisan Asara</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --prime-green: #118a28;
+            --dark-green: #042409;
+            --input-bg: #f7fbf7;
+        }
+
+        body {
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Inter', sans-serif;
+            background-color: #010a02;
+            background-image:
+                radial-gradient(circle at 30% 70%, rgba(25, 171, 64, 0.6) 0%, transparent 45%),
+                radial-gradient(circle at 75% 25%, rgba(13, 102, 37, 0.8) 0%, transparent 55%),
+                radial-gradient(ellipse at 50% 50%, #063d14 0%, #000000 100%);
+            background-attachment: fixed;
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        .reg-card {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 45px 40px;
+            border-radius: 28px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
+            width: 100%;
+            max-width: 600px;
+            box-sizing: border-box;
+            position: relative;
+            z-index: 10;
+            animation: slideUp 0.6s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .reg-card h2 {
+            color: var(--dark-green);
+            margin: 0 0 8px;
+            font-size: 28px;
+            font-weight: 800;
+            text-align: center;
+            letter-spacing: -0.5px;
+        }
+
+        .reg-card p {
+            text-align: center;
+            color: #446644;
+            margin-bottom: 30px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .input-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--dark-green);
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="tel"],
+        select {
+            width: 100%;
+            padding: 14px 16px;
+            background: var(--input-bg);
+            color: #333333;
+            border: 1px solid #cce0cc;
+            border-radius: 14px;
+            font-size: 15px;
+            font-weight: 500;
+            box-sizing: border-box;
+            outline: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-family: inherit;
+        }
+
+        input::placeholder {
+            color: #8da68d;
+        }
+
+        input:focus,
+        select:focus {
+            background: #ffffff;
+            border-color: var(--prime-green);
+            box-shadow: 0 0 0 4px rgba(17, 138, 40, 0.15);
+            transform: translateY(-1px);
+        }
+
+        select:disabled,
+        input[readonly] {
+            background-color: #eef5ee;
+            color: #7a997a;
+            cursor: not-allowed;
+            border-color: #dceadc;
+        }
+
+        .services-container {
+            background: rgba(247, 251, 247, 0.6);
+            padding: 18px;
+            border-radius: 14px;
+            border: 1px solid rgba(204, 224, 204, 0.8);
+        }
+
+        .service-row {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .service-row:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .service-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .service-header label {
+            margin-bottom: 0;
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--dark-green);
+            cursor: pointer;
+        }
+
+        .service-header input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--prime-green);
+        }
+
+        .service-inputs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .btn-next {
+            background: var(--prime-green);
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 14px;
+            width: 100%;
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+            box-shadow: 0 8px 20px rgba(17, 138, 40, 0.3);
+        }
+
+        .btn-next:hover {
+            background: #0d6e1f;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px rgba(17, 138, 40, 0.4);
+        }
+
+        .btn-next:active {
+            transform: scale(0.98) translateY(0);
+            box-shadow: 0 4px 10px rgba(17, 138, 40, 0.2);
+        }
+    </style>
+</head>
+
+<body>
+    {% include 'kisan1/includes/language_switcher.html' %}
+    <div class="reg-card">
+        <h2>Tractor Driver Register</h2>
+        <p>Join our network & get profits / work opportunities</p>
+
+        <form method="POST" id="driverRegistrationForm">
+            {% csrf_token %}
+            <input type="hidden" name="role" value="tractor">
+
+            <div class="form-group">
+                <label>Full name:</label>
+                <input type="text" name="name" placeholder="{% trans 'e.g., Ramesh Kumar' %}" pattern="[A-Za-z\s]{3,50}"
+                    required>
+            </div>
+
+            <div class="input-row">
+                <div class="form-group">
+                    <label>Age:</label>
+                    <input type="number" name="age" min="18" max="60" placeholder="{% trans '18-60' %}" required>
+                </div>
+                <div class="form-group">
+                    <label>Total Experience (Yrs):</label>
+                    <input type="number" name="total_experience" min="0" max="40" placeholder="{% trans 'e.g., 5' %}"
+                        required>
+                </div>
+            </div>
+
+            <div class="input-row">
+                <div class="form-group">
+                    <label>Mobile No:</label>
+                    <input type="tel" name="mobile" maxlength="10" placeholder="{% trans '10-digit number' %}"
+                        pattern="[6789][0-9]{9}" required>
+                </div>
+                <div class="form-group">
+                    <label>Base wage per hour (₹):</label>
+                    <input type="number" name="base_wage" min="1" placeholder="{% trans 'e.g., 500' %}" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Pincode (Try: 503224, 506002, 500038):</label>
+                <input type="text" id="pincode" name="pincode" placeholder="{% trans 'Enter 6-digit Pincode' %}"
+                    maxlength="6" pattern="[0-9]{6}" oninput="fetchLocationDetails()" required>
+            </div>
+
+            <div class="input-row">
+                <div class="form-group">
+                    <label>State:</label>
+                    <input type="text" id="state" name="state" value="Telangana" readonly>
+                </div>
+                <div class="form-group">
+                    <label>District:</label>
+                    <input type="text" id="district" name="district" placeholder="{% trans 'Auto-filled' %}" readonly
+                        required>
+                </div>
+            </div>
+
+            <div class="input-row">
+                <div class="form-group">
+                    <label>Mandal:</label>
+                    <input type="text" id="mandal" name="mandal" placeholder="{% trans 'Auto-filled' %}" readonly
+                        required>
+                </div>
+                <div class="form-group">
+                    <label>Village:</label>
+                    <select id="village" name="village" required>
+                        <option value="" disabled selected>-- Enter Pincode First --</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Driving License ID:</label>
+                <input type="text" id="license_id" name="license_id" placeholder="{% trans 'e.g., TS0520230000123' %}"
+                    pattern="^[A-Z]{2}[0-9]{13}$"
+                    title="Must be a valid Indian Driving License (2 capital letters followed by 13 numbers)"
+                    oninput="this.value = this.value.toUpperCase()" required>
+            </div>
+
+            <div class="form-group">
+                <label>Tractor Services:</label>
+                <div class="services-container">
+                    <div class="service-row">
+                        <div class="service-header">
+                            <input type="checkbox" id="srv1" name="services" value="Ploughing" class="service-checkbox">
+                            <label for="srv1">Ploughing</label>
+                        </div>
+                        <div class="service-inputs">
+                            <input type="number" name="exp_Ploughing" min="0" placeholder="{% trans 'Exp (Yrs)' %}">
+                            <input type="number" name="wage_Ploughing" min="0" placeholder="{% trans '₹ per hour' %}">
+                        </div>
+                    </div>
+
+                    <div class="service-row">
+                        <div class="service-header">
+                            <input type="checkbox" id="srv2" name="services" value="Harrowing" class="service-checkbox">
+                            <label for="srv2">Harrowing</label>
+                        </div>
+                        <div class="service-inputs">
+                            <input type="number" name="exp_Harrowing" min="0" placeholder="{% trans 'Exp (Yrs)' %}">
+                            <input type="number" name="wage_Harrowing" min="0" placeholder="{% trans '₹ per hour' %}">
+                        </div>
+                    </div>
+
+                    <div class="service-row">
+                        <div class="service-header">
+                            <input type="checkbox" id="srv3" name="services" value="Transport" class="service-checkbox">
+                            <label for="srv3">Transport</label>
+                        </div>
+                        <div class="service-inputs">
+                            <input type="number" name="exp_Transport" min="0" placeholder="{% trans 'Exp (Yrs)' %}">
+                            <input type="number" name="wage_Transport" min="0" placeholder="{% trans '₹ per hour' %}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-next">Register ➔</button>
+        </form>
+    </div>
+    <script src="{% static 'js/location.js' %}"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const form = document.getElementById('driverRegistrationForm');
+            const checkboxes = Array.from(document.querySelectorAll('.service-checkbox'));
+            const licenseRegex = /^[A-Z]{2}[0-9]{13}$/;
+            const missingServiceDetailsMessage = '{% trans "Please provide both experience and wage for the selected service." %}';
+
+            function syncRequiredState() {
+                checkboxes.forEach((checkbox) => {
+                    const serviceName = checkbox.value;
+                    const expField = document.querySelector(`input[name="exp_${serviceName}"]`);
+                    const wageField = document.querySelector(`input[name="wage_${serviceName}"]`);
+
+                    expField.required = checkbox.checked;
+                    wageField.required = checkbox.checked;
+                });
+            }
+
+            checkboxes.forEach((checkbox) => {
+                checkbox.addEventListener('change', syncRequiredState);
+            });
+            syncRequiredState();
+
+            form.addEventListener('submit', function (event) {
+                const licenseInput = document.getElementById('license_id').value.trim().toUpperCase();
+
+                if (!licenseRegex.test(licenseInput)) {
+                    alert('{% trans "Invalid License ID. It must contain 2 capital letters followed by 13 numbers." %}');
+                    event.preventDefault();
+                    return;
+                }
+
+                const selectedServices = checkboxes.filter((checkbox) => checkbox.checked);
+                if (!selectedServices.length) {
+                    alert('{% trans "Please select at least one tractor service." %}');
+                    event.preventDefault();
+                    return;
+                }
+
+                for (const checkbox of selectedServices) {
+                    const serviceName = checkbox.value;
+                    const expField = document.querySelector(`input[name="exp_${serviceName}"]`);
+                    const wageField = document.querySelector(`input[name="wage_${serviceName}"]`);
+
+                    if (!expField.value.trim() || !wageField.value.trim()) {
+                        alert(`${missingServiceDetailsMessage} ${serviceName}.`);
+                        event.preventDefault();
+                        return;
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

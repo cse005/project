@@ -1,0 +1,173 @@
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% trans "Verify OTP" %} | Kisan Asara</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: linear-gradient(135deg, #0b2e24 0%, #1b5e20 100%);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .otp-card {
+            width: 100%;
+            max-width: 430px;
+            padding: 36px;
+            border-radius: 30px;
+            background: rgba(255, 255, 255, 0.96);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
+        }
+
+        .top-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .back-link {
+            color: #1b5e20;
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        .timer-chip {
+            padding: 8px 12px;
+            border-radius: 999px;
+            background: #edf7ee;
+            color: #1b5e20;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        h2 {
+            margin: 0 0 10px;
+            color: #0b2e24;
+            font-size: 30px;
+        }
+
+        p {
+            margin: 0 0 18px;
+            color: #475569;
+        }
+
+        .helper-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 18px;
+            font-size: 13px;
+            color: #64748b;
+        }
+
+        .otp-input {
+            width: 100%;
+            box-sizing: border-box;
+            margin-bottom: 18px;
+            padding: 16px;
+            border: 2px solid #dbe6dc;
+            border-radius: 16px;
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: 14px;
+            text-align: center;
+            outline: none;
+        }
+
+        .otp-input:focus {
+            border-color: #2e7d32;
+        }
+
+        .btn-verify {
+            width: 100%;
+            border: none;
+            border-radius: 16px;
+            background: #2e7d32;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 800;
+            padding: 16px;
+        }
+
+        .btn-verify:disabled {
+            background: #94a3b8;
+            cursor: not-allowed;
+        }
+
+        .message-box {
+            margin-bottom: 16px;
+            padding: 12px 14px;
+            border-radius: 14px;
+            background: #fee2e2;
+            color: #b91c1c;
+            font-size: 14px;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+    {% include 'kisan1/includes/language_switcher.html' %}
+    <div class="otp-card">
+        <div class="top-row">
+            <a href="{{ back_url|default:'javascript:history.back()' }}" class="back-link">{% trans "Back" %}</a>
+            <span class="timer-chip">{% trans "OTP expires in" %} <span id="countdown">{{ otp_remaining_seconds }}</span>s</span>
+        </div>
+
+        <h2>{% trans "Verify OTP" %}</h2>
+        <p>{% trans "Enter the 4-digit code to continue your login." %}</p>
+
+        <div class="helper-row">
+            <span>{% trans "Attempts remaining" %}: {{ attempts_remaining }} / {{ otp_attempt_limit }}</span>
+        </div>
+
+        {% if messages %}
+        {% for message in messages %}
+        <div class="message-box">{{ message }}</div>
+        {% endfor %}
+        {% endif %}
+
+        <form method="post" action="{% url 'verify_otp_login' %}" id="otpForm">
+            {% csrf_token %}
+            <input type="text" name="otp" class="otp-input" placeholder="0000" maxlength="4" inputmode="numeric" required autofocus>
+            <button type="submit" class="btn-verify" id="submitBtn">{% trans "Verify & Continue" %}</button>
+        </form>
+    </div>
+
+    <script>
+        const countdown = document.getElementById('countdown');
+        const submitBtn = document.getElementById('submitBtn');
+        const otpForm = document.getElementById('otpForm');
+        let remaining = Number(countdown.textContent || '0');
+
+        function tick() {
+            remaining = Math.max(remaining - 1, 0);
+            countdown.textContent = String(remaining);
+
+            if (remaining === 0) {
+                submitBtn.disabled = true;
+                otpForm.querySelector('.otp-input').setAttribute('disabled', 'disabled');
+                clearInterval(timerId);
+            }
+        }
+
+        if (remaining === 0) {
+            submitBtn.disabled = true;
+            otpForm.querySelector('.otp-input').setAttribute('disabled', 'disabled');
+        } else {
+            var timerId = setInterval(tick, 1000);
+        }
+    </script>
+</body>
+</html>

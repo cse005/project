@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Shop Booking | Kisan Asara</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg: #f5f7fb;
+            --surface: #ffffff;
+            --text: #1f2937;
+            --muted: #6b7280;
+            --primary: #1a73e8;
+            --primary-dark: #1558b0;
+            --success-bg: #e8f5e9;
+            --success-text: #1e8e3e;
+            --border: #e5e7eb;
+            --chip-bg: #f1f3f4;
+            --danger: #d93025;
+            --shadow: 0 10px 30px rgba(26, 115, 232, 0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background: radial-gradient(circle at 20% 10%, #eaf2ff 0, #f5f7fb 40%);
+            color: var(--text);
+            padding: 18px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .phone-shell {
+            width: 100%;
+            max-width: 760px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        .top-bar {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 18px;
+            border-bottom: 1px solid var(--border);
+            background: #fff;
+            position: sticky;
+            top: 0;
+            z-index: 5;
+        }
+
+        .icon-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 0;
+            background: var(--chip-bg);
+            color: var(--text);
+            display: grid;
+            place-items: center;
+            font-size: 15px;
+        }
+
+        .app-header {
+            padding: 20px 18px 10px;
+            display: grid;
+            grid-template-columns: 92px 1fr;
+            gap: 16px;
+        }
+
+        .app-icon {
+            border-radius: 20px;
+            width: 92px;
+            height: 92px;
+            background: linear-gradient(145deg, #34a853, #188038);
+            display: grid;
+            place-items: center;
+            color: white;
+            font-size: 36px;
+            box-shadow: 0 10px 20px rgba(24, 128, 56, 0.25);
+        }
+
+        .app-title h1 {
+            margin: 0 0 4px;
+            font-size: 26px;
+            line-height: 1.1;
+        }
+
+        .publisher {
+            color: var(--primary);
+            font-weight: 600;
+            margin: 0 0 8px;
+            font-size: 14px;
+        }
+
+        .meta-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--chip-bg);
+            color: var(--muted);
+            font-size: 12px;
+            font-weight: 600;
+            border-radius: 999px;
+            padding: 7px 10px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            margin-top: 12px;
+        }
+
+        .stat {
+            text-align: center;
+            padding: 14px 6px;
+        }
+
+        .stat:not(:last-child) {
+            border-right: 1px solid var(--border);
+        }
+
+        .stat strong {
+            display: block;
+            font-size: 15px;
+        }
+
+        .stat span {
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .section {
+            padding: 16px 18px 8px;
+        }
+
+        .section h2 {
+            margin: 0 0 12px;
+            font-size: 18px;
+        }
+
+        .about {
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .stock-list {
+            margin-top: 10px;
+            border-top: 1px solid var(--border);
+        }
+
+        .stock-item {
+            display: flex;
+            justify-content: space-between;
+            gap: 14px;
+            padding: 16px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .stock-item h3 {
+            margin: 0 0 6px;
+            font-size: 16px;
+        }
+
+        .price {
+            color: var(--text);
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .availability {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 8px;
+            border-radius: 999px;
+            font-size: 12px;
+            background: var(--success-bg);
+            color: var(--success-text);
+            font-weight: 600;
+        }
+
+        .qty-wrap {
+            width: 122px;
+            text-align: right;
+        }
+
+        .qty-label {
+            font-size: 12px;
+            color: var(--muted);
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .qty-input {
+            width: 100%;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 9px;
+            font-size: 15px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .qty-input:focus {
+            border-color: var(--primary);
+            outline: 0;
+            box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.12);
+        }
+
+        .summary {
+            margin: 16px 18px 18px;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 14px;
+            background: #f9fbff;
+        }
+
+        .row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .total {
+            border-top: 1px solid var(--border);
+            padding-top: 10px;
+            font-size: 19px;
+            color: var(--primary);
+            font-weight: 700;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .btn-primary {
+            margin-top: 14px;
+            width: 100%;
+            border: 0;
+            border-radius: 999px;
+            padding: 14px;
+            font-size: 16px;
+            font-weight: 700;
+            background: var(--primary);
+            color: white;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+
+        .btn-link {
+            margin-top: 10px;
+            display: block;
+            text-align: center;
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .alert {
+            margin: 0 18px;
+            border-radius: 10px;
+            background: #fdecec;
+            color: var(--danger);
+            padding: 11px 12px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .empty {
+            text-align: center;
+            color: var(--muted);
+            padding: 24px 10px;
+            font-size: 14px;
+        }
+
+        @media (max-width: 600px) {
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .stat:nth-child(odd) {
+                border-right: 1px solid var(--border);
+            }
+
+            .stat:nth-child(-n+2) {
+                border-bottom: 1px solid var(--border);
+            }
+
+            .stock-item {
+                flex-direction: column;
+            }
+
+            .qty-wrap {
+                width: 100%;
+                text-align: left;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="phone-shell">
+        <div class="top-bar">
+            <a href="javascript:history.back()" class="icon-btn" aria-label="Go back"><i
+                    class="fas fa-arrow-left"></i></a>
+            <strong>Shop Details</strong>
+        </div>
+
+        <div class="app-header">
+            <div class="app-icon"><i class="fas fa-store"></i></div>
+            <div class="app-title">
+                <h1>
+                    {{ shop.shop_name }}
+                </h1>
+                <p class="publisher">
+                    by {{ shop.user.name }} • Authorized Dealer
+                </p>
+                <div class="meta-row">
+                    <span class="chip"><i class="fas fa-certificate"></i>
+                        License {{ shop.license_id }}
+                    </span>
+                    <span class="chip"><i class="fas fa-map-marker-alt"></i>
+                        {{ shop.user.village }}
+                    </span>
+                    <span class="chip"><i class="fas fa-phone"></i>
+                        {{ shop.user.mobile }}
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="stats">
+            <div class="stat"><strong>4.7★</strong><span>Farmer rating</span></div>
+            <div class="stat"><strong>{{ inventory|length }}</strong><span>Products</span></div>
+            <div class="stat"><strong>Fast</strong><span>Token issue</span></div>
+            <div class="stat"><strong>Secure</strong><span>Gov records</span></div>
+        </div>
+
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert"><i class="fas fa-circle-exclamation"></i>
+            {{ message }}
+        </div>
+        {% endfor %}
+        {% endif %}
+
+        <div class="section">
+            <h2>About this dealer</h2>
+            <p class="about">
+                Shop registration and stock are verified in the Kisan Asara system. Select products below
+                to generate your booking token, similar to a Play Store purchase flow.
+            </p>
+        </div>
+
+        <form method="POST">
+            {% csrf_token %}
+            <div class="section">
+                <h2>Available products</h2>
+                <div class="stock-list">
+                    {% for item in inventory %}
+                    <div class="stock-item">
+                        <div>
+                            <h3>{{ item.item_name }}</h3>
+                            <div class="availability"><i class="fas fa-circle-check"></i>
+                                {{ item.stock_quantity }} units available
+                            </div>
+                            <div class="price">
+                                ₹{{ item.price }} / unit
+                            </div>
+                        </div>
+                        <div class="qty-wrap">
+                            <label for="qty_{{ item.id }}" class="qty-label">Quantity</label>
+                            <input type="number" name="qty_{{ item.id }}" id="qty_{{ item.id }}" class="qty-input"
+                                min="0" max="{{ item.stock_quantity }}" placeholder="0" data-price="{{ item.price }}"
+                                oninput="calculateTotal()">
+                        </div>
+                    </div>
+                    {% empty %}
+                    <div class="empty">
+                        <i class="fas fa-box-open" style="font-size: 34px; opacity: .4;"></i>
+                        <p>
+                            No products are currently available in this shop.
+                        </p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="summary">
+                <div class="row"><span>Selected units</span><strong id="itemCount">0</strong></div>
+                <div class="total"><span>Estimated total</span><span>₹<span id="displayTotal">0.00</span></span></div>
+                <button type="submit" class="btn-primary"><i class="fas fa-cart-plus"></i> Continue to cart</button>
+                <a href="javascript:history.back()" class="btn-link">Cancel</a>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function calculateTotal() {
+            let total = 0;
+            let count = 0;
+            const inputs = document.querySelectorAll('input[type="number"]');
+
+            inputs.forEach((input) => {
+                const quantity = parseInt(input.value || 0, 10);
+                const price = parseFloat(input.getAttribute('data-price') || 0);
+
+                if (quantity > 0) {
+                    total += quantity * price;
+                    count += quantity;
+                }
+            });
+
+            document.getElementById('displayTotal').innerText = total.toFixed(2);
+            document.getElementById('itemCount').innerText = count;
+        }
+    </script>
+</body>
+
+</html>

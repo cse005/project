@@ -1,0 +1,317 @@
+{% extends 'kisan1/base.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block background_overlay %}
+<div class="role-dashboard-bg"></div>
+{% endblock %}
+
+{% block content %}
+<style>
+    :root {
+        --dash-nav-bg: linear-gradient(135deg, rgba(7, 56, 53, 0.95), rgba(10, 107, 98, 0.9));
+        --dash-filter-bg: rgba(242, 251, 249, 0.92);
+        --dash-filter-border: rgba(255, 255, 255, 0.24);
+        --dash-filter-select-bg: #ffffff;
+        --accent: #0a6b62;
+        --accent-dark: #074a43;
+        --accent-gold: #d97706;
+    }
+
+    .role-dashboard-bg {
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        background:
+            linear-gradient(rgba(5, 36, 34, 0.74), rgba(10, 107, 98, 0.72)),
+            url("{% static 'kisan1/images/fertilizers.jpg' %}") center/cover no-repeat fixed;
+    }
+
+    .dashboard-container {
+        max-width: 1120px;
+        margin: 30px auto;
+        padding: 0 20px 30px;
+    }
+
+    .dealer-header {
+        margin-bottom: 30px;
+        padding: 32px;
+        border-radius: 28px;
+        background: linear-gradient(135deg, rgba(6, 52, 49, 0.92), rgba(10, 107, 98, 0.78));
+        color: white;
+        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.25);
+    }
+
+    .dealer-header h2 {
+        margin: 0 0 8px;
+        font-size: clamp(28px, 4vw, 42px);
+    }
+
+    .dealer-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .dealer-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 14px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.14);
+        font-size: 14px;
+    }
+
+    .section-grid {
+        display: grid;
+        gap: 22px;
+    }
+
+    .section-card {
+        padding: 28px;
+        border-radius: 24px;
+        background: rgba(255, 255, 255, 0.95);
+        box-shadow: 0 18px 34px rgba(15, 23, 42, 0.12);
+    }
+
+    .section-title {
+        margin: 0 0 18px;
+        color: #0f172a;
+        font-size: 22px;
+        font-weight: 800;
+    }
+
+    .add-product-form {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+    }
+
+    .form-input {
+        width: 100%;
+        padding: 14px;
+        border: 1px solid #cbd5e1;
+        border-radius: 12px;
+        background: #f8fafc;
+        box-sizing: border-box;
+    }
+
+    .btn-add {
+        grid-column: 1 / -1;
+        background: var(--accent);
+        color: white;
+        border: none;
+        border-radius: 12px;
+        cursor: pointer;
+        font-weight: 700;
+        padding: 14px;
+    }
+
+    .list-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 18px;
+        padding: 18px 0;
+        border-bottom: 1px solid #e2e8f0;
+    }
+
+    .list-item:last-child {
+        border-bottom: none;
+    }
+
+    .stock-badge,
+    .status-pill {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 8px 14px;
+        border-radius: 999px;
+        font-size: 13px;
+        font-weight: 800;
+    }
+
+    .stock-badge {
+        background: #def7ec;
+        color: var(--accent-dark);
+    }
+
+    .status-pill.status-pending { background: #fff7d6; color: #b45309; }
+    .status-pill.status-confirmed { background: #dcfce7; color: #166534; }
+    .status-pill.status-rejected { background: #fee2e2; color: #b91c1c; }
+    .status-pill.status-cancelled { background: #e2e8f0; color: #334155; }
+
+    .action-row {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        gap: 10px;
+        min-width: 230px;
+    }
+
+    .btn-accept,
+    .btn-reject {
+        border: none;
+        border-radius: 12px;
+        cursor: pointer;
+        font-weight: 700;
+        padding: 12px 18px;
+    }
+
+    .btn-accept {
+        background: #059669;
+        color: white;
+    }
+
+    .btn-reject {
+        background: #fee2e2;
+        color: #b91c1c;
+    }
+
+    .message-banner {
+        margin-bottom: 18px;
+        padding: 14px 18px;
+        border-radius: 16px;
+        background: rgba(255, 255, 255, 0.95);
+        color: var(--accent-dark);
+        font-weight: 700;
+    }
+
+    @media (max-width: 768px) {
+        .add-product-form {
+            grid-template-columns: 1fr;
+        }
+
+        .list-item {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .action-row {
+            min-width: 0;
+            justify-content: stretch;
+        }
+    }
+</style>
+
+<div class="dashboard-container">
+    <div class="dash-nav">
+        <button onclick="history.back()" class="back-btn">{% trans "Back" %}</button>
+
+        <h3 style="margin: 0; text-transform: uppercase;">
+            {{ user.name }} Dashboard
+            <span style="font-size: 0.7em; opacity: 0.9; font-weight: 400; margin-left: 10px;">
+                ({% trans "Role" %}: {% trans "Fertilizer Shop" %})
+            </span>
+        </h3>
+
+        <form method="post" action="{% url 'logout' %}" class="logout-form">
+            {% csrf_token %}
+            <button type="submit" class="logout-btn">{% trans "Logout" %}</button>
+        </form>
+    </div>
+
+    <div class="filter-bar">
+        <label for="dashboardFilter">{% trans "Filter Orders:" %}</label>
+        <select id="dashboardFilter" onchange="filterDashboard()">
+            <option value="all">{% trans "All Tokens" %}</option>
+            <option value="pending">{% trans "Pending" %}</option>
+            <option value="confirmed">{% trans "Confirmed" %}</option>
+            <option value="rejected">{% trans "Rejected" %}</option>
+            <option value="cancelled">{% trans "Cancelled" %}</option>
+        </select>
+    </div>
+
+    <div class="dealer-header">
+        <h2>{% if shop and shop.shop_name %}{{ shop.shop_name }}{% else %}{% trans "My Agro Shop" %}{% endif %}</h2>
+        <div class="dealer-meta">
+            <div class="dealer-pill">{% trans "Dealer" %}: {{ user.name }}</div>
+            <div class="dealer-pill">{% trans "License" %}: {{ shop.license_id|default:"N/A" }}</div>
+            <div class="dealer-pill">{{ user.village }}, {{ user.mandal }}</div>
+        </div>
+    </div>
+
+    {% if messages %}
+    {% for message in messages %}
+    <div class="message-banner">{{ message }}</div>
+    {% endfor %}
+    {% endif %}
+
+    <div class="section-grid">
+        <div class="section-card">
+            <h3 class="section-title">{% trans "Add Inventory Item" %}</h3>
+            <form method="post" class="add-product-form">
+                {% csrf_token %}
+                <input type="text" name="item_name" class="form-input" placeholder="{% trans 'Product name' %}" required>
+                <select name="category" class="form-input" required>
+                    <option value="" disabled selected>{% trans "Select category" %}</option>
+                    <option value="Fertilizer">{% trans "Fertilizer" %}</option>
+                    <option value="Pesticide">{% trans "Pesticide" %}</option>
+                    <option value="Seeds">{% trans "Seeds" %}</option>
+                </select>
+                <input type="number" name="price" class="form-input" min="1" placeholder="{% trans 'Price per unit' %}" required>
+                <input type="number" name="stock_quantity" class="form-input" min="1" placeholder="{% trans 'Available stock' %}" required>
+                <button type="submit" name="add_product" class="btn-add">{% trans "Save to Inventory" %}</button>
+            </form>
+        </div>
+
+        <div class="section-card">
+            <h3 class="section-title">{% trans "Live Inventory" %}</h3>
+            {% for item in inventory %}
+            <div class="list-item">
+                <div>
+                    <strong>{{ item.item_name }}</strong>
+                    <div>{{ item.category }} | Rs. {{ item.price }} / {% trans "unit" %}</div>
+                </div>
+                <span class="stock-badge">{{ item.stock_quantity }} {% trans "Units Left" %}</span>
+            </div>
+            {% empty %}
+            <p>{% trans "No stock added yet." %}</p>
+            {% endfor %}
+        </div>
+
+        <div class="section-card">
+            <h3 class="section-title">{% trans "Farmer Booking Tokens" %}</h3>
+            {% for req in work_requests %}
+            <div class="list-item order-item" data-status="{{ req.status|lower }}">
+                <div>
+                    <strong>{% trans "Token" %} #{{ req.id }} - {{ req.farmer.name }}</strong>
+                    <div>{{ req.farmer.mobile }} | {{ req.farmer.village }}</div>
+                    <div>{{ req.items_ordered }}</div>
+                </div>
+
+                {% if req.status == 'Pending' %}
+                <div class="action-row">
+                    <form method="post" action="{% url 'accept_shop_order' req.id %}" class="inline-form">
+                        {% csrf_token %}
+                        <button type="submit" class="btn-accept">{% trans "Approve" %}</button>
+                    </form>
+                    <form method="post" action="{% url 'reject_shop_order' req.id %}" class="inline-form">
+                        {% csrf_token %}
+                        <button type="submit" class="btn-reject">{% trans "Reject" %}</button>
+                    </form>
+                </div>
+                {% else %}
+                <span class="status-pill status-{{ req.status|lower }}">{{ req.status }}</span>
+                {% endif %}
+            </div>
+            {% empty %}
+            <p>{% trans "No booking requests right now." %}</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<script>
+    function filterDashboard() {
+        const filterValue = document.getElementById('dashboardFilter').value;
+        const orderItems = document.querySelectorAll('.order-item');
+
+        orderItems.forEach((item) => {
+            const status = item.getAttribute('data-status');
+            item.style.display = filterValue === 'all' || status === filterValue ? 'flex' : 'none';
+        });
+    }
+</script>
+{% endblock %}

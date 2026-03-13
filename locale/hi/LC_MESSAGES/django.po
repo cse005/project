@@ -1,0 +1,1440 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-24 14:52+0530\n"
+"Language: hi\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: .\farmer_project\settings.py:136
+msgid "English"
+msgstr "अंग्रेज़ी"
+
+#: .\farmer_project\settings.py:137
+msgid "Telugu"
+msgstr "तेलुगू"
+
+#: .\farmer_project\settings.py:138
+msgid "Hindi"
+msgstr "हिन्दी"
+
+#: .\kisan1\templates\kisan1\base.html:8
+#: .\kisan1\templates\kisan1\login.html:147
+#: .\kisan1\templates\kisan1\welcome.html:199
+msgid "Kisan Asara"
+msgstr "किसान आसरा"
+
+#: .\kisan1\templates\kisan1\book_labor.html:7
+msgid "Hire Labor | Kisan Asara"
+msgstr "मजदूर बुक करें | किसान आसरा"
+
+#: .\kisan1\templates\kisan1\book_labor.html:142
+#: .\kisan1\templates\kisan1\book_shop.html:48
+#: .\kisan1\templates\kisan1\book_tool.html:216
+#: .\kisan1\templates\kisan1\book_tractor.html:142
+#: .\kisan1\templates\kisan1\request_lease.html:42
+msgid "Location:"
+msgstr "स्थान:"
+
+#: .\kisan1\templates\kisan1\book_labor.html:143
+msgid "Skills:"
+msgstr "कौशल:"
+
+#: .\kisan1\templates\kisan1\book_labor.html:144
+#: .\kisan1\templates\kisan1\book_tractor.html:145
+msgid "Wages:"
+msgstr "मजदूरी:"
+
+#: .\kisan1\templates\kisan1\book_labor.html:151
+msgid "No. of"
+msgstr "संख्या:"
+
+#: .\kisan1\templates\kisan1\book_labor.html:151
+msgid "Required:"
+msgstr "आवश्यक:"
+
+#: .\kisan1\templates\kisan1\book_labor.html:158
+#: .\kisan1\templates\kisan1\book_tractor.html:160
+msgid "Date:"
+msgstr "तारीख:"
+
+#: .\kisan1\templates\kisan1\book_labor.html:162
+#: .\kisan1\templates\kisan1\book_tractor.html:164
+msgid "Timing:"
+msgstr "समय:"
+
+#: .\kisan1\templates\kisan1\book_labor.html:165
+#: .\kisan1\templates\kisan1\book_tractor.html:167
+msgid "Available from 05:00 AM to 06:00 PM"
+msgstr "सुबह 05:00 बजे से शाम 06:00 बजे तक उपलब्ध"
+
+#: .\kisan1\templates\kisan1\book_labor.html:171
+#: .\kisan1\templates\kisan1\book_tractor.html:173
+msgid "Location (Field Address):"
+msgstr "स्थान (खेत का पता):"
+
+#: .\kisan1\templates\kisan1\book_labor.html:172
+#: .\kisan1\templates\kisan1\book_tractor.html:174
+msgid "e.g., Survey No 45, Near Main Canal"
+msgstr "जैसे, सर्वे नंबर 45, मुख्य नहर के पास"
+
+#: .\kisan1\templates\kisan1\book_labor.html:177
+#: .\kisan1\templates\kisan1\book_tractor.html:179
+#: .\kisan1\templates\kisan1\booking_form.html:114
+msgid "Total Amount:"
+msgstr "कुल राशि:"
+
+#: .\kisan1\templates\kisan1\book_labor.html:181
+msgid "Hire"
+msgstr "किराए पर लें"
+
+#: .\kisan1\templates\kisan1\book_labor.html:182
+#: .\kisan1\templates\kisan1\book_shop.html:111
+#: .\kisan1\templates\kisan1\book_tool.html:294
+#: .\kisan1\templates\kisan1\book_tractor.html:184
+#: .\kisan1\templates\kisan1\request_lease.html:86
+msgid "Cancel"
+msgstr "रद्द करें"
+
+#: .\kisan1\templates\kisan1\book_labor.html:221
+#: .\kisan1\templates\kisan1\book_tractor.html:222
+msgid "Booking is only allowed between 05:00 AM and 06:00 PM."
+msgstr "बुकिंग केवल सुबह 05:00 बजे से शाम 06:00 बजे के बीच की जा सकती है।"
+
+#: .\kisan1\templates\kisan1\book_shop.html:6
+msgid "Shop Products | Kisan Asara"
+msgstr "दुकान के उत्पाद | किसान आसरा"
+
+#: .\kisan1\templates\kisan1\book_shop.html:46
+#: .\kisan1\templates\kisan1\book_tool.html:214
+msgid "Owner:"
+msgstr "मालिक:"
+
+#: .\kisan1\templates\kisan1\book_shop.html:47
+#: .\kisan1\templates\kisan1\book_tool.html:215
+#: .\kisan1\templates\kisan1\book_tractor.html:143
+#: .\kisan1\templates\kisan1\lease_register.html:169
+#: .\kisan1\templates\kisan1\request_lease.html:41
+msgid "Mobile:"
+msgstr "मोबाइल:"
+
+#: .\kisan1\templates\kisan1\book_shop.html:49
+msgid "Shop License:"
+msgstr "दुकान लाइसेंस:"
+
+#: .\kisan1\templates\kisan1\book_shop.html:57
+#: .\kisan1\templates\kisan1\register_pesticide.html:244
+msgid "Seeds"
+msgstr "बीज"
+
+#: .\kisan1\templates\kisan1\book_shop.html:60
+msgid "Cotton Seed"
+msgstr "कपास का बीज"
+
+#: .\kisan1\templates\kisan1\book_shop.html:61
+msgid "Rate: ₹800 / Pkt"
+msgstr "दर: ₹800 / पैकेट"
+
+#: .\kisan1\templates\kisan1\book_shop.html:62
+msgid "Qty (Pkts)"
+msgstr "मात्रा (पैकेट)"
+
+#: .\kisan1\templates\kisan1\book_shop.html:66
+msgid "Soya Bean Seed"
+msgstr "सोयाबीन का बीज"
+
+#: .\kisan1\templates\kisan1\book_shop.html:67
+msgid "Rate: ₹1200 / Bag"
+msgstr "दर: ₹1200 / बैग"
+
+#: .\kisan1\templates\kisan1\book_shop.html:68
+#: .\kisan1\templates\kisan1\book_shop.html:78
+#: .\kisan1\templates\kisan1\book_shop.html:84
+msgid "Qty (Bags)"
+msgstr "मात्रा (बैग)"
+
+#: .\kisan1\templates\kisan1\book_shop.html:73
+#: .\kisan1\templates\kisan1\register_pesticide.html:243
+msgid "Fertilizers"
+msgstr "उर्वरक"
+
+#: .\kisan1\templates\kisan1\book_shop.html:76
+msgid "UREA"
+msgstr "यूरिया"
+
+#: .\kisan1\templates\kisan1\book_shop.html:77
+msgid "Rate: ₹266 / Bag"
+msgstr "दर: ₹266 / बैग"
+
+#: .\kisan1\templates\kisan1\book_shop.html:82
+msgid "DAP"
+msgstr "डीएपी"
+
+#: .\kisan1\templates\kisan1\book_shop.html:83
+msgid "Rate: ₹1350 / Bag"
+msgstr "दर: ₹1350 / बैग"
+
+#: .\kisan1\templates\kisan1\book_shop.html:89
+#: .\kisan1\templates\kisan1\register_pesticide.html:242
+msgid "Pesticides"
+msgstr "कीटनाशक"
+
+#: .\kisan1\templates\kisan1\book_shop.html:92
+msgid "Pesticide XYZ"
+msgstr "कीटनाशक XYZ"
+
+#: .\kisan1\templates\kisan1\book_shop.html:93
+msgid "Rate: ₹450 / Btl"
+msgstr "दर: ₹450 / बोतल"
+
+#: .\kisan1\templates\kisan1\book_shop.html:94
+#: .\kisan1\templates\kisan1\book_shop.html:100
+msgid "Qty (Btls)"
+msgstr "मात्रा (बोतलें)"
+
+#: .\kisan1\templates\kisan1\book_shop.html:98
+msgid "Pesticide ABC"
+msgstr "कीटनाशक ABC"
+
+#: .\kisan1\templates\kisan1\book_shop.html:99
+msgid "Rate: ₹600 / Btl"
+msgstr "दर: ₹600 / बोतल"
+
+#: .\kisan1\templates\kisan1\book_shop.html:106
+msgid "Cart Total:"
+msgstr "कार्ट कुल:"
+
+#: .\kisan1\templates\kisan1\book_shop.html:110
+msgid "Add to Cart & Place Order"
+msgstr "कार्ट में जोड़ें और ऑर्डर दें"
+
+#: .\kisan1\templates\kisan1\book_tool.html:7
+msgid "Rent Tools | Kisan Asara"
+msgstr "उपकरण किराए पर लें | किसान आसरा"
+
+#: .\kisan1\templates\kisan1\book_tool.html:217
+msgid "Standard Rate:"
+msgstr "मानक दर:"
+
+#: .\kisan1\templates\kisan1\book_tool.html:217
+#: .\kisan1\templates\kisan1\book_tractor.html:145
+#: .\kisan1\templates\kisan1\main_home.html:207
+#: .\kisan1\templates\kisan1\main_home.html:223
+msgid "Hour"
+msgstr "घंटा"
+
+#: .\kisan1\templates\kisan1\book_tool.html:224
+msgid "Choose tools you want to rent:"
+msgstr "वे उपकरण चुनें जिन्हें आप किराए पर लेना चाहते हैं:"
+
+#: .\kisan1\templates\kisan1\book_tool.html:230
+#: .\kisan1\templates\kisan1\book_tool.html:236
+#: .\kisan1\templates\kisan1\book_tool.html:242
+#: .\kisan1\templates\kisan1\book_tool.html:248
+#: .\kisan1\templates\kisan1\farmer_booking.html:73
+msgid "Hours"
+msgstr "घंटे"
+
+#: .\kisan1\templates\kisan1\book_tool.html:255
+msgid "Do you want home delivery to shift the tools?"
+msgstr "क्या आप उपकरणों की होम डिलीवरी चाहते हैं?"
+
+#: .\kisan1\templates\kisan1\book_tool.html:261
+msgid "State"
+msgstr "राज्य"
+
+#: .\kisan1\templates\kisan1\book_tool.html:264
+msgid "District"
+msgstr "ज़िला"
+
+#: .\kisan1\templates\kisan1\book_tool.html:269
+msgid "Mandal"
+msgstr "मंडल"
+
+#: .\kisan1\templates\kisan1\book_tool.html:272
+#: .\kisan1\templates\kisan1\main_home.html:206
+#: .\kisan1\templates\kisan1\main_home.html:256
+msgid "Village"
+msgstr "गाँव"
+
+#: .\kisan1\templates\kisan1\book_tool.html:279
+msgid "Date of Receiving:"
+msgstr "प्राप्त करने की तिथि:"
+
+#: .\kisan1\templates\kisan1\book_tool.html:283
+msgid "Date of Returning:"
+msgstr "लौटाने की तिथि:"
+
+#: .\kisan1\templates\kisan1\book_tool.html:289
+msgid "Estimated Total Amount:"
+msgstr "अनुमानित कुल राशि:"
+
+#: .\kisan1\templates\kisan1\book_tool.html:293
+msgid "Book Tools"
+msgstr "उपकरण बुक करें"
+
+#: .\kisan1\templates\kisan1\book_tractor.html:7
+msgid "Book Tractor | Kisan Asara"
+msgstr "ट्रैक्टर बुक करें | किसान आसरा"
+
+#: .\kisan1\templates\kisan1\book_tractor.html:144
+msgid "Services:"
+msgstr "सेवाएं:"
+
+#: .\kisan1\templates\kisan1\book_tractor.html:146
+msgid "License ID:"
+msgstr "लाइसेंस आईडी:"
+
+#: .\kisan1\templates\kisan1\book_tractor.html:153
+msgid "No. of hours tractor required:"
+msgstr "आवश्यक ट्रैक्टर घंटों की संख्या:"
+
+#: .\kisan1\templates\kisan1\book_tractor.html:183
+#: .\kisan1\templates\kisan1\booking_form.html:91
+msgid "Book"
+msgstr "बुक करें"
+
+#: .\kisan1\templates\kisan1\booking_form.html:7
+msgid "Book Service | Kisan Asara"
+msgstr "सेवा बुक करें | किसान आसरा"
+
+#: .\kisan1\templates\kisan1\booking_form.html:102
+msgid "Select Date"
+msgstr "तारीख चुनें"
+
+#: .\kisan1\templates\kisan1\booking_form.html:106
+msgid "Number of Days"
+msgstr "दिनों की संख्या"
+
+#: .\kisan1\templates\kisan1\booking_form.html:109
+msgid "Number of Hours"
+msgstr "घंटों की संख्या"
+
+#: .\kisan1\templates\kisan1\booking_form.html:117
+msgid "Confirm Booking"
+msgstr "बुकिंग की पुष्टि करें"
+
+#: .\kisan1\templates\kisan1\dashboard_labour.html:201
+#: .\kisan1\templates\kisan1\dashboard_lease.html:203
+#: .\kisan1\templates\kisan1\dashboard_tools.html:185
+#: .\kisan1\templates\kisan1\dashboard_tractor.html:162
+#: .\kisan1\templates\kisan1\pfs_dashboard.html:212
+msgid "Status"
+msgstr "स्थिति"
+
+#: .\kisan1\templates\kisan1\dashboard_labour.html:202
+msgid "ACTIVE LABOR"
+msgstr "सक्रिय मजदूर"
+
+#: .\kisan1\templates\kisan1\dashboard_labour.html:206
+msgid "New Work Requests"
+msgstr "नये कार्य अनुरोध"
+
+#: .\kisan1\templates\kisan1\dashboard_labour.html:212
+#: .\kisan1\templates\kisan1\dashboard_lease.html:214
+#: .\kisan1\templates\kisan1\dashboard_tools.html:196
+#: .\kisan1\templates\kisan1\login.html:181
+#: .\kisan1\templates\kisan1\pfs_dashboard.html:272
+#: .\kisan1\templates\kisan1\register_choice.html:176
+#: .\kisan1\templates\kisan1\register_choice.html:178
+msgid "Farmer"
+msgstr "किसान"
+
+#: .\kisan1\templates\kisan1\dashboard_labour.html:213
+#: .\kisan1\templates\kisan1\dashboard_lease.html:215
+#: .\kisan1\templates\kisan1\dashboard_tools.html:197
+msgid "Mobile"
+msgstr "मोबाइल"
+
+#: .\kisan1\templates\kisan1\dashboard_labour.html:214
+msgid "Location"
+msgstr "स्थान"
+
+#: .\kisan1\templates\kisan1\dashboard_labour.html:215
+msgid "Date"
+msgstr "तारीख"
+
+#: .\kisan1\templates\kisan1\dashboard_labour.html:219
+#: .\kisan1\templates\kisan1\labor_register.html:203
+msgid "Per Day"
+msgstr "प्रति दिन"
+
+#: .\kisan1\templates\kisan1\dashboard_labour.html:227
+msgid "Accept Work"
+msgstr "कार्य स्वीकार करें"
+
+#: .\kisan1\templates\kisan1\dashboard_labour.html:239
+msgid "No work requests yet."
+msgstr "अभी तक कोई कार्य अनुरोध नहीं है।"
+
+#: .\kisan1\templates\kisan1\dashboard_labour.html:240
+msgid "Available requests from farmers will appear here."
+msgstr "किसानों से उपलब्ध अनुरोध यहाँ दिखाई देंगे।"
+
+#: .\kisan1\templates\kisan1\dashboard_lease.html:204
+msgid "ACTIVE LISTING"
+msgstr "सक्रिय लिस्टिंग"
+
+#: .\kisan1\templates\kisan1\dashboard_lease.html:208
+msgid "New Lease Inquiries"
+msgstr "नयी पट्टा पूछताछ"
+
+#: .\kisan1\templates\kisan1\dashboard_lease.html:216
+msgid "Requested Soil"
+msgstr "अनुरोधित मिट्टी"
+
+#: .\kisan1\templates\kisan1\dashboard_lease.html:217
+msgid "Duration"
+msgstr "अवधि"
+
+#: .\kisan1\templates\kisan1\dashboard_lease.html:217
+msgid "Months"
+msgstr "महीने"
+
+#: .\kisan1\templates\kisan1\dashboard_lease.html:218
+msgid "Starting"
+msgstr "प्रारंभ"
+
+#: .\kisan1\templates\kisan1\dashboard_lease.html:229
+msgid "Approve Meeting"
+msgstr "मीटिंग स्वीकृत करें"
+
+#: .\kisan1\templates\kisan1\dashboard_lease.html:234
+msgid "Agreement Pending"
+msgstr "अनुबंध लंबित है"
+
+#: .\kisan1\templates\kisan1\dashboard_lease.html:242
+msgid "No inquiries yet."
+msgstr "अभी तक कोई पूछताछ नहीं है।"
+
+#: .\kisan1\templates\kisan1\dashboard_lease.html:243
+msgid "Interested farmers will appear here once they request a lease."
+msgstr "पट्टे का अनुरोध करने के बाद इच्छुक किसान यहाँ दिखाई देंगे।"
+
+#: .\kisan1\templates\kisan1\dashboard_tools.html:186
+#: .\kisan1\templates\kisan1\dashboard_tractor.html:163
+#: .\kisan1\templates\kisan1\pfs_dashboard.html:213
+msgid "ACTIVE SERVICE"
+msgstr "सक्रिय सेवा"
+
+#: .\kisan1\templates\kisan1\dashboard_tools.html:190
+msgid "New Rental Requests"
+msgstr "नये किराये के अनुरोध"
+
+#: .\kisan1\templates\kisan1\dashboard_tools.html:198
+msgid "Dates"
+msgstr "तिथियां"
+
+#: .\kisan1\templates\kisan1\dashboard_tools.html:198
+msgid "to"
+msgstr "से"
+
+#: .\kisan1\templates\kisan1\dashboard_tools.html:200
+msgid "Delivery"
+msgstr "डिलीवरी"
+
+#: .\kisan1\templates\kisan1\dashboard_tools.html:201
+msgid "Pickup from Shop"
+msgstr "दुकान से पिकअप"
+
+#: .\kisan1\templates\kisan1\dashboard_tools.html:204
+msgid "Tools"
+msgstr "उपकरण"
+
+#: .\kisan1\templates\kisan1\dashboard_tools.html:204
+msgid "Total"
+msgstr "कुल"
+
+#: .\kisan1\templates\kisan1\dashboard_tools.html:212
+msgid "Accept Rental"
+msgstr "किराया स्वीकार करें"
+
+#: .\kisan1\templates\kisan1\dashboard_tools.html:224
+msgid "No active rental requests."
+msgstr "कोई सक्रिय किराये के अनुरोध नहीं हैं।"
+
+#: .\kisan1\templates\kisan1\dashboard_tools.html:225
+msgid "Requests from farmers will appear here."
+msgstr "किसानों के अनुरोध यहाँ दिखाई देंगे।"
+
+#: .\kisan1\templates\kisan1\dashboard_tractor.html:167
+msgid "New Booking Requests"
+msgstr "नये बुकिंग अनुरोध"
+
+#: .\kisan1\templates\kisan1\dashboard_tractor.html:198
+msgid "No active bookings for your tractor right now."
+msgstr "अभी आपके ट्रैक्टर के लिए कोई सक्रिय बुकिंग नहीं है।"
+
+#: .\kisan1\templates\kisan1\dashboard_tractor.html:199
+msgid "Available bookings will appear here."
+msgstr "उपलब्ध बुकिंग यहाँ दिखाई देंगी।"
+
+#: .\kisan1\templates\kisan1\farmer_booking.html:6
+msgid "My Service Requests | Kisan Asara"
+msgstr "मेरे सेवा अनुरोध | किसान आसरा"
+
+#: .\kisan1\templates\kisan1\farmer_booking.html:40
+msgid "My Service Requests"
+msgstr "मेरे सेवा अनुरोध"
+
+#: .\kisan1\templates\kisan1\farmer_booking.html:45
+msgid "You haven't booked any services yet."
+msgstr "आपने अभी तक कोई सेवा बुक नहीं की है।"
+
+#: .\kisan1\templates\kisan1\farmer_booking.html:50
+msgid "Tool Rentals"
+msgstr "उपकरण किराये"
+
+#: .\kisan1\templates\kisan1\farmer_booking.html:55
+msgid "Tools:"
+msgstr "उपकरण:"
+
+#: .\kisan1\templates\kisan1\farmer_booking.html:56
+msgid "Dates:"
+msgstr "तिथियां:"
+
+#: .\kisan1\templates\kisan1\farmer_booking.html:67
+msgid "Tractor Bookings"
+msgstr "ट्रैक्टर बुकिंग"
+
+#: .\kisan1\templates\kisan1\farmer_booking.html:72
+#: .\kisan1\templates\kisan1\farmer_booking.html:89
+msgid "Date & Time:"
+msgstr "दिनांक और समय:"
+
+#: .\kisan1\templates\kisan1\farmer_booking.html:73
+#: .\kisan1\templates\kisan1\farmer_booking.html:90
+#: .\kisan1\templates\kisan1\farmer_booking.html:124
+msgid "Duration:"
+msgstr "अवधि:"
+
+#: .\kisan1\templates\kisan1\farmer_booking.html:84
+msgid "Labor Bookings"
+msgstr "मजदूर बुकिंग"
+
+#: .\kisan1\templates\kisan1\farmer_booking.html:101
+msgid "Shop Orders"
+msgstr "दुकान के ऑर्डर"
+
+#: .\kisan1\templates\kisan1\farmer_booking.html:106
+msgid "Items:"
+msgstr "सामग्री:"
+
+#: .\kisan1\templates\kisan1\farmer_booking.html:107
+msgid "Ordered On:"
+msgstr "ऑर्डर की तारीख:"
+
+#: .\kisan1\templates\kisan1\farmer_booking.html:118
+msgid "Lease Requests"
+msgstr "पट्टा अनुरोध"
+
+#: .\kisan1\templates\kisan1\farmer_booking.html:123
+msgid "Requested Soil:"
+msgstr "अनुरोधित मिट्टी:"
+
+#: .\kisan1\templates\kisan1\farmer_booking.html:124
+msgid "Months starting"
+msgstr "प्रारंभ महीने"
+
+#: .\kisan1\templates\kisan1\farmer_booking.html:135
+msgid "Back to Services"
+msgstr "सेवाओं पर वापस जाएं"
+
+#: .\kisan1\templates\kisan1\farmer_register.html:9
+msgid "Farmer Registration | Kisan Asara"
+msgstr "किसान पंजीकरण | किसान आसरा"
+
+#: .\kisan1\templates\kisan1\farmer_register.html:122
+msgid "Farmer Registration"
+msgstr "किसान पंजीकरण"
+
+#: .\kisan1\templates\kisan1\farmer_register.html:123
+msgid "Join Kisan Asara and grow your farming future"
+msgstr "किसान आसरा से जुड़ें और अपना खेती का भविष्य संवारें"
+
+#: .\kisan1\templates\kisan1\farmer_register.html:130
+#: .\kisan1\templates\kisan1\labor_register.html:170
+#: .\kisan1\templates\kisan1\lease_register.html:159
+#: .\kisan1\templates\kisan1\tractor_register.html:172
+msgid "Full name:"
+msgstr "पूरा नाम:"
+
+#: .\kisan1\templates\kisan1\farmer_register.html:131
+#: .\kisan1\templates\kisan1\labor_register.html:171
+#: .\kisan1\templates\kisan1\lease_register.html:160
+#: .\kisan1\templates\kisan1\tools_register.html:177
+#: .\kisan1\templates\kisan1\tractor_register.html:173
+msgid "e.g., Ramesh Kumar"
+msgstr "जैसे, रमेश कुमार"
+
+#: .\kisan1\templates\kisan1\farmer_register.html:132
+#: .\kisan1\templates\kisan1\labor_register.html:171
+msgid "Only letters and spaces allowed"
+msgstr "केवल अक्षर और स्पेस की अनुमति है"
+
+#: .\kisan1\templates\kisan1\farmer_register.html:136
+msgid "Phone:"
+msgstr "फोन:"
+
+#: .\kisan1\templates\kisan1\farmer_register.html:137
+#: .\kisan1\templates\kisan1\labor_register.html:181
+msgid "e.g., 9876543210"
+msgstr "जैसे, 9876543210"
+
+#: .\kisan1\templates\kisan1\farmer_register.html:138
+#: .\kisan1\templates\kisan1\labor_register.html:181
+msgid "Enter a valid 10-digit Indian mobile number"
+msgstr "एक वैध 10-अंकों का भारतीय मोबाइल नंबर दर्ज करें"
+
+#: .\kisan1\templates\kisan1\farmer_register.html:142
+#: .\kisan1\templates\kisan1\labor_register.html:176
+#: .\kisan1\templates\kisan1\lease_register.html:165
+#: .\kisan1\templates\kisan1\register_pesticide.html:182
+#: .\kisan1\templates\kisan1\tools_register.html:188
+#: .\kisan1\templates\kisan1\tractor_register.html:178
+msgid "Age:"
+msgstr "आयु:"
+
+#: .\kisan1\templates\kisan1\farmer_register.html:143
+msgid "e.g., 45"
+msgstr "जैसे, 45"
+
+#: .\kisan1\templates\kisan1\farmer_register.html:147
+#: .\kisan1\templates\kisan1\labor_register.html:186
+msgid "Gender:"
+msgstr "लिंग:"
+
+#: .\kisan1\templates\kisan1\farmer_register.html:149
+#: .\kisan1\templates\kisan1\labor_register.html:188
+msgid "Select Gender"
+msgstr "लिंग चुनें"
+
+#: .\kisan1\templates\kisan1\farmer_register.html:150
+#: .\kisan1\templates\kisan1\labor_register.html:189
+msgid "Male"
+msgstr "पुरुष"
+
+#: .\kisan1\templates\kisan1\farmer_register.html:151
+#: .\kisan1\templates\kisan1\labor_register.html:190
+msgid "Female"
+msgstr "महिला"
+
+#: .\kisan1\templates\kisan1\farmer_register.html:152
+#: .\kisan1\templates\kisan1\labor_register.html:191
+msgid "Other"
+msgstr "अन्य"
+
+#: .\kisan1\templates\kisan1\farmer_register.html:157
+msgid "Pattadar Passbook No:"
+msgstr "पट्टादार पासबुक नंबर:"
+
+#: .\kisan1\templates\kisan1\farmer_register.html:163
+msgid "* Must start with 'T' followed by exactly 11 numbers"
+msgstr "* 'T' से शुरू होना चाहिए और उसके बाद ठीक 11 अंक होने चाहिए"
+
+#: .\kisan1\templates\kisan1\farmer_register.html:169
+#: .\kisan1\templates\kisan1\labor_register.html:211
+#: .\kisan1\templates\kisan1\lease_register.html:176
+#: .\kisan1\templates\kisan1\register_pesticide.html:194
+#: .\kisan1\templates\kisan1\tools_register.html:200
+#: .\kisan1\templates\kisan1\tractor_register.html:200
+msgid "State:"
+msgstr "राज्य:"
+
+#: .\kisan1\templates\kisan1\farmer_register.html:171
+#: .\kisan1\templates\kisan1\labor_register.html:213
+#: .\kisan1\templates\kisan1\lease_register.html:178
+#: .\kisan1\templates\kisan1\register_pesticide.html:196
+#: .\kisan1\templates\kisan1\tools_register.html:202
+#: .\kisan1\templates\kisan1\tractor_register.html:202
+msgid "Select State"
+msgstr "राज्य चुनें"
+
+#: .\kisan1\templates\kisan1\farmer_register.html:175
+#: .\kisan1\templates\kisan1\labor_register.html:217
+#: .\kisan1\templates\kisan1\lease_register.html:182
+#: .\kisan1\templates\kisan1\register_pesticide.html:200
+#: .\kisan1\templates\kisan1\tools_register.html:206
+#: .\kisan1\templates\kisan1\tractor_register.html:206
+msgid "District:"
+msgstr "ज़िला:"
+
+#: .\kisan1\templates\kisan1\farmer_register.html:177
+#: .\kisan1\templates\kisan1\labor_register.html:219
+#: .\kisan1\templates\kisan1\lease_register.html:184
+#: .\kisan1\templates\kisan1\register_pesticide.html:202
+#: .\kisan1\templates\kisan1\tools_register.html:208
+#: .\kisan1\templates\kisan1\tractor_register.html:208
+msgid "Select District"
+msgstr "ज़िला चुनें"
+
+#: .\kisan1\templates\kisan1\farmer_register.html:184
+#: .\kisan1\templates\kisan1\labor_register.html:226
+#: .\kisan1\templates\kisan1\lease_register.html:191
+#: .\kisan1\templates\kisan1\register_pesticide.html:209
+#: .\kisan1\templates\kisan1\tools_register.html:215
+#: .\kisan1\templates\kisan1\tractor_register.html:215
+msgid "Mandal:"
+msgstr "मंडल:"
+
+#: .\kisan1\templates\kisan1\farmer_register.html:186
+#: .\kisan1\templates\kisan1\labor_register.html:228
+#: .\kisan1\templates\kisan1\lease_register.html:193
+#: .\kisan1\templates\kisan1\register_pesticide.html:211
+#: .\kisan1\templates\kisan1\tools_register.html:217
+#: .\kisan1\templates\kisan1\tractor_register.html:217
+msgid "Select Mandal"
+msgstr "मंडल चुनें"
+
+#: .\kisan1\templates\kisan1\farmer_register.html:190
+#: .\kisan1\templates\kisan1\labor_register.html:232
+#: .\kisan1\templates\kisan1\lease_register.html:197
+#: .\kisan1\templates\kisan1\register_pesticide.html:215
+#: .\kisan1\templates\kisan1\tools_register.html:221
+#: .\kisan1\templates\kisan1\tractor_register.html:221
+msgid "Village:"
+msgstr "गाँव:"
+
+#: .\kisan1\templates\kisan1\farmer_register.html:192
+#: .\kisan1\templates\kisan1\labor_register.html:234
+#: .\kisan1\templates\kisan1\lease_register.html:199
+#: .\kisan1\templates\kisan1\register_pesticide.html:217
+#: .\kisan1\templates\kisan1\tools_register.html:223
+#: .\kisan1\templates\kisan1\tractor_register.html:223
+msgid "Select Village"
+msgstr "गाँव चुनें"
+
+#: .\kisan1\templates\kisan1\farmer_register.html:197
+#: .\kisan1\templates\kisan1\tractor_register.html:273
+#: .\kisan1\templates\kisan1\welcome.html:209
+msgid "Register"
+msgstr "पंजीकरण"
+
+#: .\kisan1\templates\kisan1\labor_register.html:8
+msgid "Labor Registration | Kisan Asara"
+msgstr "मजदूर पंजीकरण | किसान आसरा"
+
+#: .\kisan1\templates\kisan1\labor_register.html:162
+msgid "Labor Registration"
+msgstr "मजदूर पंजीकरण"
+
+#: .\kisan1\templates\kisan1\labor_register.html:163
+msgid "Complete your profile & get employability / work opportunities"
+msgstr "अपनी प्रोफ़ाइल पूरी करें और रोजगार / काम के अवसर पाएं"
+
+#: .\kisan1\templates\kisan1\labor_register.html:177
+msgid "e.g., 25"
+msgstr "जैसे, 25"
+
+#: .\kisan1\templates\kisan1\labor_register.html:180
+#: .\kisan1\templates\kisan1\register_pesticide.html:186
+#: .\kisan1\templates\kisan1\tools_register.html:192
+#: .\kisan1\templates\kisan1\tractor_register.html:189
+msgid "Mobile No:"
+msgstr "मोबाइल नंबर:"
+
+#: .\kisan1\templates\kisan1\labor_register.html:197
+msgid "Wage Amount (₹):"
+msgstr "मजदूरी राशि (₹):"
+
+#: .\kisan1\templates\kisan1\labor_register.html:198
+msgid "e.g., 500"
+msgstr "जैसे, 500"
+
+#: .\kisan1\templates\kisan1\labor_register.html:201
+msgid "Per Day / Hour:"
+msgstr "प्रति दिन / घंटा:"
+
+#: .\kisan1\templates\kisan1\labor_register.html:204
+msgid "Per Hour"
+msgstr "प्रति घंटा"
+
+#: .\kisan1\templates\kisan1\labor_register.html:240
+msgid "Select your skills:"
+msgstr "अपने कौशल का चयन करें:"
+
+#: .\kisan1\templates\kisan1\labor_register.html:244
+msgid "Harvesting"
+msgstr "कटाई"
+
+#: .\kisan1\templates\kisan1\labor_register.html:245
+#: .\kisan1\templates\kisan1\labor_register.html:250
+#: .\kisan1\templates\kisan1\labor_register.html:255
+msgid "Years of exp"
+msgstr "अनुभव (वर्षों में)"
+
+#: .\kisan1\templates\kisan1\labor_register.html:249
+#: .\kisan1\templates\kisan1\tractor_register.html:240
+msgid "Ploughing"
+msgstr "जुताई"
+
+#: .\kisan1\templates\kisan1\labor_register.html:254
+msgid "Sowing"
+msgstr "बुवाई"
+
+#: .\kisan1\templates\kisan1\labor_register.html:261
+msgid "Submit ➔ Register"
+msgstr "सबमिट करें ➔ पंजीकरण करें"
+
+#: .\kisan1\templates\kisan1\lease_register.html:8
+msgid "Lease Land Registration | Kisan Asara"
+msgstr "पट्टा भूमि पंजीकरण | किसान आसरा"
+
+#: .\kisan1\templates\kisan1\lease_register.html:151
+msgid "Lease Land Registration"
+msgstr "पट्टा भूमि पंजीकरण"
+
+#: .\kisan1\templates\kisan1\lease_register.html:152
+msgid "List your property and find the best farmers"
+msgstr "अपनी संपत्ति सूचीबद्ध करें और सर्वश्रेष्ठ किसान खोजें"
+
+#: .\kisan1\templates\kisan1\lease_register.html:166
+#: .\kisan1\templates\kisan1\register_pesticide.html:183
+#: .\kisan1\templates\kisan1\tools_register.html:189
+#: .\kisan1\templates\kisan1\tractor_register.html:179
+msgid "18-60"
+msgstr "18-60"
+
+#: .\kisan1\templates\kisan1\lease_register.html:170
+#: .\kisan1\templates\kisan1\register_pesticide.html:187
+#: .\kisan1\templates\kisan1\tools_register.html:193
+#: .\kisan1\templates\kisan1\tractor_register.html:190
+msgid "10-digit number"
+msgstr "10-अंकों की संख्या"
+
+#: .\kisan1\templates\kisan1\lease_register.html:206
+#: .\kisan1\templates\kisan1\request_lease.html:44
+msgid "Water Resource:"
+msgstr "जल संसाधन:"
+
+#: .\kisan1\templates\kisan1\lease_register.html:208
+msgid "Select source"
+msgstr "स्रोत चुनें"
+
+#: .\kisan1\templates\kisan1\lease_register.html:209
+msgid "Borewell"
+msgstr "बोरवेल"
+
+#: .\kisan1\templates\kisan1\lease_register.html:210
+msgid "Canal"
+msgstr "नहर"
+
+#: .\kisan1\templates\kisan1\lease_register.html:211
+msgid "River"
+msgstr "नदी"
+
+#: .\kisan1\templates\kisan1\lease_register.html:212
+msgid "Rainfed"
+msgstr "वर्षा आधारित"
+
+#: .\kisan1\templates\kisan1\lease_register.html:216
+msgid "Total Land (Acres):"
+msgstr "कुल भूमि (एकड़):"
+
+#: .\kisan1\templates\kisan1\lease_register.html:217
+msgid "e.g., 5.5"
+msgstr "जैसे, 5.5"
+
+#: .\kisan1\templates\kisan1\lease_register.html:222
+msgid "Choose Soil Types:"
+msgstr "मिट्टी के प्रकार चुनें:"
+
+#: .\kisan1\templates\kisan1\lease_register.html:226
+#: .\kisan1\templates\kisan1\request_lease.html:60
+msgid "Red Soil"
+msgstr "लाल मिट्टी"
+
+#: .\kisan1\templates\kisan1\lease_register.html:227
+#: .\kisan1\templates\kisan1\lease_register.html:233
+#: .\kisan1\templates\kisan1\lease_register.html:239
+msgid "How many acres?"
+msgstr "कितने एकड़?"
+
+#: .\kisan1\templates\kisan1\lease_register.html:228
+#: .\kisan1\templates\kisan1\lease_register.html:234
+#: .\kisan1\templates\kisan1\lease_register.html:240
+msgid " per acre (₹)"
+msgstr "प्रति एकड़ (₹)"
+
+#: .\kisan1\templates\kisan1\lease_register.html:232
+#: .\kisan1\templates\kisan1\request_lease.html:56
+msgid "Black Soil"
+msgstr "काली मिट्टी"
+
+#: .\kisan1\templates\kisan1\lease_register.html:238
+#: .\kisan1\templates\kisan1\request_lease.html:64
+msgid "Alluvial Soil"
+msgstr "जलोढ़ मिट्टी"
+
+#: .\kisan1\templates\kisan1\lease_register.html:247
+#: .\kisan1\templates\kisan1\request_lease.html:45
+msgid "Passbook No:"
+msgstr "पासबुक नंबर:"
+
+#: .\kisan1\templates\kisan1\lease_register.html:250
+msgid "e.g., T12345678901"
+msgstr "जैसे, T12345678901"
+
+#: .\kisan1\templates\kisan1\lease_register.html:258
+msgid "Strictly 12 characters: 1 Capital alphabet & remaining 11 Numbers"
+msgstr "ठीक 12 अक्षर: 1 बड़ा अक्षर और शेष 11 अंक"
+
+#: .\kisan1\templates\kisan1\lease_register.html:262
+#: .\kisan1\templates\kisan1\tools_register.html:279
+msgid "Register ➔"
+msgstr "पंजीकरण करें ➔"
+
+#: .\kisan1\templates\kisan1\login.html:9
+msgid "Login | Kisan Asara"
+msgstr "लॉगिन | किसान आसरा"
+
+#: .\kisan1\templates\kisan1\login.html:149
+msgid "Welcome Back"
+msgstr "आपका फिर से स्वागत है"
+
+#: .\kisan1\templates\kisan1\login.html:171
+#: .\kisan1\templates\kisan1\register_pesticide.html:176
+msgid "Full Name"
+msgstr "पूरा नाम"
+
+#: .\kisan1\templates\kisan1\login.html:172
+msgid "Enter your full name"
+msgstr "अपना पूरा नाम दर्ज करें"
+
+#: .\kisan1\templates\kisan1\login.html:173
+msgid "Please enter letters only"
+msgstr "कृपया केवल अक्षर दर्ज करें"
+
+#: .\kisan1\templates\kisan1\login.html:178
+msgid "Login As"
+msgstr "इस रूप में लॉगिन करें"
+
+#: .\kisan1\templates\kisan1\login.html:180
+msgid "Select Role"
+msgstr "भूमिका चुनें"
+
+#: .\kisan1\templates\kisan1\login.html:182
+#: .\kisan1\templates\kisan1\register_choice.html:183
+#: .\kisan1\templates\kisan1\register_choice.html:185
+msgid "Tractor Driver"
+msgstr "ट्रैक्टर चालक"
+
+#: .\kisan1\templates\kisan1\login.html:183
+#: .\kisan1\templates\kisan1\register_choice.html:190
+#: .\kisan1\templates\kisan1\register_choice.html:192
+msgid "Labor"
+msgstr "मजदूर"
+
+#: .\kisan1\templates\kisan1\login.html:184
+msgid "Tools Provider"
+msgstr "उपकरण प्रदाता"
+
+#: .\kisan1\templates\kisan1\login.html:185
+#: .\kisan1\templates\kisan1\register_choice.html:197
+#: .\kisan1\templates\kisan1\register_choice.html:199
+msgid "Lease Owner"
+msgstr "पट्टा मालिक"
+
+#: .\kisan1\templates\kisan1\login.html:186
+msgid "Fertilizer Shop"
+msgstr "उर्वरक की दुकान"
+
+#: .\kisan1\templates\kisan1\login.html:191
+msgid "Mobile Number"
+msgstr "मोबाइल नंबर"
+
+#: .\kisan1\templates\kisan1\login.html:192
+msgid "10-digit mobile number"
+msgstr "10-अंकों का मोबाइल नंबर"
+
+#: .\kisan1\templates\kisan1\login.html:196
+msgid "Send OTP ➔"
+msgstr "OTP भेजें ➔"
+
+#: .\kisan1\templates\kisan1\login.html:200
+msgid "New user?"
+msgstr "नये उपयोगकर्ता?"
+
+#: .\kisan1\templates\kisan1\login.html:200
+msgid "Register here"
+msgstr "यहाँ पंजीकरण करें"
+
+#: .\kisan1\templates\kisan1\main_home.html:174
+msgid "My Requests"
+msgstr "मेरे अनुरोध"
+
+#: .\kisan1\templates\kisan1\main_home.html:180
+msgid "Welcome to Farmer Portal"
+msgstr "किसान पोर्टल में आपका स्वागत है"
+
+#: .\kisan1\templates\kisan1\main_home.html:181
+msgid "Your one-stop solution for Agricultural Services!"
+msgstr "कृषि सेवाओं के लिए आपका वन-स्टॉप समाधान!"
+
+#: .\kisan1\templates\kisan1\main_home.html:184
+msgid "Available Laborers"
+msgstr "उपलब्ध मजदूर"
+
+#: .\kisan1\templates\kisan1\main_home.html:190
+msgid "Skills"
+msgstr "कौशल"
+
+#: .\kisan1\templates\kisan1\main_home.html:193
+msgid "Book Labor"
+msgstr "मजदूर बुक करें"
+
+#: .\kisan1\templates\kisan1\main_home.html:196
+msgid "No laborers available right now."
+msgstr "अभी कोई मजदूर उपलब्ध नहीं है।"
+
+#: .\kisan1\templates\kisan1\main_home.html:200
+msgid "Tractor Services"
+msgstr "ट्रैक्टर सेवाएं"
+
+#: .\kisan1\templates\kisan1\main_home.html:209
+msgid "Book Tractor"
+msgstr "ट्रैक्टर बुक करें"
+
+#: .\kisan1\templates\kisan1\main_home.html:212
+msgid "No tractors available."
+msgstr "कोई ट्रैक्टर उपलब्ध नहीं है।"
+
+#: .\kisan1\templates\kisan1\main_home.html:216
+msgid "Farm Tools for Rent"
+msgstr "किराये के लिए कृषि उपकरण"
+
+#: .\kisan1\templates\kisan1\main_home.html:222
+msgid "Available"
+msgstr "उपलब्ध"
+
+#: .\kisan1\templates\kisan1\main_home.html:225
+msgid "Rent Tools Now"
+msgstr "अभी उपकरण किराए पर लें"
+
+#: .\kisan1\templates\kisan1\main_home.html:228
+msgid "No tool providers found."
+msgstr "कोई उपकरण प्रदाता नहीं मिला।"
+
+#: .\kisan1\templates\kisan1\main_home.html:232
+msgid "Land for Lease"
+msgstr "पट्टे के लिए भूमि"
+
+#: .\kisan1\templates\kisan1\main_home.html:238
+msgid "Area"
+msgstr "क्षेत्र"
+
+#: .\kisan1\templates\kisan1\main_home.html:238
+msgid "Acres"
+msgstr "एकड़"
+
+#: .\kisan1\templates\kisan1\main_home.html:239
+msgid "Soil"
+msgstr "मिट्टी"
+
+#: .\kisan1\templates\kisan1\main_home.html:240
+msgid "Day"
+msgstr "दिन"
+
+#: .\kisan1\templates\kisan1\main_home.html:242
+msgid "Request Lease"
+msgstr "पट्टे का अनुरोध करें"
+
+#: .\kisan1\templates\kisan1\main_home.html:245
+msgid "No land available for lease."
+msgstr "पट्टे के लिए कोई भूमि उपलब्ध नहीं है।"
+
+#: .\kisan1\templates\kisan1\main_home.html:249
+msgid "Fertilizer & Pesticide Shops"
+msgstr "उर्वरक और कीटनाशक की दुकानें"
+
+#: .\kisan1\templates\kisan1\main_home.html:255
+msgid "Owner"
+msgstr "मालिक"
+
+#: .\kisan1\templates\kisan1\main_home.html:257
+msgid "Products"
+msgstr "उत्पाद"
+
+#: .\kisan1\templates\kisan1\main_home.html:260
+msgid "Trusted for"
+msgstr "भरोसेमंद"
+
+#: .\kisan1\templates\kisan1\main_home.html:260
+msgid "years"
+msgstr "वर्षों से"
+
+#: .\kisan1\templates\kisan1\main_home.html:263
+msgid "Buy Products"
+msgstr "उत्पाद खरीदें"
+
+#: .\kisan1\templates\kisan1\main_home.html:266
+msgid "No shops available in your area yet."
+msgstr "अभी आपके क्षेत्र में कोई दुकान उपलब्ध नहीं है।"
+
+#: .\kisan1\templates\kisan1\order_success.html:9
+msgid "Order Confirmed"
+msgstr "ऑर्डर की पुष्टि की गई"
+
+#: .\kisan1\templates\kisan1\order_success.html:139
+msgid "Order Confirmed!"
+msgstr "ऑर्डर की पुष्टि की गई!"
+
+#: .\kisan1\templates\kisan1\order_success.html:142
+msgid ""
+"\n"
+"            Your fertilizer and pesticide order has been successfully "
+"placed. \n"
+"            Our representative will contact you within <strong>24 hours</"
+"strong> to confirm delivery.\n"
+"            "
+msgstr "आपका उर्वरक और कीटनाशक का ऑर्डर सफलतापूर्वक रखा गया है। हमारे प्रतिनिधि डिलीवरी की पुष्टि के लिए 24 घंटे के भीतर आपसे संपर्क करेंगे।"
+
+#: .\kisan1\templates\kisan1\order_success.html:149
+msgid "Back to Dashboard"
+msgstr "डैशबोर्ड पर वापस जाएं"
+
+#: .\kisan1\templates\kisan1\otp.html:8
+#: .\kisan1\templates\kisan1\otp_verify.html:9
+msgid "Verify OTP | Kisan Asara"
+msgstr "OTP सत्यापित करें | किसान आसरा"
+
+#: .\kisan1\templates\kisan1\otp.html:95
+#: .\kisan1\templates\kisan1\otp_verification.html:8
+#: .\kisan1\templates\kisan1\otp_verification.html:88
+#: .\kisan1\templates\kisan1\otp_verify.html:95
+msgid "Verify OTP"
+msgstr "OTP सत्यापित करें"
+
+#: .\kisan1\templates\kisan1\otp.html:97
+#: .\kisan1\templates\kisan1\otp_verification.html:89
+msgid "Enter the 4-digit code sent to your terminal"
+msgstr "अपने टर्मिनल पर भेजा गया 4-अंकों का कोड दर्ज करें"
+
+#: .\kisan1\templates\kisan1\otp.html:107
+#: .\kisan1\templates\kisan1\otp_verify.html:108
+msgid "Verify & Register"
+msgstr "सत्यापित करें और पंजीकरण करें"
+
+#: .\kisan1\templates\kisan1\otp_verification.html:105
+msgid "VERIFY & REGISTER"
+msgstr "सत्यापित करें और पंजीकरण करें"
+
+#: .\kisan1\templates\kisan1\otp_verify.html:97
+msgid "Enter the 4-digit code sent "
+msgstr "भेजा गया 4-अंकों का कोड दर्ज करें "
+
+#: .\kisan1\templates\kisan1\pfs_dashboard.html:209
+msgid "Shop ID"
+msgstr "दुकान आईडी"
+
+#: .\kisan1\templates\kisan1\pfs_dashboard.html:218
+msgid "Add New Product"
+msgstr "नया उत्पाद जोड़ें"
+
+#: .\kisan1\templates\kisan1\pfs_dashboard.html:222
+msgid "Product Name (e.g. Urea)"
+msgstr "उत्पाद का नाम (जैसे यूरिया)"
+
+#: .\kisan1\templates\kisan1\pfs_dashboard.html:224
+msgid "Select Category"
+msgstr "श्रेणी चुनें"
+
+#: .\kisan1\templates\kisan1\pfs_dashboard.html:225
+msgid "Fertilizer"
+msgstr "उर्वरक"
+
+#: .\kisan1\templates\kisan1\pfs_dashboard.html:226
+msgid "Pesticide"
+msgstr "कीटनाशक"
+
+#: .\kisan1\templates\kisan1\pfs_dashboard.html:228
+msgid "Price (₹)"
+msgstr "कीमत (₹)"
+
+#: .\kisan1\templates\kisan1\pfs_dashboard.html:229
+msgid "Stock Amount"
+msgstr "स्टॉक मात्रा"
+
+#: .\kisan1\templates\kisan1\pfs_dashboard.html:232
+msgid "SAVE PRODUCT TO INVENTORY"
+msgstr "उत्पाद को इन्वेंट्री में सहेजें"
+
+#: .\kisan1\templates\kisan1\pfs_dashboard.html:238
+msgid "Current Inventory"
+msgstr "वर्तमान इन्वेंट्री"
+
+#: .\kisan1\templates\kisan1\pfs_dashboard.html:243
+msgid "Product Name"
+msgstr "उत्पाद का नाम"
+
+#: .\kisan1\templates\kisan1\pfs_dashboard.html:244
+msgid "Category"
+msgstr "श्रेणी"
+
+#: .\kisan1\templates\kisan1\pfs_dashboard.html:245
+msgid "Price"
+msgstr "कीमत"
+
+#: .\kisan1\templates\kisan1\pfs_dashboard.html:246
+msgid "In Stock"
+msgstr "स्टॉक में है"
+
+#: .\kisan1\templates\kisan1\pfs_dashboard.html:255
+msgid "units"
+msgstr "इकाइयां"
+
+#: .\kisan1\templates\kisan1\pfs_dashboard.html:259
+msgid "No products found."
+msgstr "कोई उत्पाद नहीं मिला।"
+
+#: .\kisan1\templates\kisan1\pfs_dashboard.html:267
+msgid "Farmer Order Requests"
+msgstr "किसान ऑर्डर अनुरोध"
+
+#: .\kisan1\templates\kisan1\pfs_dashboard.html:286
+msgid "Accept Order"
+msgstr "ऑर्डर स्वीकार करें"
+
+#: .\kisan1\templates\kisan1\pfs_dashboard.html:299
+msgid "No order requests yet."
+msgstr "अभी तक कोई ऑर्डर अनुरोध नहीं है।"
+
+#: .\kisan1\templates\kisan1\register_choice.html:8
+msgid "Select Role | Kisan Asara"
+msgstr "भूमिका चुनें | किसान आसरा"
+
+#: .\kisan1\templates\kisan1\register_choice.html:168
+msgid "Select Your Role"
+msgstr "अपनी भूमिका चुनें"
+
+#: .\kisan1\templates\kisan1\register_choice.html:169
+msgid "Your journey with Kisan Asara starts here"
+msgstr "किसान आसरा के साथ आपकी यात्रा यहाँ से शुरू होती है"
+
+#: .\kisan1\templates\kisan1\register_choice.html:204
+#: .\kisan1\templates\kisan1\register_choice.html:206
+msgid "Rented Tools"
+msgstr "किराये के उपकरण"
+
+#: .\kisan1\templates\kisan1\register_choice.html:211
+msgid "Pesticide Shop"
+msgstr "कीटनाशक की दुकान"
+
+#: .\kisan1\templates\kisan1\register_choice.html:213
+msgid "Fertilizers & Pesticide Shop"
+msgstr "उर्वरक और कीटनाशक की दुकान"
+
+#: .\kisan1\templates\kisan1\register_pesticide.html:8
+msgid "Shop Registration | Kisan Asara"
+msgstr "दुकान पंजीकरण | किसान आसरा"
+
+#: .\kisan1\templates\kisan1\register_pesticide.html:162
+msgid "Shop Registration"
+msgstr "दुकान पंजीकरण"
+
+#: .\kisan1\templates\kisan1\register_pesticide.html:163
+msgid "Join the Kisan Asara network & grow your business"
+msgstr "किसान आसरा नेटवर्क से जुड़ें और अपना व्यवसाय बढ़ाएं"
+
+#: .\kisan1\templates\kisan1\register_pesticide.html:170
+msgid "Shop Name:"
+msgstr "दुकान का नाम:"
+
+#: .\kisan1\templates\kisan1\register_pesticide.html:171
+msgid "e.g., Sri Sai Fertilizers"
+msgstr "जैसे, श्री साईं फर्टिलाइजर्स"
+
+#: .\kisan1\templates\kisan1\register_pesticide.html:175
+msgid "Owner Name:"
+msgstr "मालिक का नाम:"
+
+#: .\kisan1\templates\kisan1\register_pesticide.html:224
+msgid "Shop License ID:"
+msgstr "दुकान लाइसेंस आईडी:"
+
+#: .\kisan1\templates\kisan1\register_pesticide.html:225
+msgid "Alphanumeric ID"
+msgstr "अल्फान्यूमेरिक आईडी"
+
+#: .\kisan1\templates\kisan1\register_pesticide.html:229
+msgid "10-15 letters/numbers only."
+msgstr "केवल 10-15 अक्षर/नंबर।"
+
+#: .\kisan1\templates\kisan1\register_pesticide.html:233
+msgid "Since Years:"
+msgstr "कितने वर्षों से:"
+
+#: .\kisan1\templates\kisan1\register_pesticide.html:234
+msgid "e.g., 5"
+msgstr "जैसे, 5"
+
+#: .\kisan1\templates\kisan1\register_pesticide.html:240
+msgid "Products Available:"
+msgstr "उपलब्ध उत्पाद:"
+
+#: .\kisan1\templates\kisan1\register_pesticide.html:248
+msgid "Register your shop ➔"
+msgstr "अपनी दुकान पंजीकृत करें ➔"
+
+#: .\kisan1\templates\kisan1\register_pesticide.html:249
+msgid "⬅ Back to Role section"
+msgstr "⬅ भूमिका अनुभाग पर वापस जाएं"
+
+#: .\kisan1\templates\kisan1\request_lease.html:6
+msgid "Request Lease | Kisan Asara"
+msgstr "पट्टे का अनुरोध करें | किसान आसरा"
+
+#: .\kisan1\templates\kisan1\request_lease.html:43
+msgid "Available Soil:"
+msgstr "उपलब्ध मिट्टी:"
+
+#: .\kisan1\templates\kisan1\request_lease.html:52
+msgid "Soil type do you want to take lease?"
+msgstr "आप किस प्रकार की मिट्टी पट्टे पर लेना चाहते हैं?"
+
+#: .\kisan1\templates\kisan1\request_lease.html:71
+msgid "How many months want?"
+msgstr "कितने महीने के लिए चाहिए?"
+
+#: .\kisan1\templates\kisan1\request_lease.html:72
+msgid "e.g., 6 or 12"
+msgstr "जैसे, 6 या 12"
+
+#: .\kisan1\templates\kisan1\request_lease.html:75
+msgid "Proposed Start Date:"
+msgstr "प्रस्तावित प्रारंभ तिथि:"
+
+#: .\kisan1\templates\kisan1\request_lease.html:81
+msgid "Send a message to owner to confirm meeting:"
+msgstr "मीटिंग की पुष्टि करने के लिए मालिक को संदेश भेजें:"
+
+#: .\kisan1\templates\kisan1\request_lease.html:82
+msgid ""
+"Hello, I want to take your land for lease. When can we meet to discuss the "
+"final price?"
+msgstr "नमस्ते, मैं आपकी ज़मीन पट्टे पर लेना चाहता हूँ। हम अंतिम कीमत पर चर्चा करने के लिए कब मिल सकते हैं?"
+
+#: .\kisan1\templates\kisan1\request_lease.html:85
+msgid "Confirm Lease Request"
+msgstr "पट्टा अनुरोध की पुष्टि करें"
+
+#: .\kisan1\templates\kisan1\tools_register.html:8
+msgid "Tool Shop Registration | Kisan Asara"
+msgstr "उपकरण दुकान पंजीकरण | किसान आसरा"
+
+#: .\kisan1\templates\kisan1\tools_register.html:168
+msgid "Tool Shop Register"
+msgstr "उपकरण दुकान पंजीकरण"
+
+#: .\kisan1\templates\kisan1\tools_register.html:169
+msgid "List your farming tools and equipment for rent"
+msgstr "किराए के लिए अपने खेती के उपकरण और साधन सूचीबद्ध करें"
+
+#: .\kisan1\templates\kisan1\tools_register.html:176
+msgid "Full Name (Owner):"
+msgstr "पूरा नाम (मालिक):"
+
+#: .\kisan1\templates\kisan1\tools_register.html:182
+msgid "Shop Name (Optional):"
+msgstr "दुकान का नाम (वैकल्पिक):"
+
+#: .\kisan1\templates\kisan1\tools_register.html:183
+msgid "e.g., Kisan Tool Rentals"
+msgstr "जैसे, किसान टूल रेंटल"
+
+#: .\kisan1\templates\kisan1\tools_register.html:229
+msgid "Available Tools for Rent:"
+msgstr "किराए के लिए उपलब्ध उपकरण:"
+
+#: .\kisan1\templates\kisan1\tools_register.html:235
+msgid "Tractor"
+msgstr "ट्रैक्टर"
+
+#: .\kisan1\templates\kisan1\tools_register.html:239
+#: .\kisan1\templates\kisan1\tools_register.html:250
+#: .\kisan1\templates\kisan1\tools_register.html:261
+#: .\kisan1\templates\kisan1\tools_register.html:272
+msgid "Rent per hour (₹)"
+msgstr "प्रति घंटा किराया (₹)"
+
+#: .\kisan1\templates\kisan1\tools_register.html:246
+msgid "Harvester"
+msgstr "हार्वेस्टर"
+
+#: .\kisan1\templates\kisan1\tools_register.html:257
+msgid "Plough"
+msgstr "हल"
+
+#: .\kisan1\templates\kisan1\tools_register.html:268
+msgid "Rotavator"
+msgstr "रोटावेटर"
+
+#: .\kisan1\templates\kisan1\tractor_register.html:8
+msgid "Tractor Driver Registration | Kisan Asara"
+msgstr "ट्रैक्टर चालक पंजीकरण | किसान आसरा"
+
+#: .\kisan1\templates\kisan1\tractor_register.html:164
+msgid "Tractor Driver Register"
+msgstr "ट्रैक्टर चालक पंजीकरण"
+
+#: .\kisan1\templates\kisan1\tractor_register.html:165
+msgid "Join our network & get profits / work opportunities"
+msgstr "हमारे नेटवर्क से जुड़ें और लाभ / काम के अवसर प्राप्त करें"
+
+#: .\kisan1\templates\kisan1\tractor_register.html:182
+msgid "Total Experience (Yrs):"
+msgstr "कुल अनुभव (वर्ष):"
+
+#: .\kisan1\templates\kisan1\tractor_register.html:193
+msgid "Base wage per hour (₹):"
+msgstr "प्रति घंटे आधार मजदूरी (₹):"
+
+#: .\kisan1\templates\kisan1\tractor_register.html:229
+msgid "Driving License ID:"
+msgstr "ड्राइविंग लाइसेंस आईडी:"
+
+#: .\kisan1\templates\kisan1\tractor_register.html:230
+msgid "TS0120230000001"
+msgstr "TS0120230000001"
+
+#: .\kisan1\templates\kisan1\tractor_register.html:234
+msgid "Tractor Services:"
+msgstr "ट्रैक्टर सेवाएं:"
+
+#: .\kisan1\templates\kisan1\tractor_register.html:243
+#: .\kisan1\templates\kisan1\tractor_register.html:254
+#: .\kisan1\templates\kisan1\tractor_register.html:265
+msgid "Exp (Yrs)"
+msgstr "अनुभव (वर्ष)"
+
+#: .\kisan1\templates\kisan1\tractor_register.html:244
+#: .\kisan1\templates\kisan1\tractor_register.html:255
+#: .\kisan1\templates\kisan1\tractor_register.html:266
+msgid "₹ per hour"
+msgstr "₹ प्रति घंटा"
+
+#: .\kisan1\templates\kisan1\tractor_register.html:251
+msgid "Harrowing"
+msgstr "हैरोइंग"
+
+#: .\kisan1\templates\kisan1\tractor_register.html:262
+msgid "Transport"
+msgstr "परिवहन"
+
+#: .\kisan1\templates\kisan1\welcome.html:7
+msgid "Welcome | Kisan Asara"
+msgstr "स्वागत है | किसान आसरा"
+
+#: .\kisan1\templates\kisan1\welcome.html:201
+msgid "Empowering Farmers • Supporting Agriculture"
+msgstr "किसानों का सशक्तिकरण • कृषि का समर्थन"
+
+#: .\kisan1\templates\kisan1\welcome.html:205
+msgid "Login"
+msgstr "लॉगिन"
+
+#: .\kisan1\templates\kisan1\welcome.html:215
+msgid "SMART FARMING • SECURE FUTURE"
+msgstr "स्मार्ट खेती • सुरक्षित भविष्य"

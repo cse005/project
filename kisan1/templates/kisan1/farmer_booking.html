@@ -1,0 +1,581 @@
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{% trans "My Service Requests | Kisan Asara" %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* =========================================
+           ULTRA PRO MAX DASHBOARD STYLES
+           ========================================= */
+        :root {
+            --labor-green: #2e7d32;
+            --tractor-gold: #fbc02d;
+            --tool-blue: #0288d1;
+            --lease-purple: #9c27b0;
+            --shop-teal: #009688;
+            --glass-bg: rgba(255, 255, 255, 0.95);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            color: #fff;
+            overflow-x: hidden;
+            /* Animated Deep Green Gradient Background */
+            background: linear-gradient(135deg, #010a02, #063d14, #011406);
+            background-size: 400% 400%;
+            animation: gradientAnimation 15s ease infinite;
+        }
+
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 60px 20px;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        h2 {
+            font-size: clamp(28px, 5vw, 42px);
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 40px;
+            text-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+            letter-spacing: -1px;
+        }
+
+        .filter-panel {
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 24px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .filter-form {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            align-items: end;
+        }
+
+        .filter-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #dcedc8;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+        }
+
+        .filter-select {
+            width: 100%;
+            padding: 12px 14px;
+            border-radius: 14px;
+            border: none;
+            outline: none;
+            font: inherit;
+            font-weight: 600;
+            color: #173228;
+        }
+
+        .filter-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        /* Section Titles */
+        .section-title {
+            font-size: 22px;
+            font-weight: 700;
+            margin: 40px 0 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #c5e1a5;
+        }
+
+        .section-title::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        /* 3D Glassmorphism Cards */
+        .request-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            padding: 25px 30px;
+            border-radius: 24px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            animation: slideUp 0.6s ease-out backwards;
+            color: #333;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .request-card:hover {
+            transform: translateY(-8px) scale(1.01);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            background: #ffffff;
+        }
+
+        /* Left-border colors for categories */
+        .card-tool {
+            border-left: 8px solid var(--tool-blue);
+        }
+
+        .card-tractor {
+            border-left: 8px solid var(--tractor-gold);
+        }
+
+        .card-labor {
+            border-left: 8px solid var(--labor-green);
+        }
+
+        .card-shop {
+            border-left: 8px solid var(--shop-teal);
+        }
+
+        .card-lease {
+            border-left: 8px solid var(--lease-purple);
+        }
+
+        .card-details h4 {
+            margin: 0 0 8px 0;
+            color: #111;
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .card-details p {
+            margin: 5px 0;
+            color: #555;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .card-details i {
+            width: 20px;
+            color: #2e7d32;
+        }
+
+        /* Price Tag */
+        .price-tag {
+            font-size: 22px;
+            font-weight: 800;
+            color: #111;
+            margin-bottom: 8px;
+        }
+
+        /* Status Badges */
+        .status-badge {
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: inline-block;
+            border: 1px solid transparent;
+        }
+
+        .status-Pending {
+            background: #fff3e0;
+            color: #e65100;
+            border-color: #ffe0b2;
+        }
+
+        .status-Confirmed {
+            background: #e8f5e9;
+            color: #2e7d32;
+            border-color: #c8e6c9;
+        }
+
+        .status-Completed {
+            background: #e3f2fd;
+            color: #1565c0;
+            border-color: #bbdefb;
+        }
+
+        .status-Rejected {
+            background: #ffebee;
+            color: #c62828;
+            border-color: #ffcdd2;
+        }
+
+        .status-Cancelled {
+            background: #e2e8f0;
+            color: #334155;
+            border-color: #cbd5e1;
+        }
+
+        /* Action Buttons */
+        .btn-group {
+            margin-top: 15px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .action-btn {
+            padding: 10px 20px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.3s ease;
+            border: none;
+        }
+
+        .btn-cancel {
+            background: #fbe9e7;
+            color: #d32f2f;
+        }
+
+        .btn-cancel:hover {
+            background: #d32f2f;
+            color: #fff;
+            transform: scale(1.05);
+        }
+
+        .btn-track {
+            background: #e1f5fe;
+            color: #0288d1;
+        }
+
+        .btn-track:hover {
+            background: #0288d1;
+            color: #fff;
+            transform: scale(1.05);
+        }
+
+        .btn-apply {
+            background: #c5e1a5;
+            color: #173228;
+        }
+
+        .btn-reset {
+            background: rgba(255, 255, 255, 0.14);
+            color: #fff;
+        }
+
+        /* Empty State */
+        .empty-state {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 80px 20px;
+            text-align: center;
+            border-radius: 30px;
+            border: 2px dashed rgba(255, 255, 255, 0.2);
+            color: #aaa;
+        }
+
+        .empty-state h1 {
+            font-size: 60px;
+            margin-bottom: 20px;
+            filter: grayscale(1);
+            opacity: 0.5;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            margin-top: 40px;
+            color: #c5e1a5;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.3s;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50px;
+        }
+
+        .back-link:hover {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateX(-5px);
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 600px) {
+            .request-card {
+                text-align: center;
+                justify-content: center;
+                padding: 30px 20px;
+            }
+
+            .card-details,
+            div[style*="text-align: right"] {
+                text-align: center !important;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h2>{% trans "My Service Requests" %}</h2>
+
+        <div class="filter-panel">
+            <form method="get" class="filter-form">
+                <div class="filter-group">
+                    <label for="serviceFilter">{% trans "Service Type" %}</label>
+                    <select id="serviceFilter" name="service" class="filter-select">
+                        <option value="all" {% if service_filter == 'all' %}selected{% endif %}>{% trans "All Services" %}</option>
+                        <option value="tool" {% if service_filter == 'tool' %}selected{% endif %}>{% trans "Tool Rentals" %}</option>
+                        <option value="tractor" {% if service_filter == 'tractor' %}selected{% endif %}>{% trans "Tractor Bookings" %}</option>
+                        <option value="labor" {% if service_filter == 'labor' %}selected{% endif %}>{% trans "Labor Bookings" %}</option>
+                        <option value="shop" {% if service_filter == 'shop' %}selected{% endif %}>{% trans "Shop Orders" %}</option>
+                        <option value="lease" {% if service_filter == 'lease' %}selected{% endif %}>{% trans "Lease Requests" %}</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="statusFilter">{% trans "Status" %}</label>
+                    <select id="statusFilter" name="status" class="filter-select">
+                        <option value="all" {% if status_filter == 'all' %}selected{% endif %}>{% trans "All Statuses" %}</option>
+                        <option value="pending" {% if status_filter == 'pending' %}selected{% endif %}>{% trans "Pending" %}</option>
+                        <option value="confirmed" {% if status_filter == 'confirmed' %}selected{% endif %}>{% trans "Confirmed" %}</option>
+                        <option value="rejected" {% if status_filter == 'rejected' %}selected{% endif %}>{% trans "Rejected" %}</option>
+                        <option value="cancelled" {% if status_filter == 'cancelled' %}selected{% endif %}>{% trans "Cancelled" %}</option>
+                        <option value="completed" {% if status_filter == 'completed' %}selected{% endif %}>{% trans "Completed" %}</option>
+                    </select>
+                </div>
+                <div class="filter-actions">
+                    <button type="submit" class="action-btn btn-apply"><i class="fas fa-filter"></i> {% trans "Apply Filters" %}</button>
+                    <a href="{% url 'farmer_booking' %}" class="action-btn btn-reset"><i class="fas fa-rotate-left"></i> {% trans "Reset" %}</a>
+                </div>
+            </form>
+        </div>
+
+        {% if not has_bookings %}
+        <div class="empty-state">
+            <h1>📂</h1>
+            <p style="font-size: 18px;">{% trans "Your request list is empty." %}</p>
+            <p>{% trans "Explore our portal to find the best agricultural services." %}</p>
+        </div>
+        {% else %}
+
+        {% if service_filter == 'all' or service_filter == 'tool' %}
+        {% if tool_bookings %}
+        <h3 class="section-title"><i class="fas fa-tools"></i> {% trans "Tool Rentals" %}</h3>
+        {% for booking in tool_bookings %}
+        <div class="request-card card-tool" style="animation-delay: 0.1s;">
+            <div class="card-details">
+                <h4>{{ booking.tool_shop.shop_name }}</h4>
+                <p><i class="fas fa-list-check"></i> <strong>{% trans "Tools:" %}</strong> {{ booking.tools_selected }}
+                </p>
+                <p><i class="fas fa-calendar-alt"></i> <strong>{% trans "Dates:" %}</strong> {{ booking.receive_date }}
+                    to {{ booking.return_date }}</p>
+            </div>
+            <div style="text-align: right;">
+                <div class="price-tag">₹{{ booking.total_cost }}</div>
+                <span class="status-badge status-{{ booking.status }}">{{ booking.status }}</span>
+                <div class="btn-group">
+                    {% if booking.status == 'Pending' %}
+                    <form method="POST" action="{% url 'cancel_booking' 'tool' booking.id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="action-btn btn-cancel"
+                            onclick="return confirm('Are you sure you want to cancel?')">
+                            <i class="fas fa-times"></i> {% trans "Cancel" %}
+                        </button>
+                    </form>
+                    {% elif booking.status == 'Confirmed' %}
+                    <a class="action-btn btn-track" href="{{ booking.track_url }}" target="_blank" rel="noopener noreferrer">
+                        <i class="fas fa-location-dot"></i> {% trans "Track" %}
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endif %}
+
+        {% if service_filter == 'all' or service_filter == 'tractor' %}
+        {% if tractor_bookings %}
+        <h3 class="section-title"><i class="fas fa-tractor"></i> {% trans "Tractor Bookings" %}</h3>
+        {% for booking in tractor_bookings %}
+        <div class="request-card card-tractor" style="animation-delay: 0.2s;">
+            <div class="card-details">
+                <h4>{{ booking.tractor_owner.user.name }}</h4>
+                <p><i class="fas fa-clock"></i> <strong>{% trans "Timing:" %}</strong> {{ booking.booking_date }} at {{ booking.start_time|time:"h:i A" }}</p>
+                <p><i class="fas fa-hourglass-half"></i> <strong>{% trans "Duration:" %}</strong> {{
+                    booking.duration_hours }} {% trans "Hours" %}</p>
+            </div>
+            <div style="text-align: right;">
+                <div class="price-tag">₹{{ booking.total_cost }}</div>
+                <span class="status-badge status-{{ booking.status }}">{{ booking.status }}</span>
+                <div class="btn-group">
+                    {% if booking.status == 'Pending' %}
+                    <form method="POST" action="{% url 'cancel_booking' 'tractor' booking.id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="action-btn btn-cancel">
+                            <i class="fas fa-times"></i> {% trans "Cancel" %}
+                        </button>
+                    </form>
+                    {% elif booking.status == 'Confirmed' %}
+                    <a class="action-btn btn-track" href="{{ booking.track_url }}" target="_blank" rel="noopener noreferrer">
+                        <i class="fas fa-map-location-dot"></i> {% trans "Track Location" %}
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endif %}
+
+        {% if service_filter == 'all' or service_filter == 'labor' %}
+        {% if labor_bookings %}
+        <h3 class="section-title"><i class="fas fa-person-digging"></i> {% trans "Labor Bookings" %}</h3>
+        {% for booking in labor_bookings %}
+        <div class="request-card card-labor" style="animation-delay: 0.3s;">
+            <div class="card-details">
+                <h4>{{ booking.laborer.user.name }}</h4>
+                <p><i class="fas fa-calendar-check"></i> {{ booking.booking_date }} at {{ booking.start_time|time:"h:i A" }}</p>
+                <p><i class="fas fa-business-time"></i> <strong>{% trans "Duration:" %}</strong> {{ booking.duration }}
+                    {% trans "Hours/Days" %}</p>
+            </div>
+            <div style="text-align: right;">
+                <div class="price-tag">₹{{ booking.total_cost }}</div>
+                <span class="status-badge status-{{ booking.status }}">{{ booking.status }}</span>
+                {% if booking.status == 'Pending' %}
+                <form method="POST" action="{% url 'cancel_booking' 'labor' booking.id %}" class="btn-group">
+                    {% csrf_token %}
+                    <button type="submit" class="action-btn btn-cancel">
+                        <i class="fas fa-trash-can"></i> {% trans "Cancel Request" %}
+                    </button>
+                </form>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endif %}
+
+        {% if service_filter == 'all' or service_filter == 'shop' %}
+        {% if shop_orders %}
+        <h3 class="section-title"><i class="fas fa-shop"></i> {% trans "Shop Orders" %}</h3>
+        {% for booking in shop_orders %}
+        <div class="request-card card-shop" style="animation-delay: 0.4s;">
+            <div class="card-details">
+                <h4>{{ booking.shop.shop_name }}</h4>
+                <p><i class="fas fa-box-open"></i> <strong>{% trans "Items:" %}</strong> {{ booking.items_ordered }}</p>
+                <p><i class="fas fa-calendar-day"></i> <strong>{% trans "Ordered On:" %}</strong> {{
+                    booking.created_at|date:"M d, Y" }}</p>
+            </div>
+            <div style="text-align: right;">
+                <div class="price-tag">₹{{ booking.total_cost }}</div>
+                <span class="status-badge status-{{ booking.status }}">{{ booking.status }}</span>
+                {% if booking.status == 'Pending' %}
+                <form method="POST" action="{% url 'cancel_booking' 'shop' booking.id %}" class="btn-group">
+                    {% csrf_token %}
+                    <button type="submit" class="action-btn btn-cancel">
+                        <i class="fas fa-times"></i> {% trans "Cancel Order" %}
+                    </button>
+                </form>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endif %}
+
+        {% if service_filter == 'all' or service_filter == 'lease' %}
+        {% if lease_requests %}
+        <h3 class="section-title"><i class="fas fa-wheat-awn"></i> {% trans "Lease Requests" %}</h3>
+        {% for booking in lease_requests %}
+        <div class="request-card card-lease" style="animation-delay: 0.5s;">
+            <div class="card-details">
+                <h4>{{ booking.land.user.name }}</h4>
+                <p><i class="fas fa-seedling"></i> <strong>{% trans "Soil:" %}</strong> {{ booking.soil_type_requested
+                    }}</p>
+                <p><i class="fas fa-clock-rotate-left"></i> <strong>{% trans "Starts:" %}</strong> {{ booking.start_date
+                    }} ({{ booking.duration_months }} Months)</p>
+            </div>
+            <div style="text-align: right;">
+                <span class="status-badge status-{{ booking.status }}">{{ booking.status }}</span>
+                {% if booking.status == 'Pending' %}
+                <form method="POST" action="{% url 'cancel_booking' 'lease' booking.id %}" class="btn-group">
+                    {% csrf_token %}
+                    <button type="submit" class="action-btn btn-cancel">
+                        <i class="fas fa-ban"></i> {% trans "Cancel" %}
+                    </button>
+                </form>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endif %}
+
+        {% endif %}
+
+        <a href="{% url 'main_home' %}" class="back-link"><i class="fas fa-arrow-left"></i>
+            {% trans "Back to Services" %}
+        </a>
+    </div>
+
+</body>
+
+</html>

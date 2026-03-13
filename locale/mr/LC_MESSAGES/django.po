@@ -1,0 +1,138 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-03-13 15:05+0530\n"
+"Language: mr\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "English"
+msgstr "इंग्रजी"
+
+msgid "Hindi"
+msgstr "हिंदी"
+
+msgid "Marathi"
+msgstr "मराठी"
+
+msgid "Tamil"
+msgstr "तमिळ"
+
+msgid "Telugu"
+msgstr "तेलुगू"
+
+msgid "Welcome | Kisan Asara"
+msgstr "स्वागत | किसान आसरा"
+
+msgid "Kisan Asara"
+msgstr "किसान आसरा"
+
+msgid "Empowering Farmers • Supporting Agriculture"
+msgstr "शेतकऱ्यांना बळ • कृषीला साथ"
+
+msgid "Login"
+msgstr "लॉगिन"
+
+msgid "Register"
+msgstr "नोंदणी"
+
+msgid "SMART FARMING • SECURE FUTURE"
+msgstr "स्मार्ट शेती • सुरक्षित भविष्य"
+
+msgid "Welcome Back"
+msgstr "पुन्हा स्वागत"
+
+msgid "Select Role"
+msgstr "भूमिका निवडा"
+
+msgid "Farmer Registration"
+msgstr "शेतकरी नोंदणी"
+
+msgid "Logout"
+msgstr "लॉगआउट"
+
+msgid "My Service Requests"
+msgstr "माझ्या सेवा विनंत्या"
+
+msgid "Service Type"
+msgstr "सेवा प्रकार"
+
+msgid "All Services"
+msgstr "सर्व सेवा"
+
+msgid "Tool Rentals"
+msgstr "साधन भाडे"
+
+msgid "Tractor Bookings"
+msgstr "ट्रॅक्टर बुकिंग"
+
+msgid "Labor Bookings"
+msgstr "मजूर बुकिंग"
+
+msgid "Shop Orders"
+msgstr "दुकान ऑर्डर"
+
+msgid "Lease Requests"
+msgstr "भाडेपट्टा विनंत्या"
+
+msgid "Status"
+msgstr "स्थिती"
+
+msgid "All Statuses"
+msgstr "सर्व स्थिती"
+
+msgid "Pending"
+msgstr "प्रलंबित"
+
+msgid "Confirmed"
+msgstr "पुष्टी"
+
+msgid "Rejected"
+msgstr "नाकारलेले"
+
+msgid "Cancelled"
+msgstr "रद्द"
+
+msgid "Completed"
+msgstr "पूर्ण"
+
+msgid "Apply Filters"
+msgstr "फिल्टर लावा"
+
+msgid "Reset"
+msgstr "रीसेट"
+
+msgid "Track"
+msgstr "ट्रॅक करा"
+
+msgid "Track Location"
+msgstr "स्थान ट्रॅक करा"
+
+msgid "Cart & Orders"
+msgstr "कार्ट आणि ऑर्डर"
+
+msgid "Current Cart"
+msgstr "सध्याचा कार्ट"
+
+msgid "My Orders & Tracking"
+msgstr "माझ्या ऑर्डर्स आणि ट्रॅकिंग"
+
+msgid "Apply Filter"
+msgstr "फिल्टर लागू करा"
+
+msgid "Full Name"
+msgstr "पूर्ण नाव"
+
+msgid "Mobile Number"
+msgstr "मोबाईल क्रमांक"
+
+msgid "Delivery Location (Address)"
+msgstr "वितरण पत्ता"
+
+msgid "Payment Mode"
+msgstr "पेमेंट पद्धत"
+
+msgid "Confirm Order"
+msgstr "ऑर्डर निश्चित करा"

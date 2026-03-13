@@ -1,0 +1,8 @@
+django
+djangorestframework
+django-environ
+whitenoise
+gunicorn
+numpy
+requests
+pillow

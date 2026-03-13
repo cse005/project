@@ -1,0 +1,370 @@
+{% load i18n %}
+{% load static %}
+{% get_current_language as LANGUAGE_CODE %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% trans "Lease Land Registration | Kisan Asara" %}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --prime-green: #118a28;
+            --dark-green: #042409;
+            --input-bg: #f7fbf7;
+        }
+
+        body {
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Inter', sans-serif;
+            background-color: #010a02;
+            background-image:
+                radial-gradient(circle at 30% 70%, rgba(25, 171, 64, 0.6) 0%, transparent 45%),
+                radial-gradient(circle at 75% 25%, rgba(13, 102, 37, 0.8) 0%, transparent 55%),
+                radial-gradient(ellipse at 50% 50%, #063d14 0%, #000000 100%);
+            background-attachment: fixed;
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        .reg-card {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 45px 40px;
+            border-radius: 28px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
+            width: 100%;
+            max-width: 600px;
+            box-sizing: border-box;
+            position: relative;
+            z-index: 10;
+            animation: slideUp 0.6s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .reg-card h2 {
+            color: var(--dark-green);
+            margin: 0 0 8px;
+            font-size: 28px;
+            font-weight: 800;
+            text-align: center;
+            letter-spacing: -0.5px;
+        }
+
+        .reg-card p {
+            text-align: center;
+            color: #446644;
+            margin-bottom: 30px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .input-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--dark-green);
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="tel"],
+        select {
+            width: 100%;
+            padding: 14px 16px;
+            background: var(--input-bg);
+            color: #333333;
+            border: 1px solid #cce0cc;
+            border-radius: 14px;
+            font-size: 15px;
+            font-weight: 500;
+            box-sizing: border-box;
+            outline: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-family: inherit;
+        }
+
+        input::placeholder {
+            color: #8da68d;
+        }
+
+        input:focus,
+        select:focus {
+            background: #ffffff;
+            border-color: var(--prime-green);
+            box-shadow: 0 0 0 4px rgba(17, 138, 40, 0.15);
+            transform: translateY(-1px);
+        }
+
+        select:disabled,
+        input[readonly] {
+            background-color: #eef5ee;
+            color: #7a997a;
+            cursor: not-allowed;
+            border-color: #dceadc;
+        }
+
+        .soil-container {
+            background: rgba(247, 251, 247, 0.6);
+            padding: 18px;
+            border-radius: 14px;
+            border: 1px solid rgba(204, 224, 204, 0.8);
+            margin-bottom: 15px;
+        }
+
+        .soil-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .soil-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .soil-row label {
+            margin-bottom: 0;
+            font-size: 14px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            width: 140px;
+        }
+
+        .soil-row input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--prime-green);
+        }
+
+        .btn-next {
+            background: var(--prime-green);
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 14px;
+            width: 100%;
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+            box-shadow: 0 8px 20px rgba(17, 138, 40, 0.3);
+        }
+
+        .btn-next:hover {
+            background: #0d6e1f;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px rgba(17, 138, 40, 0.4);
+        }
+
+        .btn-next:active {
+            transform: scale(0.98) translateY(0);
+            box-shadow: 0 4px 10px rgba(17, 138, 40, 0.2);
+        }
+    </style>
+</head>
+
+<body>
+    {% include 'kisan1/includes/language_switcher.html' %}
+    <div class="reg-card">
+        <h2>{% trans "Lease Land Registration" %}</h2>
+        <p>{% trans "List your property and find the best farmers" %}</p>
+
+        <form method="POST" id="leaseRegistrationForm">
+            {% csrf_token %}
+            <input type="hidden" name="role" value="lease">
+
+            <div class="form-group">
+                <label>{% trans "Full name:" %}</label>
+                <input type="text" name="name" placeholder="{% trans 'e.g., Ramesh Kumar' %}" pattern="[A-Za-z\s]{3,50}"
+                    required>
+            </div>
+
+            <div class="input-row">
+                <div class="form-group">
+                    <label>{% trans "Age:" %}</label>
+                    <input type="number" name="age" min="18" max="100" placeholder="{% trans '18-60' %}" required>
+                </div>
+                <div class="form-group">
+                    <label>{% trans "Mobile:" %}</label>
+                    <input type="tel" name="mobile" maxlength="10" placeholder="{% trans '10-digit number' %}"
+                        pattern="[6789][0-9]{9}" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>{% trans "Pincode (Try: 503224, 506002, 500038):" %}</label>
+                <input type="text" id="pincode" name="pincode" placeholder="{% trans 'Enter 6-digit Pincode' %}"
+                    maxlength="6" pattern="[0-9]{6}" oninput="fetchLocationDetails()" required>
+            </div>
+
+            <div class="input-row">
+                <div class="form-group">
+                    <label>{% trans "State:" %}</label>
+                    <input type="text" id="state" name="state" value="Telangana" readonly>
+                </div>
+                <div class="form-group">
+                    <label>{% trans "District:" %}</label>
+                    <input type="text" id="district" name="district" placeholder="{% trans 'Auto-filled' %}" readonly
+                        required>
+                </div>
+            </div>
+
+            <div class="input-row">
+                <div class="form-group">
+                    <label>{% trans "Mandal:" %}</label>
+                    <input type="text" id="mandal" name="mandal" placeholder="{% trans 'Auto-filled' %}" readonly
+                        required>
+                </div>
+                <div class="form-group">
+                    <label>{% trans "Village:" %}</label>
+                    <select id="village" name="village" required>
+                        <option value="" disabled selected>{% trans "-- Enter Pincode First --" %}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="input-row">
+                <div class="form-group">
+                    <label>{% trans "Water Resource:" %}</label>
+                    <select name="water_resource" required>
+                        <option value="" disabled selected>{% trans "Select source" %}</option>
+                        <option value="Borewell">{% trans "Borewell" %}</option>
+                        <option value="Canal">{% trans "Canal" %}</option>
+                        <option value="River">{% trans "River" %}</option>
+                        <option value="Rainfed">{% trans "Rainfed" %}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>{% trans "Total Land (Acres):" %}</label>
+                    <input type="number" step="0.1" name="total_land" min="0.1" placeholder="{% trans 'e.g., 5.5' %}"
+                        required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>{% trans "Choose Soil Types:" %}</label>
+                <div class="soil-container">
+                    <div class="soil-row">
+                        <label><input type="checkbox" name="soils" value="Red_Soil"> {% trans "Red Soil" %}</label>
+                        <input type="number" step="0.1" name="acres_Red_Soil" min="0"
+                            placeholder="{% trans 'Acres?' %}">
+                        <input type="number" name="cost_Red_Soil" min="0" placeholder="{% trans ' per acre (₹)' %}">
+                    </div>
+                    <div class="soil-row">
+                        <label><input type="checkbox" name="soils" value="Black_Soil"> {% trans "Black Soil" %}</label>
+                        <input type="number" step="0.1" name="acres_Black_Soil" min="0"
+                            placeholder="{% trans 'Acres?' %}">
+                        <input type="number" name="cost_Black_Soil" min="0" placeholder="{% trans ' per acre (₹)' %}">
+                    </div>
+                    <div class="soil-row">
+                        <label><input type="checkbox" name="soils" value="Alluvial_Soil"> {% trans "Alluvial" %}</label>
+                        <input type="number" step="0.1" name="acres_Alluvial_Soil" min="0"
+                            placeholder="{% trans 'Acres?' %}">
+                        <input type="number" name="cost_Alluvial_Soil" min="0"
+                            placeholder="{% trans ' per acre (₹)' %}">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>{% trans "Passbook No:" %}</label>
+                <input type="text" name="passbook" placeholder="{% trans 'e.g., T12345678901' %}"
+                    pattern="[A-Z][0-9]{11}" maxlength="12" style="text-transform: uppercase;"
+                    title="Passbook must start with 1 Capital Letter followed by exactly 11 numbers."
+                    oninput="this.value = this.value.toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 12);" required>
+                <small style="color: #666; font-size: 11px; margin-top: 4px; display: block;">* {% trans "Strictly 12
+                    characters: 1 Capital alphabet & remaining 11 Numbers" %}</small>
+            </div>
+
+            <button type="submit" class="btn-next">{% trans "Register ➔" %}</button>
+        </form>
+    </div>
+
+    <script src="{% static 'js/location.js' %}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const form = document.getElementById('leaseRegistrationForm');
+            const soilCheckboxes = Array.from(document.querySelectorAll('input[name="soils"]'));
+
+            function syncRequiredState() {
+                soilCheckboxes.forEach((checkbox) => {
+                    const acresField = document.querySelector(`input[name="acres_${checkbox.value}"]`);
+                    const costField = document.querySelector(`input[name="cost_${checkbox.value}"]`);
+                    acresField.required = checkbox.checked;
+                    costField.required = checkbox.checked;
+                });
+            }
+
+            soilCheckboxes.forEach((checkbox) => checkbox.addEventListener('change', syncRequiredState));
+            syncRequiredState();
+
+            form.addEventListener('submit', function (event) {
+                const selectedSoils = soilCheckboxes.filter((checkbox) => checkbox.checked);
+                if (!selectedSoils.length) {
+                    event.preventDefault();
+                    alert('{% trans "Please select at least one soil type to continue." %}');
+                    return;
+                }
+
+                for (const checkbox of selectedSoils) {
+                    const acresField = document.querySelector(`input[name="acres_${checkbox.value}"]`);
+                    const costField = document.querySelector(`input[name="cost_${checkbox.value}"]`);
+                    if (!acresField.value.trim() || !costField.value.trim()) {
+                        event.preventDefault();
+                        alert('{% trans "Please provide acreage and cost for each selected soil type." %}');
+                        return;
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

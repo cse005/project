@@ -1,0 +1,25 @@
+{% load static %}
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Kisan Asara - Your Farming Partner{% endblock %}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/pro_styles.css' %}">
+</head>
+
+<body class="animate-fade-in">
+    {% block background_overlay %}
+    {% endblock %}
+
+    {% block content %}
+    {% endblock %}
+
+    <script src="{% static 'js/floating_particles.js' %}"></script>
+</body>
+
+</html>

@@ -1,0 +1,183 @@
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{% trans "Book Service | Kisan Asara" %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --prime-green: #118a28;
+            --dark-green: #042409;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #010a02;
+            background-image:
+                radial-gradient(circle at 30% 70%, rgba(25, 171, 64, 0.6) 0%, transparent 45%),
+                radial-gradient(circle at 75% 25%, rgba(13, 102, 37, 0.8) 0%, transparent 55%),
+                radial-gradient(ellipse at 50% 50%, #063d14 0%, #000000 100%);
+            background-attachment: fixed;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            width: 100%;
+            max-width: 480px;
+            padding: 45px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            animation: slideUp 0.6s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(40px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        h2 {
+            text-align: center;
+            color: var(--dark-green);
+            font-weight: 800;
+            font-size: 28px;
+            margin-bottom: 30px;
+            letter-spacing: -1px;
+        }
+
+        label {
+            display: block;
+            margin: 15px 0 8px;
+            font-weight: 700;
+            color: var(--dark-green);
+            font-size: 13px;
+            text-transform: uppercase;
+        }
+
+        input {
+            width: 100%;
+            padding: 15px;
+            border-radius: 14px;
+            border: 2px solid #e0e0e0;
+            outline: none;
+            box-sizing: border-box;
+            background: #f9fbf9;
+            font-size: 15px;
+            transition: 0.3s;
+        }
+
+        input:focus {
+            border-color: var(--prime-green);
+            background: #fff;
+            box-shadow: 0 0 0 4px rgba(17, 138, 40, 0.1);
+        }
+
+        .total-box {
+            margin-top: 30px;
+            padding: 20px;
+            background: #111;
+            border-radius: 18px;
+            font-weight: 800;
+            color: #69f0ae;
+            text-align: center;
+            font-size: 24px;
+        }
+
+        .btn {
+            width: 100%;
+            margin-top: 25px;
+            padding: 18px;
+            border: none;
+            border-radius: 16px;
+            background: linear-gradient(135deg, #118a28, #0a5a1a);
+            color: white;
+            font-size: 17px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 10px 20px rgba(17, 138, 40, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(17, 138, 40, 0.5);
+        }
+
+        .error {
+            color: #d32f2f;
+            background: #ffebee;
+            padding: 12px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-weight: 700;
+            text-align: center;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card">
+        <h2>{% trans "Book" %} {{ service_type|title }}</h2>
+
+        {% if messages %}
+        {% for message in messages %}<div class="error">{{ message }}</div>{% endfor %}
+        {% endif %}
+
+        <form method="POST">
+            {% csrf_token %}
+            <label>{% trans "Select Date" %}</label>
+            <input type="date" name="booking_date" id="booking_date" required>
+
+            {% if service_type == 'lease' %}
+            <label>{% trans "Number of Days" %}</label>
+            {% else %}
+            <label>{% trans "Number of Hours" %}</label>
+            {% endif %}
+            <input type="number" name="units" id="units" min="1" value="1" required oninput="calculateTotal()">
+
+            <div class="total-box">
+                <span
+                    style="font-size: 11px; color: #aaa; display: block; text-transform: uppercase; margin-bottom: 5px;">
+                    {% trans "Total Amount" %}
+                </span>
+                ₹ <span id="totalAmount">0</span>
+            </div>
+
+            <button type="submit" class="btn">{% trans "Confirm Booking ➔" %}</button>
+        </form>
+    </div>
+
+    <script>
+        const ratePerUnit = parseFloat("{{ rate|default:0 }}");
+        function calculateTotal() {
+            const units = document.getElementById('units').value || 0;
+            document.getElementById('totalAmount').innerText = (units * ratePerUnit).toFixed(2);
+        }
+        document.addEventListener("DOMContentLoaded", function () {
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('booking_date').setAttribute('min', today);
+            calculateTotal();
+        });
+    </script>
+</body>
+
+</html>

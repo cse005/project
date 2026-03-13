@@ -1,0 +1,43 @@
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+<style>
+    .language-switcher {
+        position: absolute;
+        top: 25px;
+        right: 30px;
+        z-index: 100;
+    }
+
+    .language-switcher select {
+        background: rgba(255, 255, 255, 0.12);
+        color: white;
+        border: 2px solid rgba(255, 255, 255, 0.5);
+        padding: 8px 16px;
+        border-radius: 20px;
+        font-family: inherit;
+        font-weight: 600;
+        outline: none;
+        cursor: pointer;
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
+    }
+
+    .language-switcher select option {
+        color: #0b2e24;
+    }
+</style>
+<div class="language-switcher">
+    <form action="{% url 'set_language' %}" method="post">
+        {% csrf_token %}
+        <input name="next" type="hidden" value="{{ request.get_full_path }}">
+        <select name="language" onchange="this.form.submit()">
+            {% get_available_languages as LANGUAGES %}
+            {% get_language_info_list for LANGUAGES as languages %}
+            {% for language in languages %}
+            <option value="{{ language.code }}" {% if language.code == LANGUAGE_CODE %}selected{% endif %}>
+                {{ language.name_local }}
+            </option>
+            {% endfor %}
+        </select>
+    </form>
+</div>

@@ -1,0 +1,276 @@
+{% load i18n %}
+{% load static %}
+{% get_current_language as LANGUAGE_CODE %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% trans "Shop Registration | Kisan Asara" %}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-green: #2e7d32;
+            --dark-green: #0f3d2e;
+            --glass-bg: rgba(255, 255, 255, 0.95);
+        }
+
+        body {
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, var(--dark-green) 0%, #1b5e20 100%);
+        }
+
+        .reg-card {
+            background: var(--glass-bg);
+            padding: 40px;
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 550px;
+            box-sizing: border-box;
+        }
+
+        .reg-card h2 {
+            color: var(--dark-green);
+            margin: 0 0 5px;
+            font-size: 26px;
+            font-weight: 800;
+            text-align: center;
+        }
+
+        .reg-card p {
+            text-align: center;
+            color: #666;
+            margin-bottom: 25px;
+            font-size: 14px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .input-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--dark-green);
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="tel"],
+        select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 14px;
+            box-sizing: border-box;
+            outline: none;
+            transition: 0.3s;
+            font-family: inherit;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: var(--primary-green);
+            box-shadow: 0 0 0 4px rgba(46, 125, 50, 0.1);
+        }
+
+        select:disabled,
+        input[readonly] {
+            background-color: #f5f5f5;
+            color: #888;
+            cursor: not-allowed;
+            border-color: #ddd;
+        }
+
+        .checkbox-container {
+            display: flex;
+            gap: 20px;
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 12px;
+            border: 1px solid #eee;
+        }
+
+        .checkbox-container label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            margin-bottom: 0;
+        }
+
+        .checkbox-container input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--primary-green);
+        }
+
+        .btn-next {
+            background: var(--primary-green);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 12px;
+            width: 100%;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 15px;
+        }
+
+        .btn-next:hover {
+            background: #1b5e20;
+            transform: translateY(-2px);
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: var(--primary-green);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    {% include 'kisan1/includes/language_switcher.html' %}
+    <div class="reg-card">
+        <h2>{% trans "Shop Registration" %}</h2>
+        <p>{% trans "Join the Kisan Asara network & grow your business" %}</p>
+
+        <form method="POST" id="pesticideRegistrationForm">
+            {% csrf_token %}
+            <input type="hidden" name="role" value="pesticide">
+
+            <div class="form-group">
+                <label>{% trans "Shop Name:" %}</label>
+                <input type="text" name="shop_name" placeholder="{% trans 'e.g., Sri Sai Fertilizers' %}" required>
+            </div>
+
+            <div class="form-group">
+                <label>{% trans "Owner Name:" %}</label>
+                <input type="text" name="name" placeholder="{% trans 'Full Name' %}" pattern="[A-Za-z\s]{3,50}"
+                    required>
+            </div>
+
+            <div class="input-row">
+                <div class="form-group">
+                    <label>{% trans "Age:" %}</label>
+                    <input type="number" name="age" min="18" max="100" placeholder="{% trans '18-60' %}" required>
+                </div>
+                <div class="form-group">
+                    <label>{% trans "Mobile No:" %}</label>
+                    <input type="tel" name="mobile" maxlength="10" placeholder="{% trans '10-digit number' %}"
+                        pattern="[6789][0-9]{9}" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>{% trans "Pincode (Try: 503224, 506002, 500038):" %}</label>
+                <input type="text" id="pincode" name="pincode" placeholder="{% trans 'Enter 6-digit Pincode' %}"
+                    maxlength="6" pattern="[0-9]{6}" oninput="fetchLocationDetails()" required>
+            </div>
+
+            <div class="input-row">
+                <div class="form-group">
+                    <label>{% trans "State:" %}</label>
+                    <input type="text" id="state" name="state" value="Telangana" readonly>
+                </div>
+                <div class="form-group">
+                    <label>{% trans "District:" %}</label>
+                    <input type="text" id="district" name="district" placeholder="{% trans 'Auto-filled' %}" readonly
+                        required>
+                </div>
+            </div>
+
+            <div class="input-row">
+                <div class="form-group">
+                    <label>{% trans "Mandal:" %}</label>
+                    <input type="text" id="mandal" name="mandal" placeholder="{% trans 'Auto-filled' %}" readonly
+                        required>
+                </div>
+                <div class="form-group">
+                    <label>{% trans "Village:" %}</label>
+                    <select id="village" name="village" required>
+                        <option value="" disabled selected>{% trans "-- Enter Pincode First --" %}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="input-row">
+                <div class="form-group">
+                    <label>{% trans "Shop License ID:" %}</label>
+                    <input type="text" name="license_id" placeholder="{% trans 'e.g., TS-FERT-2024-1234' %}"
+                        minlength="8" maxlength="20" pattern="^[A-Z0-9\-]{8,20}$" style="text-transform: uppercase;"
+                        title="License must be 8-20 characters long and contain only uppercase letters, numbers, and hyphens (-)."
+                        oninput="this.value = this.value.toUpperCase().replace(/[^A-Z0-9\-]/g, '');" required>
+                    <small style="color: #666; font-size: 11px; margin-top: 4px; display: block;">* {% trans "8-20 letters, numbers, or hyphens (-)." %}</small>
+                </div>
+                <div class="form-group">
+                    <label>{% trans "Since Years:" %}</label>
+                    <input type="number" name="since_years" min="0" max="100" placeholder="{% trans 'e.g., 5' %}"
+                        required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>{% trans "Products Available:" %}</label>
+                <div class="checkbox-container">
+                    <label><input type="checkbox" name="products" value="Pesticides"> {% trans "Pesticides" %}</label>
+                    <label><input type="checkbox" name="products" value="Fertilizers"> {% trans "Fertilizers" %}</label>
+                    <label><input type="checkbox" name="products" value="Seeds"> {% trans "Seeds" %}</label>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-next">{% trans "Register your shop ➔" %}</button>
+            <a href="javascript:history.back()" class="back-link">{% trans "⬅ Back to Role section" %}</a>
+        </form>
+    </div>
+
+    <script src="{% static 'js/location.js' %}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const form = document.getElementById('pesticideRegistrationForm');
+            const productCheckboxes = Array.from(document.querySelectorAll('input[name="products"]'));
+
+            form.addEventListener('submit', function (event) {
+                const selectedProducts = productCheckboxes.filter((checkbox) => checkbox.checked);
+                if (!selectedProducts.length) {
+                    event.preventDefault();
+                    alert('{% trans "Please select at least one product to continue." %}');
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

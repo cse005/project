@@ -1,0 +1,219 @@
+{% load static %}
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }} | Kisan Asara</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --success-green: #2ecc71;
+            --dark-green: #1b5e20;
+            --soft-white: #f8f9fa;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Poppins', sans-serif;
+            background: #0f3d2e;
+            background: radial-gradient(circle at center, #1b5e20 0%, #0f3d2e 100%);
+            overflow: hidden;
+        }
+
+        .success-container {
+            background: rgba(255, 255, 255, 0.98);
+            padding: 50px 40px;
+            border-radius: 40px;
+            text-align: center;
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.5);
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+            z-index: 10;
+            animation: bounceIn 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        @keyframes bounceIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.3);
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1.05);
+            }
+
+            70% {
+                transform: scale(0.9);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .checkmark-wrapper {
+            width: 90px;
+            height: 90px;
+            background: var(--success-green);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 25px;
+            box-shadow: 0 15px 35px rgba(46, 204, 113, 0.4);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(46, 204, 113, 0.7);
+            }
+
+            70% {
+                box-shadow: 0 0 0 20px rgba(46, 204, 113, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(46, 204, 113, 0);
+            }
+        }
+
+        .checkmark {
+            color: white;
+            font-size: 45px;
+            font-weight: bold;
+        }
+
+        h2 {
+            color: var(--dark-green);
+            font-size: 28px;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        /* Yellow Warning Box */
+        .info-box {
+            background: #fff9e6;
+            border: 1px solid #f39c12;
+            color: #d35400;
+            padding: 15px;
+            border-radius: 12px;
+            margin: 20px auto 30px auto;
+            font-weight: 600;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* Buttons exactly as you had them */
+        .btn-track {
+            padding: 14px 25px;
+            background: #00796b;
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 15px;
+            transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 121, 107, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-track:hover {
+            background: #004d40;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 121, 107, 0.4);
+        }
+
+        .home-btn {
+            padding: 14px 25px;
+            background: white;
+            color: #00796b;
+            border: 2px solid #00796b;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .home-btn:hover {
+            background: #e0f2f1;
+            transform: translateY(-3px);
+        }
+
+        .leaf {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 0 100%;
+            animation: float 10s infinite linear;
+            z-index: 1;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(110vh) rotate(0deg);
+            }
+
+            100% {
+                transform: translateY(-10vh) rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="leaf" style="left: 10%; animation-delay: 0s;"></div>
+    <div class="leaf" style="left: 30%; animation-delay: 2s;"></div>
+    <div class="leaf" style="left: 70%; animation-delay: 5s;"></div>
+    <div class="leaf" style="left: 90%; animation-delay: 1s;"></div>
+
+    <div class="success-container">
+        <div class="checkmark-wrapper">
+            <div class="checkmark">✓</div>
+        </div>
+
+        <h2>{{ title }}</h2>
+
+        <div class="info-box">
+            <i class="fas fa-info-circle"></i> {{ message }}
+        </div>
+
+        <div class="btn-group">
+            <a href="{% url 'cart' %}" class="btn-track">
+                <i class="fas fa-truck"></i> Track my delivery
+            </a>
+            <a href="{% url 'main_home' %}" class="home-btn">
+                <i class="fas fa-home"></i> Go to Dashboard
+            </a>
+        </div>
+    </div>
+
+</body>
+
+</html>

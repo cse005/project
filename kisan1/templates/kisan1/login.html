@@ -1,0 +1,278 @@
+{% load i18n %}
+{% load static %}
+{% get_current_language as LANGUAGE_CODE %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% trans "Login | Kisan Asara" %}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet" />
+
+    <style>
+        :root {
+            --primary-green: #2e7d32;
+            --dark-green: #0b2e24;
+        }
+
+        body {
+            /* Synchronized Radial Gradient Background */
+            background: radial-gradient(circle at top right, #1b5e20, var(--dark-green));
+            font-family: "Poppins", sans-serif;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background Bubbles */
+        .bubble {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            z-index: 0;
+            animation: float 20s infinite linear;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) scale(0);
+                opacity: 0;
+            }
+
+            50% {
+                opacity: 0.5;
+            }
+
+            100% {
+                transform: translateY(-10vh) scale(1.5);
+                opacity: 0;
+            }
+        }
+
+        .login-card {
+            background: #ffffff;
+            width: 100%;
+            max-width: 420px;
+            padding: 45px 40px;
+            border-radius: 28px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+            text-align: center;
+            box-sizing: border-box;
+            z-index: 2;
+            /* Keeps form above bubbles */
+            animation: slideUp 0.6s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .logo-area {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--dark-green);
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        h2 {
+            font-size: 22px;
+            color: #555;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+
+        .form-group {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--dark-green);
+            margin-bottom: 6px;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 15px;
+            background: #fcfcfc;
+            color: #333;
+            box-sizing: border-box;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        input::placeholder {
+            color: #aaa;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: var(--primary-green);
+            background: #ffffff;
+            box-shadow: 0 0 0 4px rgba(46, 125, 50, 0.1);
+        }
+
+        .btn-login {
+            width: 100%;
+            padding: 16px;
+            background: var(--primary-green);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(46, 125, 50, 0.3);
+        }
+
+        .btn-login:hover {
+            background: #1b5e20;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(46, 125, 50, 0.4);
+        }
+
+        .btn-login:active {
+            transform: scale(0.98);
+        }
+
+        .footer-links {
+            margin-top: 25px;
+            font-size: 14px;
+            color: #666;
+            font-weight: 500;
+        }
+
+        .footer-links a {
+            color: var(--primary-green);
+            text-decoration: none;
+            font-weight: 700;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: #1b5e20;
+            text-decoration: underline;
+        }
+
+        .msg-container {
+            margin-bottom: 20px;
+        }
+
+        .alert {
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 600;
+            text-align: left;
+        }
+
+        .alert-success {
+            background: #e8f5e9;
+            color: #2e7d32;
+            border: 1px solid #c8e6c9;
+        }
+
+        .alert-error {
+            background: #ffebee;
+            color: #c62828;
+            border: 1px solid #ffcdd2;
+        }
+    </style>
+</head>
+
+<body>
+    {% include 'kisan1/includes/language_switcher.html' %}
+
+    <div class="bubble" style="width: 80px; height: 80px; left: 10%; animation-delay: 0s;"></div>
+    <div class="bubble" style="width: 120px; height: 120px; left: 80%; animation-delay: 4s;"></div>
+    <div class="bubble" style="width: 60px; height: 60px; left: 40%; animation-delay: 8s;"></div>
+
+    <div class="login-card">
+        <div class="logo-area">
+            <span style="color: #fbc02d;">&#127807;</span> {% trans "Kisan Asara" %}
+        </div>
+        <h2>{% trans "Welcome Back" %}</h2>
+
+        {% if messages %}
+        <div id="msg-wrapper" class="msg-container">
+            {% for message in messages %}
+            <div class="alert {% if message.tags == 'success' %}alert-success{% else %}alert-error{% endif %}">
+                {{ message }}
+            </div>
+            {% endfor %}
+        </div>
+        <script>
+            setTimeout(function () {
+                const wrapper = document.getElementById('msg-wrapper');
+                if (wrapper) wrapper.style.display = 'none';
+            }, 3000);
+        </script>
+        {% endif %}
+
+        <form method="POST" action="{% url 'login' %}">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label>{% trans "Full Name" %}</label>
+                <input type="text" name="name" placeholder="{% trans 'Enter your full name' %}" required
+                    pattern="[A-Za-z\s]+" title="{% trans 'Please enter letters only' %}"
+                    oninput="this.value=this.value.replace(/[^A-Za-z\s]/g,'')">
+            </div>
+
+            <div class="form-group">
+                <label>{% trans "Login As" %}</label>
+                <select name="role" required>
+                    <option value="" disabled selected>{% trans "Select Role" %}</option>
+                    <option value="farmer">{% trans "Farmer" %}</option>
+                    <option value="tractor">{% trans "Tractor Driver" %}</option>
+                    <option value="labor">{% trans "Labor" %}</option>
+                    <option value="tools">{% trans "Tools Provider" %}</option>
+                    <option value="lease">{% trans "Lease Owner" %}</option>
+                    <option value="pesticide">{% trans "Fertilizer Shop" %}</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>{% trans "Mobile Number" %}</label>
+                <input type="tel" name="mobile" maxlength="10" placeholder="{% trans '10-digit mobile number' %}"
+                    required oninput="this.value=this.value.replace(/[^0-9]/g,'')">
+            </div>
+
+            <button type="submit" class="btn-login">{% trans "Send OTP" %} &rarr;</button>
+        </form>
+
+        <div class="footer-links">
+            {% trans "New user?" %} <a href="{% url 'register_choice' %}">{% trans "Register here" %}</a>
+        </div>
+    </div>
+</body>
+
+</html>

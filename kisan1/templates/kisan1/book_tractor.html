@@ -1,0 +1,270 @@
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{% trans "Book Tractor | Kisan Asara" %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --tractor-orange: #f57c00;
+            --prime-green: #118a28;
+            --dark-green: #042409;
+            --input-bg: #f7fbf7;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #010a02;
+            background-image:
+                radial-gradient(circle at 30% 70%, rgba(25, 171, 64, 0.6) 0%, transparent 45%),
+                radial-gradient(circle at 75% 25%, rgba(13, 102, 37, 0.8) 0%, transparent 55%),
+                radial-gradient(ellipse at 50% 50%, #063d14 0%, #000000 100%);
+            background-attachment: fixed;
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .booking-card {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            width: 100%;
+            max-width: 520px;
+            padding: 40px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            animation: slideUp 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(40px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .provider-info {
+            background: #fff3e0;
+            border-left: 6px solid var(--tractor-orange);
+            padding: 20px 25px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+        }
+
+        .provider-info h3 {
+            margin: 0 0 10px 0;
+            color: #e65100;
+            font-size: 22px;
+            font-weight: 800;
+        }
+
+        .provider-info p {
+            margin: 5px 0;
+            color: #444;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .provider-info span {
+            font-weight: 700;
+            color: var(--tractor-orange);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--dark-green);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #e0e0e0;
+            border-radius: 14px;
+            font-family: inherit;
+            font-size: 15px;
+            box-sizing: border-box;
+            outline: none;
+            transition: all 0.3s ease;
+            background: var(--input-bg);
+        }
+
+        input:focus {
+            border-color: var(--tractor-orange);
+            background: #fff;
+            box-shadow: 0 0 0 4px rgba(245, 124, 0, 0.1);
+        }
+
+        .total-box {
+            background: #111;
+            padding: 20px;
+            text-align: center;
+            border-radius: 18px;
+            margin: 25px 0;
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .total-amount {
+            color: #ffb74d;
+            font-size: 32px;
+            font-weight: 800;
+            display: block;
+            margin-top: 5px;
+        }
+
+        .btn-hire {
+            background: linear-gradient(135deg, #f57c00, #e65100);
+            color: white;
+            border: none;
+            padding: 18px;
+            width: 100%;
+            border-radius: 16px;
+            font-size: 18px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 10px 25px rgba(245, 124, 0, 0.4);
+        }
+
+        .btn-hire:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(245, 124, 0, 0.5);
+            filter: brightness(1.1);
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #666;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .alert-box {
+            margin-bottom: 18px;
+            padding: 14px 16px;
+            border-radius: 14px;
+            background: #fff3e0;
+            color: #8c3c0f;
+            font-size: 14px;
+            font-weight: 700;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="booking-card">
+        <div class="provider-info">
+            <h3>{{ tractor.user.name }}</h3>
+            <p><i class="fas fa-map-pin"></i> {% trans "Location:" %} <span>{{ tractor.user.village }}</span></p>
+            <p><i class="fas fa-phone"></i> {% trans "Mobile:" %} <span>{{ tractor.user.mobile }}</span></p>
+            <p><i class="fas fa-gear"></i> {% trans "Services:" %} <span>{{ tractor.services }}</span></p>
+            <p><i class="fas fa-coins"></i> {% trans "Rate:" %} <span>
+                    ₹{{ tractor.wage_amount }} / {% trans "Hour" %}
+                </span></p>
+        </div>
+
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert-box">{{ message }}</div>
+        {% endfor %}
+        {% endif %}
+
+        {% if errors %}
+        <div class="alert-box">
+            {% for field_errors in errors.values %}
+            {% for error in field_errors %}
+            <div>{{ error }}</div>
+            {% endfor %}
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <label>{% trans "Hours Required" %}</label>
+                <input type="number" name="duration_hours" id="duration" min="1" value="1" required
+                    oninput="calculateTotal()">
+            </div>
+
+            <div class="input-row" style="display:grid; grid-template-columns:1fr 1fr; gap:15px;">
+                <div class="form-group">
+                    <label>{% trans "Date" %}</label>
+                    <input type="date" name="booking_date" id="booking_date" required>
+                </div>
+                <div class="form-group">
+                    <label>{% trans "Timing" %}</label>
+                    <input type="time" name="start_time" id="start_time" min="05:00" max="18:00" required>
+                </div>
+            </div>
+            <p style="color: #f57c00; font-size: 11px; margin-top: -10px; font-weight: 600;">
+                * {% trans "Available: 05:00 AM to 06:00 PM" %}
+            </p>
+
+            <div class="form-group">
+                <label>{% trans "Field Address" %}</label>
+                <input type="text" name="location" placeholder="{% trans 'e.g., Survey No 45, Near Main Canal' %}"
+                    required>
+            </div>
+
+            <div class="total-box">
+                <span style="text-transform: uppercase; font-size: 11px; color: #aaa;">{% trans "Total Amount" %}</span>
+                <span class="total-amount">₹<span id="displayTotal">{{ tractor.wage_amount }}</span></span>
+            </div>
+
+            <button type="submit" class="btn-hire">🚜 {% trans "Confirm Booking" %}</button>
+            <a href="javascript:history.back()" class="back-link">⬅ {% trans "Cancel" %}</a>
+        </form>
+    </div>
+
+    <script>
+        const wageAmount = parseFloat("{{ tractor.wage_amount }}");
+        function calculateTotal() {
+            let duration = document.getElementById('duration').value || 0;
+            document.getElementById('displayTotal').innerText = (duration * wageAmount).toFixed(2);
+        }
+        document.addEventListener("DOMContentLoaded", function () {
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('booking_date').setAttribute('min', today);
+        });
+    </script>
+</body>
+
+</html>

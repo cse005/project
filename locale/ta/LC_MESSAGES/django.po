@@ -1,0 +1,138 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-03-13 15:05+0530\n"
+"Language: ta\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "English"
+msgstr "ஆங்கிலம்"
+
+msgid "Hindi"
+msgstr "இந்தி"
+
+msgid "Marathi"
+msgstr "மராத்தி"
+
+msgid "Tamil"
+msgstr "தமிழ்"
+
+msgid "Telugu"
+msgstr "தெலுங்கு"
+
+msgid "Welcome | Kisan Asara"
+msgstr "வரவேற்பு | கிசான் ஆசரா"
+
+msgid "Kisan Asara"
+msgstr "கிசான் ஆசரா"
+
+msgid "Empowering Farmers • Supporting Agriculture"
+msgstr "விவசாயிக்கு வலிமை • வேளாண்மைக்கு துணை"
+
+msgid "Login"
+msgstr "உள்நுழை"
+
+msgid "Register"
+msgstr "பதிவு செய்"
+
+msgid "SMART FARMING • SECURE FUTURE"
+msgstr "ஸ்மார்ட் விவசாயம் • பாதுகாப்பான எதிர்காலம்"
+
+msgid "Welcome Back"
+msgstr "மீண்டும் வரவேற்கிறோம்"
+
+msgid "Select Role"
+msgstr "பங்கைத் தேர்ந்தெடுக்கவும்"
+
+msgid "Farmer Registration"
+msgstr "விவசாயி பதிவு"
+
+msgid "Logout"
+msgstr "வெளியேறு"
+
+msgid "My Service Requests"
+msgstr "என் சேவை கோரிக்கைகள்"
+
+msgid "Service Type"
+msgstr "சேவை வகை"
+
+msgid "All Services"
+msgstr "அனைத்து சேவைகள்"
+
+msgid "Tool Rentals"
+msgstr "கருவி வாடகைகள்"
+
+msgid "Tractor Bookings"
+msgstr "டிராக்டர் முன்பதிவுகள்"
+
+msgid "Labor Bookings"
+msgstr "தொழிலாளர் முன்பதிவுகள்"
+
+msgid "Shop Orders"
+msgstr "கடை ஆர்டர்கள்"
+
+msgid "Lease Requests"
+msgstr "குத்தகை கோரிக்கைகள்"
+
+msgid "Status"
+msgstr "நிலை"
+
+msgid "All Statuses"
+msgstr "அனைத்து நிலைகள்"
+
+msgid "Pending"
+msgstr "நிலுவையில்"
+
+msgid "Confirmed"
+msgstr "உறுதி செய்யப்பட்டது"
+
+msgid "Rejected"
+msgstr "நிராகரிக்கப்பட்டது"
+
+msgid "Cancelled"
+msgstr "ரத்து செய்யப்பட்டது"
+
+msgid "Completed"
+msgstr "முடிந்தது"
+
+msgid "Apply Filters"
+msgstr "வடிகட்டிகளை பயன்படுத்து"
+
+msgid "Reset"
+msgstr "மீட்டமை"
+
+msgid "Track"
+msgstr "தடம் காண்"
+
+msgid "Track Location"
+msgstr "இடத்தை காண்"
+
+msgid "Cart & Orders"
+msgstr "கார்ட் மற்றும் ஆர்டர்கள்"
+
+msgid "Current Cart"
+msgstr "தற்போதைய கார்ட்"
+
+msgid "My Orders & Tracking"
+msgstr "என் ஆர்டர்கள் மற்றும் கண்காணிப்பு"
+
+msgid "Apply Filter"
+msgstr "வடிகட்டியை பயன்படுத்து"
+
+msgid "Full Name"
+msgstr "முழுப் பெயர்"
+
+msgid "Mobile Number"
+msgstr "கைபேசி எண்"
+
+msgid "Delivery Location (Address)"
+msgstr "விநியோக முகவரி"
+
+msgid "Payment Mode"
+msgstr "கட்டண முறை"
+
+msgid "Confirm Order"
+msgstr "ஆர்டரை உறுதி செய்"

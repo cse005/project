@@ -1,0 +1,330 @@
+{% extends 'kisan1/base.html' %}
+{% load i18n %}
+
+{% block content %}
+<style>
+    :root {
+        --labor-green: #2e7d32;
+        --tractor-orange: #c46517;
+        --tool-blue: #1769aa;
+        --lease-purple: #6d3fb2;
+        --pesticide-teal: #0a6b62;
+    }
+
+    .premium-dashboard-bg {
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        background: linear-gradient(135deg, #010a02, #063d14, #011406, #042409);
+        background-size: 300% 300%;
+        animation: gradientMove 15s ease infinite;
+    }
+
+    @keyframes gradientMove {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+
+    .portal-container {
+        max-width: 1300px;
+        margin: 0 auto;
+        padding: 20px;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    .dash-nav {
+        background: linear-gradient(135deg, rgba(4, 39, 18, 0.95), rgba(19, 96, 52, 0.92));
+        border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .nav-actions {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .welcome-header {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        color: white;
+        padding: 40px;
+        border-radius: 30px;
+        margin-bottom: 30px;
+        text-align: center;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+    }
+
+    .welcome-header h1 {
+        font-size: clamp(28px, 4vw, 42px);
+        font-weight: 800;
+        margin: 0 0 10px;
+    }
+
+    .filter-bar {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: none;
+    }
+
+    .filter-bar label {
+        color: white;
+    }
+
+    .filter-bar select {
+        background: white;
+        border: none;
+    }
+
+    .section-title {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        font-size: 26px;
+        font-weight: 800;
+        margin: 50px 0 30px;
+        color: white;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 30px;
+    }
+
+    .item-card {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        border-radius: 28px;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 20px;
+        padding: 30px;
+        transition: all 0.35s ease;
+    }
+
+    .item-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.45);
+    }
+
+    .item-card h4 {
+        color: #111;
+        font-size: 22px;
+        margin: 0 0 10px;
+    }
+
+    .item-card p {
+        color: #334155;
+        margin: 6px 0;
+    }
+
+    .price-tag {
+        display: inline-block;
+        margin-top: 12px;
+        padding: 8px 14px;
+        border-radius: 12px;
+        background: #f4f9f4;
+        font-size: 18px;
+        font-weight: 800;
+    }
+
+    .btn {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        text-decoration: none;
+        border-radius: 16px;
+        color: white;
+        font-weight: 800;
+        padding: 16px;
+    }
+
+    .btn-labor { background: var(--labor-green); }
+    .btn-tractor { background: var(--tractor-orange); }
+    .btn-tool { background: var(--tool-blue); }
+    .btn-lease { background: var(--lease-purple); }
+    .btn-pesticide { background: var(--pesticide-teal); }
+
+    .empty-msg {
+        color: white;
+        font-weight: 600;
+        padding: 20px 0;
+    }
+
+    .my-requests-btn {
+        position: fixed;
+        right: 30px;
+        bottom: 30px;
+        z-index: 1000;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 15px 30px;
+        border-radius: 50px;
+        border: 2px solid white;
+        background: linear-gradient(135deg, #fbc02d, #f57f17);
+        color: #111;
+        font-size: 16px;
+        font-weight: 800;
+        text-decoration: none;
+        box-shadow: 0 10px 25px rgba(251, 192, 45, 0.4);
+        transition: all 0.35s ease;
+    }
+
+    .my-requests-btn:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 15px 35px rgba(251, 192, 45, 0.55);
+    }
+</style>
+
+<div class="premium-dashboard-bg"></div>
+
+<a href="{% url 'farmer_booking' %}" class="my-requests-btn">
+    {% trans "Track My Bookings" %}
+</a>
+
+<div class="portal-container">
+    <div class="dash-nav">
+        <form method="post" action="{% url 'logout' %}" class="logout-form">
+            {% csrf_token %}
+            <button type="submit" class="logout-btn">{% trans "Logout" %}</button>
+        </form>
+
+        <h3 style="margin: 0; text-transform: uppercase; font-weight: 800;">
+            {{ farmer.name }}'s Portal
+            <span style="font-size: 0.7em; opacity: 0.9; font-weight: 400; margin-left: 10px;">
+                ({% trans "Role" %}: {% trans "Farmer" %})
+            </span>
+        </h3>
+
+        <div class="nav-actions">
+            <a href="{% url 'farmer_booking' %}" class="nav-link-btn">{% trans "My Bookings" %}</a>
+        </div>
+    </div>
+
+    <div class="welcome-header">
+        <h1>{% blocktrans with farmer_name=farmer.name %}Welcome, {{ farmer_name }}{% endblocktrans %}</h1>
+        <p>{% trans "Select a service below to boost your farming productivity!" %}</p>
+    </div>
+
+    <div class="filter-bar">
+        <label for="dashboardFilter">{% trans "Show Categories:" %}</label>
+        <select id="dashboardFilter" onchange="filterDashboard()">
+            <option value="all">{% trans "All Services" %}</option>
+            <option value="labor-sec">{% trans "Laborers" %}</option>
+            <option value="tractor-sec">{% trans "Tractor Services" %}</option>
+            <option value="tool-sec">{% trans "Farm Tools" %}</option>
+            <option value="lease-sec">{% trans "Land Lease" %}</option>
+            <option value="shop-sec">{% trans "Pesticide Shops" %}</option>
+        </select>
+    </div>
+
+    <div id="labor-sec" class="service-section">
+        <h3 class="section-title">{% trans "Available Laborers" %}</h3>
+        <div class="grid">
+            {% for labor in labors %}
+            <div class="item-card" style="border-top: 6px solid var(--labor-green);">
+                <div>
+                    <h4>{{ labor.user.name }}</h4>
+                    <p><strong>{% trans "Skills" %}:</strong> {{ labor.skills }}</p>
+                    <p class="price-tag" style="color: var(--labor-green);">Rs. {{ labor.wage_amount }} / {{ labor.wage_type }}</p>
+                </div>
+                <a href="{% url 'book_labor' labor.id %}" class="btn btn-labor">{% trans "Book Labor" %}</a>
+            </div>
+            {% empty %}
+            <div class="empty-msg">{% trans "No laborers available right now." %}</div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div id="tractor-sec" class="service-section">
+        <h3 class="section-title">{% trans "Tractor Services" %}</h3>
+        <div class="grid">
+            {% for tractor in tractors %}
+            <div class="item-card" style="border-top: 6px solid var(--tractor-orange);">
+                <div>
+                    <h4>{{ tractor.user.name }}</h4>
+                    <p><strong>{% trans "Village" %}:</strong> {{ tractor.user.village }}</p>
+                    <p class="price-tag" style="color: var(--tractor-orange);">Rs. {{ tractor.wage_amount }} / {% trans "Hour" %}</p>
+                </div>
+                <a href="{% url 'book_tractor' tractor.id %}" class="btn btn-tractor">{% trans "Book Tractor" %}</a>
+            </div>
+            {% empty %}
+            <div class="empty-msg">{% trans "No tractors available." %}</div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div id="tool-sec" class="service-section">
+        <h3 class="section-title">{% trans "Farm Tools for Rent" %}</h3>
+        <div class="grid">
+            {% for tool in tools %}
+            <div class="item-card" style="border-top: 6px solid var(--tool-blue);">
+                <div>
+                    <h4>{{ tool.shop_name }}</h4>
+                    <p><strong>{% trans "Available" %}:</strong> {{ tool.tools_type }}</p>
+                </div>
+                <a href="{% url 'book_tool' tool.id %}" class="btn btn-tool">{% trans "Rent Tools Now" %}</a>
+            </div>
+            {% empty %}
+            <div class="empty-msg">{% trans "No tool rentals available right now." %}</div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div id="lease-sec" class="service-section">
+        <h3 class="section-title">{% trans "Land for Lease" %}</h3>
+        <div class="grid">
+            {% for land in lands %}
+            <div class="item-card" style="border-top: 6px solid var(--lease-purple);">
+                <div>
+                    <h4>{{ land.user.village }}</h4>
+                    <p><strong>{% trans "Area" %}:</strong> {{ land.total_land }} {% trans "Acres" %}</p>
+                    <p class="price-tag" style="color: var(--lease-purple);">Rs. {{ land.lease_per_day }} / {% trans "Day" %}</p>
+                </div>
+                <a href="{% url 'request_lease' land.id %}" class="btn btn-lease">{% trans "Request Lease" %}</a>
+            </div>
+            {% empty %}
+            <div class="empty-msg">{% trans "No lease listings available right now." %}</div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div id="shop-sec" class="service-section">
+        <h3 class="section-title">{% trans "Fertilizer & Pesticide Shops" %}</h3>
+        <div class="grid">
+            {% for shop in pesticides %}
+            <div class="item-card" style="border-top: 6px solid var(--pesticide-teal);">
+                <div>
+                    <h4>{{ shop.shop_name }}</h4>
+                    <p><strong>{% trans "Village" %}:</strong> {{ shop.user.village }}</p>
+                    <p><strong>{% trans "Products" %}:</strong> {{ shop.products_sold }}</p>
+                </div>
+                <a href="{% url 'book_shop' shop.id %}" class="btn btn-pesticide">{% trans "Buy Products" %}</a>
+            </div>
+            {% empty %}
+            <div class="empty-msg">{% trans "No pesticide shops available right now." %}</div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<script>
+    function filterDashboard() {
+        const filterValue = document.getElementById('dashboardFilter').value;
+        const sections = document.querySelectorAll('.service-section');
+
+        sections.forEach((section) => {
+            section.style.display = filterValue === 'all' || section.id === filterValue ? 'block' : 'none';
+        });
+    }
+</script>
+{% endblock %}
