@@ -77,6 +77,12 @@ class KisanAsaraTests(TestCase):
         session['otp_verified'] = True
         session.save()
 
+
+    def test_language_toggle_redirects_back(self):
+        response = self.client.post(reverse('set_language'), {'language': 'te', 'next': reverse('login')})
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse('login'))
+
     def test_registration_pages_load(self):
         routes = [
             'farmer_register',
