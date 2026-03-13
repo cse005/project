@@ -101,6 +101,8 @@ def main_home(request):
     district = request.GET.get('district', '').strip()
     q = request.GET.get('q', '').strip()
 
+    farmer = get_logged_in_user(request)
+
     labors_qs = LaborProfile.objects.select_related('user').order_by('-id')
     tractors_qs = TractorProfile.objects.select_related('user').order_by('-id')
     tools_qs = ToolsProfile.objects.select_related('user').order_by('-id')
@@ -128,6 +130,7 @@ def main_home(request):
         'lands': Paginator(lands_qs, 12).get_page(request.GET.get('lands_page')),
         'pesticides': Paginator(pesticides_qs, 12).get_page(request.GET.get('pesticides_page')),
         'filters': {'district': district, 'q': q},
+        'farmer': farmer,
     })
 
 

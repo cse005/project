@@ -226,7 +226,7 @@
                 <h4>👨‍🌾 {% trans "Farmer" %}: {{ req.farmer.name }}</h4>
                 <div class="info-row">📞 {% trans "Mobile" %}: {{ req.farmer.mobile }}</div>
                 <div class="info-row">📍 {% trans "Location" %}: {{ req.location }}</div>
-                <div class="info-row">📅 {% trans "Date" %}: {{ req.booking_date }} at {{ req.start_time|time:"h:i A" }}</div>
+                <div class="info-row">📅 {% trans "Date" %}: {{ req.booking_date|date:'d M Y' }} • {{ req.start_time|time:'h:i A' }}</div>
 
                 <div class="labor-meta" style="margin-top: 15px;">
                     <span class="meta-tag">🛠️ {{ user.labor_details.skills }}</span>

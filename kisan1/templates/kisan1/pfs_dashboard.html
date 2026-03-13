@@ -248,7 +248,8 @@
                 <h2 style="font-size: 32px; font-weight: 800; margin-bottom: 10px;">
 
                     {{ shop.shop_name|default:"My Agro Shop" }}</h2>
-                <p><i class="fas fa-user-tie"></i> Dealer: {{ user.name }} | 🪪 LIC: {{ shop.license_id|default:'N/A' }}</p>
+                <p><i class="fas fa-user-tie"></i> Dealer: {{ user.name }}</p>
+                <p><i class="fas fa-id-card"></i> P&F License: <strong>{{ shop.license_id|default:'N/A' }}</strong></p>
                 <p><i class="fas fa-map-marker-alt"></i> Location: {{ user.village }}, {{ user.mandal }}</p>
             </div>
             <div style="text-align: right;">

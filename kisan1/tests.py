@@ -224,6 +224,8 @@ class KisanAsaraTests(TestCase):
         self._set_session(self.farmer, 'farmer')
         response = self.client.get(reverse('main_home'))
         self.assertEqual(response.status_code, 200)
+        self.assertContains(response, self.farmer.name)
+        self.assertContains(response, 'All Services')
 
     def test_all_registration_posts_redirect_to_verify_otp(self):
         cases = [
