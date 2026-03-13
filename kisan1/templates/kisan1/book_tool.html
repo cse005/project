@@ -288,8 +288,7 @@
                     {% endif %}
                     {% if "Plough" in tool_shop.tools_type %}
                     <div class="tool-item">
-                        <label><input type="checkbox" name="tool_Plough" value="Plough" onchange="calculateTotal()"> {%
-                            trans "Plough" %}</label>
+                        <label><input type="checkbox" name="tool_Plough" value="Plough" onchange="calculateTotal()"> {% trans "Plough" %}</label>
                         <input type="number" name="hours_Plough" id="hrs_Plough" min="1"
                             placeholder="{% trans 'Hours' %}" oninput="calculateTotal()" disabled>
                     </div>
@@ -333,8 +332,7 @@
             </div>
 
             <div class="total-box">
-                <span style="text-transform: uppercase; font-size: 11px; letter-spacing: 1px; color: #aaa;">{% trans
-                    "Estimated Total" %}</span>
+                <span style="text-transform: uppercase; font-size: 11px; letter-spacing: 1px; color: #aaa;">{% trans "Estimated Total" %}</span>
                 <span class="total-amount">₹<span id="displayTotal">0.00</span></span>
             </div>
 

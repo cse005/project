@@ -35,6 +35,37 @@ from kisan1.views.shared import check_login, get_logged_in_user
 
 logger = logging.getLogger(__name__)
 
+
+_CATEGORY_ALIASES = {
+    'p&f': ['Pesticide', 'Fertilizer'],
+    'p&f&s': ['Pesticide', 'Fertilizer', 'Seeds'],
+    'products & fertilizers': ['Pesticide', 'Fertilizer'],
+    'products fertilizers': ['Pesticide', 'Fertilizer'],
+    'products & fertilizers & seeds': ['Pesticide', 'Fertilizer', 'Seeds'],
+}
+
+
+def _expand_product_categories(raw_category):
+    normalized = (raw_category or '').strip().lower()
+    if not normalized:
+        return []
+    if normalized in _CATEGORY_ALIASES:
+        return _CATEGORY_ALIASES[normalized]
+    return [raw_category.strip()]
+
+
+def _sync_shop_available_products(shop_profile):
+    if not shop_profile:
+        return
+
+    category_values = []
+    for category in PesticideInventory.objects.filter(shop=shop_profile.user).values_list('category', flat=True):
+        category_values.extend(_expand_product_categories(category))
+
+    deduped_categories = list(dict.fromkeys(category_values))
+    shop_profile.products_sold = ' | '.join(deduped_categories)
+    shop_profile.save(update_fields=['products_sold'])
+
 def _ensure_role(request, expected_role):
     active_role = request.session.get('active_role') or request.session.get('role')
     return active_role == expected_role
@@ -70,6 +101,8 @@ def main_home(request):
     district = request.GET.get('district', '').strip()
     q = request.GET.get('q', '').strip()
 
+    farmer = get_logged_in_user(request)
+
     labors_qs = LaborProfile.objects.select_related('user').order_by('-id')
     tractors_qs = TractorProfile.objects.select_related('user').order_by('-id')
     tools_qs = ToolsProfile.objects.select_related('user').order_by('-id')
@@ -97,6 +130,7 @@ def main_home(request):
         'lands': Paginator(lands_qs, 12).get_page(request.GET.get('lands_page')),
         'pesticides': Paginator(pesticides_qs, 12).get_page(request.GET.get('pesticides_page')),
         'filters': {'district': district, 'q': q},
+        'farmer': farmer,
     })
 
 
@@ -128,21 +162,28 @@ def dashboard(request, role):
             category = (request.POST.get('category') or '').strip()
             price = _parse_positive_int(request.POST.get('price'), default=0)
             stock_quantity = _parse_positive_int(request.POST.get('stock_quantity'), default=0)
+            normalized_categories = _expand_product_categories(category)
 
             if not shop_profile:
                 messages.error(request, 'Complete P&F registration first to manage inventory.')
-            elif not item_name or not category or price <= 0 or stock_quantity <= 0:
+            elif not item_name or not normalized_categories or price <= 0 or stock_quantity <= 0:
                 messages.error(request, 'Please provide valid product, category, price, and stock quantity.')
             else:
-                inventory_item, created = PesticideInventory.objects.update_or_create(
-                    shop=user_profile,
-                    item_name=item_name,
-                    defaults={
-                        'category': category,
-                        'price': price,
-                        'stock_quantity': stock_quantity,
-                    },
-                )
+                inventory_item = None
+                created = False
+                for normalized_category in normalized_categories:
+                    inventory_item, item_created = PesticideInventory.objects.update_or_create(
+                        shop=user_profile,
+                        item_name=item_name,
+                        category=normalized_category,
+                        defaults={
+                            'price': price,
+                            'stock_quantity': stock_quantity,
+                        },
+                    )
+                    created = created or item_created
+
+                _sync_shop_available_products(shop_profile)
                 action = 'added' if created else 'updated'
                 messages.success(request, f"Product '{inventory_item.item_name}' {action} in inventory.")
                 return redirect('dashboard', role='pesticide')

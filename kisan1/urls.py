@@ -10,6 +10,7 @@ urlpatterns = [
     # OTP
     path('verify-otp/', views.verify_otp, name='verify_otp'),
     path('verify-otp-login/', views.otp_view, name='verify_otp_login'),
+    path('otp-back/', views.otp_back, name='otp_back'),
 
     # Registration
     path('farmer_register/', views.farmer_register, name='farmer_register'),

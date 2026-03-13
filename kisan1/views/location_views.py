@@ -18,7 +18,7 @@ def get_villages_by_pincode(request):
 def get_location_api(request):
     pincode_input = request.GET.get('pincode', '')
 
-    if len(pincode_input) == 6 and pincode_input.isdigit():
+    if pincode_input.isdigit() and 5 <= len(pincode_input) <= 6:
         # Load pincodes into DB if it is completely empty
         if not PincodeMapping.objects.exists():
             try:

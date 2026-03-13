@@ -217,7 +217,7 @@
             Back</button>
 
         <h3 style="margin: 0; text-transform: uppercase; font-weight: 800;">
-            {{ user.name }}'s Portal
+            {{ farmer.name|default:'Farmer' }}'s Portal
             <span style="font-size: 0.7em; opacity: 0.9; font-weight: 400; margin-left: 10px;">
                 (Role: Farmer)
             </span>
@@ -244,7 +244,7 @@
         <label style="font-weight: bold; color: #fff;">Show Categories:</label>
         <select id="dashboardFilter" onchange="filterDashboard()"
             style="padding: 10px 15px; border-radius: 8px; border: none; background: white; font-weight: 700;">
-            <option value="all">显示所有 (All Services)</option>
+            <option value="all">All Services</option>
             <option value="labor-sec">👷 Laborers</option>
             <option value="tractor-sec">🚜 Tractor Services</option>
             <option value="tool-sec">🛠️ Farm Tools</option>
