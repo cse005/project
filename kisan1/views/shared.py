@@ -75,7 +75,7 @@ def clear_login_attempts(mobile, context='generic'):
 
 def create_otp_session_payload():
     otp = f"{secrets.randbelow(9000) + 1000}"
-    expires_at = (timezone.now() + timedelta(seconds=settings.OTP_TTL_SECONDS)).isoformat()
+    expires_at = (timezone.now() + timedelta(minutes=5)).isoformat()
     return {'code': otp, 'expires_at': expires_at}
 
 

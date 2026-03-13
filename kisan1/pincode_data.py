@@ -49,5 +49,7 @@ PINCODE_DATA = {
             "502216": { "district": "Sangareddy", "mandal": "Kondapur", "villages": ["Kondapur", "Mallepally", "Gollapally"] },
             "502331": { "district": "Sangareddy", "mandal": "Jinnaram", "villages": ["Jinnaram", "Nallavalli", "Kistapur"] },
             "502286": { "district": "Sangareddy", "mandal": "Andole", "villages": ["Andole", "Mansanpally", "Mallepalli"] },
+            "502316": { "district": "Sangareddy", "mandal": "Patancheru", "villages": ["Patancheru", "Ameenpur", "Rudraram"] },
+            "50300": { "district": "Nizamabad", "mandal": "Nizamabad Rural", "villages": ["Nizamabad Rural", "Yedpalle", "Dichpally"] },
             "503002": { "district": "Nizamabad", "mandal": "Nizamabad South", "villages": ["Nizamabad Rural", "Malkapur", "Yellammakunta"] },
         }

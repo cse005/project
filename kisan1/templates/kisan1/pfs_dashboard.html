@@ -27,6 +27,7 @@
         }
 
         body {
+        background: linear-gradient(rgba(8, 22, 16, 0.72), rgba(8, 22, 16, 0.72)), url('https://images.unsplash.com/photo-1625246333195-78d9c38ad449?auto=format&fit=crop&w=1600&q=80') center/cover fixed no-repeat;
             font-family: 'Poppins', sans-serif;
             background-color: var(--bg-color);
             color: var(--text-dark);
@@ -43,7 +44,7 @@
 
         /* --- NAVIGATION BAR --- */
         .dash-nav {
-            background: var(--primary-color);
+            background: linear-gradient(120deg, var(--dark-teal), var(--primary-color));
             color: white;
             border-radius: 16px;
             padding: 18px 24px;
@@ -54,8 +55,7 @@
             box-shadow: 0 10px 15px -3px rgba(4, 110, 88, 0.2);
         }
 
-        .back-btn,
-        .logout-btn-nav {
+        .logout-btn {
             background: rgba(255, 255, 255, 0.2);
             border: none;
             color: white;
@@ -68,57 +68,9 @@
             transition: var(--trans-fast);
         }
 
-        .back-btn:hover,
-        .logout-btn-nav:hover {
+        .logout-btn:hover {
             background: rgba(255, 255, 255, 0.3);
             transform: translateY(-2px);
-        }
-
-        /* Dropdown Menu */
-        .menu-container {
-            position: relative;
-            display: inline-block;
-        }
-
-        .menu-btn {
-            background: var(--card-bg);
-            color: var(--primary-color);
-            border: none;
-            padding: 10px 18px;
-            border-radius: 8px;
-            font-weight: 700;
-            cursor: pointer;
-        }
-
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            right: 0;
-            background-color: var(--card-bg);
-            min-width: 180px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-            border-radius: 12px;
-            z-index: 100;
-            overflow: hidden;
-            margin-top: 10px;
-            border: 1px solid var(--border-color);
-        }
-
-        .dropdown-content a {
-            color: var(--text-dark);
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-            font-weight: 600;
-            font-size: 14px;
-        }
-
-        .dropdown-content a:hover {
-            background-color: var(--light-primary);
-        }
-
-        .menu-container:hover .dropdown-content {
-            display: block;
         }
 
         /* --- FILTER BAR --- */
@@ -271,22 +223,13 @@
     <div class="dashboard-container">
 
         <div class="dash-nav">
-            <button onclick="history.back()" class="back-btn">⬅ Back</button>
-
             <h3 style="margin: 0; text-transform: uppercase;">
                 {{ user.name }}{% if user.name %}'s{% endif %} Dashboard
                 <span style="font-size: 0.7em; opacity: 0.9; font-weight: 400; margin-left: 10px;">
                     (Role: Dealer)
                 </span>
             </h3>
-
-            <div class="menu-container">
-                <button class="menu-btn">☰ Menu</button>
-                <div class="dropdown-content">
-                    <a href="{% url 'register_choice' %}">🏠 Home (Select Role)</a>
-                    <a href="{% url 'logout' %}">🚪 Logout</a>
-                </div>
-            </div>
+            <a href="{% url 'logout' %}" class="logout-btn">🚪 Logout</a>
         </div>
 
         <div class="filter-bar">
@@ -296,6 +239,7 @@
                 <option value="pending">⏳ Pending Approval</option>
                 <option value="confirmed">✅ Approved / Done</option>
                 <option value="rejected">❌ Rejected</option>
+                <option value="cancelled">🚫 Cancelled</option>
             </select>
         </div>
 
