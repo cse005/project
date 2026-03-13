@@ -122,9 +122,34 @@ def dashboard(request, role):
     elif role == 'lease':
         context['work_requests'] = LeaseLandRequest.objects.filter(land__user=user_profile).order_by('-created_at')
     elif role == 'pesticide':
-        # ... (keep your existing pesticide logic here) ...
-        # Just make sure to use 'user_profile' instead of 'user'
-        pass
+        shop_profile = PesticideProfile.objects.filter(user=user_profile).first()
+        if request.method == 'POST' and 'add_product' in request.POST:
+            item_name = (request.POST.get('item_name') or '').strip()
+            category = (request.POST.get('category') or '').strip()
+            price = _parse_positive_int(request.POST.get('price'), default=0)
+            stock_quantity = _parse_positive_int(request.POST.get('stock_quantity'), default=0)
+
+            if not shop_profile:
+                messages.error(request, 'Complete P&F registration first to manage inventory.')
+            elif not item_name or not category or price <= 0 or stock_quantity <= 0:
+                messages.error(request, 'Please provide valid product, category, price, and stock quantity.')
+            else:
+                inventory_item, created = PesticideInventory.objects.update_or_create(
+                    shop=user_profile,
+                    item_name=item_name,
+                    defaults={
+                        'category': category,
+                        'price': price,
+                        'stock_quantity': stock_quantity,
+                    },
+                )
+                action = 'added' if created else 'updated'
+                messages.success(request, f"Product '{inventory_item.item_name}' {action} in inventory.")
+                return redirect('dashboard', role='pesticide')
+
+        context['shop'] = shop_profile
+        context['inventory'] = PesticideInventory.objects.filter(shop=user_profile).order_by('item_name')
+        context['work_requests'] = ShopOrder.objects.filter(shop__user=user_profile).order_by('-created_at')
 
     templates = {
         'tractor': 'kisan1/dashboard_tractor.html',

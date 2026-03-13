@@ -244,8 +244,7 @@
             <h3>{{ laborer.user.name }}</h3>
             <p><i class="fas fa-map-marker-alt"></i> {% trans "Location:" %} <span>{{ laborer.user.village }}</span></p>
             <p><i class="fas fa-screwdriver-wrench"></i> {% trans "Skills:" %} <span>{{ laborer.skills }}</span></p>
-            <p><i class="fas fa-wallet"></i> {% trans "Wages:" %} <span>₹{{ laborer.wage_amount }} / {{
-                    laborer.wage_type }}</span></p>
+            <p><i class="fas fa-wallet"></i> {% trans "Wages:" %} <span>₹{{ laborer.wage_amount }} / {{ laborer.wage_type }}</span></p>
         </div>
 
         <form method="POST">

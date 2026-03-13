@@ -274,7 +274,7 @@
             <button onclick="history.back()" class="back-btn">⬅ Back</button>
 
             <h3 style="margin: 0; text-transform: uppercase;">
-                {{ user.name|default:request.user.username }}'s Dashboard
+                {{ user.name }}{% if user.name %}'s{% endif %} Dashboard
                 <span style="font-size: 0.7em; opacity: 0.9; font-weight: 400; margin-left: 10px;">
                     (Role: Dealer)
                 </span>
@@ -304,7 +304,7 @@
                 <h2 style="font-size: 32px; font-weight: 800; margin-bottom: 10px;">
 
                     {{ shop.shop_name|default:"My Agro Shop" }}</h2>
-                <p><i class="fas fa-user-tie"></i> Dealer: {{ user.name }} | 🪪 LIC: {{ shop.license_id }}</p>
+                <p><i class="fas fa-user-tie"></i> Dealer: {{ user.name }} | 🪪 LIC: {{ shop.license_id|default:'N/A' }}</p>
                 <p><i class="fas fa-map-marker-alt"></i> Location: {{ user.village }}, {{ user.mandal }}</p>
             </div>
             <div style="text-align: right;">

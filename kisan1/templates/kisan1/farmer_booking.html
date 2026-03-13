@@ -366,8 +366,7 @@
         <div class="request-card card-tractor" style="animation-delay: 0.2s;">
             <div class="card-details">
                 <h4>{{ booking.tractor_owner.user.name }}</h4>
-                <p><i class="fas fa-clock"></i> <strong>{% trans "Timing:" %}</strong> {{ booking.booking_date }} at {{
-                    booking.start_time }}</p>
+                <p><i class="fas fa-clock"></i> <strong>{% trans "Timing:" %}</strong> {{ booking.booking_date }} at {{ booking.start_time|time:"h:i A" }}</p>
                 <p><i class="fas fa-hourglass-half"></i> <strong>{% trans "Duration:" %}</strong> {{
                     booking.duration_hours }} {% trans "Hours" %}</p>
             </div>
@@ -400,7 +399,7 @@
         <div class="request-card card-labor" style="animation-delay: 0.3s;">
             <div class="card-details">
                 <h4>{{ booking.laborer.user.name }}</h4>
-                <p><i class="fas fa-calendar-check"></i> {{ booking.booking_date }} at {{ booking.start_time }}</p>
+                <p><i class="fas fa-calendar-check"></i> {{ booking.booking_date }} at {{ booking.start_time|time:"h:i A" }}</p>
                 <p><i class="fas fa-business-time"></i> <strong>{% trans "Duration:" %}</strong> {{ booking.duration }}
                     {% trans "Hours/Days" %}</p>
             </div>

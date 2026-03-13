@@ -160,7 +160,7 @@
     <button onclick="history.back()" class="back-btn">⬅ Back</button>
 
     <h3 style="margin: 0; text-transform: uppercase;">
-        {{ user.name }}'s Dashboard
+        {{ user.name|default:request.user.username }}'s Dashboard
         <span style="font-size: 0.7em; opacity: 0.9; font-weight: 400; margin-left: 10px;">
             (Role: {{ role|title }})
         </span>
@@ -181,7 +181,7 @@
         style="padding: 8px 12px; border-radius: 8px; border: 1px solid #ccc; outline: none; cursor: pointer;">
         <option value="all">All Requests</option>
         <option value="pending">⏳ Pending (Accept Rental)</option>
-        <option value="accepted">✅ Accepted / Confirmed</option>
+        <option value="confirmed">✅ Accepted / Confirmed</option>
     </select>
 </div>
 
@@ -208,8 +208,7 @@
             <div class="farmer-details">
                 <h4>🧑‍🌾 {% trans "Farmer" %}: {{ req.farmer.name }}</h4>
                 <div class="info-row">📞 {% trans "Mobile" %}: {{ req.farmer.mobile }}</div>
-                <div class="info-row">📅 {% trans "Dates" %}: {{ req.receive_date }} {% trans "to" %} {{ req.return_date
-                    }}</div>
+                <div class="info-row">📅 {% trans "Dates" %}: {{ req.receive_date }} {% trans "to" %} {{ req.return_date }}</div>
                 <div class="info-row">📦 {% trans "Delivery" %}: {% if req.home_delivery %}<b>{% trans "Yes" %}</b> ({{
                     req.delivery_location }}){% else %}{% trans "Pickup from Shop" %}{% endif %}</div>
 

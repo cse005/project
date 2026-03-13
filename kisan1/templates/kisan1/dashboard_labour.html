@@ -198,7 +198,7 @@
         style="padding: 8px 12px; border-radius: 8px; border: 1px solid #ccc; outline: none; cursor: pointer;">
         <option value="all">All Work Requests</option>
         <option value="pending">⏳ Pending (Accept Work)</option>
-        <option value="accepted">✅ Accepted / Confirmed</option>
+        <option value="confirmed">✅ Accepted / Confirmed</option>
     </select>
 </div>
 
@@ -226,7 +226,7 @@
                 <h4>👨‍🌾 {% trans "Farmer" %}: {{ req.farmer.name }}</h4>
                 <div class="info-row">📞 {% trans "Mobile" %}: {{ req.farmer.mobile }}</div>
                 <div class="info-row">📍 {% trans "Location" %}: {{ req.location }}</div>
-                <div class="info-row">📅 {% trans "Date" %}: {{ req.booking_date }} at {{ req.start_time }}</div>
+                <div class="info-row">📅 {% trans "Date" %}: {{ req.booking_date }} at {{ req.start_time|time:"h:i A" }}</div>
 
                 <div class="labor-meta" style="margin-top: 15px;">
                     <span class="meta-tag">🛠️ {{ user.labor_details.skills }}</span>
