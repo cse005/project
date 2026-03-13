@@ -220,6 +220,7 @@
 </head>
 
 <body>
+    {% include 'kisan1/partials/language_toggle.html' %}
 
     <div class="reg-card">
         <h2>{% trans "Tool Shop Register" %}</h2>
@@ -236,8 +237,8 @@
             </div>
 
             <div class="form-group">
-                <label>{% trans "Shop Name (Optional):" %}</label>
-                <input type="text" name="shop_name" placeholder="{% trans 'e.g., Kisan Tool Rentals' %}">
+                <label>{% trans "Shop Name:" %}</label>
+                <input type="text" name="shop_name" placeholder="{% trans 'e.g., Kisan Tool Rentals' %}" required>
             </div>
 
             <div class="input-row">

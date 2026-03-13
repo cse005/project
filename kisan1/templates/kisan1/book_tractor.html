@@ -179,14 +179,14 @@
 </head>
 
 <body>
+    {% include 'kisan1/partials/language_toggle.html' %}
     <div class="booking-card">
         <div class="provider-info">
             <h3>{{ tractor.user.name }}</h3>
             <p><i class="fas fa-map-pin"></i> {% trans "Location:" %} <span>{{ tractor.user.village }}</span></p>
             <p><i class="fas fa-phone"></i> {% trans "Mobile:" %} <span>{{ tractor.user.mobile }}</span></p>
             <p><i class="fas fa-gear"></i> {% trans "Services:" %} <span>{{ tractor.services }}</span></p>
-            <p><i class="fas fa-coins"></i> {% trans "Rate:" %} <span>₹{{ tractor.wage_amount }} / {% trans "Hour"
-                    %}</span></p>
+            <p><i class="fas fa-coins"></i> {% trans "Rate:" %} <span>₹{{ tractor.wage_amount }} / {% trans "Hour" %}</span></p>
         </div>
 
         <form method="POST">
@@ -207,8 +207,7 @@
                     <input type="time" name="start_time" id="start_time" min="05:00" max="18:00" required>
                 </div>
             </div>
-            <p style="color: #f57c00; font-size: 11px; margin-top: -10px; font-weight: 600;">* {% trans "Available:
-                05:00 AM to 06:00 PM" %}</p>
+            <p style="color: #f57c00; font-size: 11px; margin-top: -10px; font-weight: 600;">* {% trans "Available: 05:00 AM to 06:00 PM" %}</p>
 
             <div class="form-group">
                 <label>{% trans "Field Address" %}</label>

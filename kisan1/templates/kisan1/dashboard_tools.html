@@ -10,6 +10,14 @@
         --bg-light: #f1f8e9;
     }
 
+    .dash-nav {
+        background: linear-gradient(120deg, #1a237e, #3949ab);
+    }
+
+    body {
+        background: linear-gradient(rgba(8, 22, 16, 0.72), rgba(8, 22, 16, 0.72)), url('https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&w=1600&q=80') center/cover fixed no-repeat;
+    }
+
     .dashboard-container {
         max-width: 1000px;
         margin: 30px auto;
@@ -157,21 +165,13 @@
 </style>
 
 <div class="dash-nav">
-    <button onclick="history.back()" class="back-btn">⬅ Back</button>
-
     <h3 style="margin: 0; text-transform: uppercase;">
         {{ user.name|default:request.user.username }}'s Dashboard
         <span style="font-size: 0.7em; opacity: 0.9; font-weight: 400; margin-left: 10px;">
-            (Role: {{ role|title }})
+            (Role: {{ role|default:"Tools"|title }})
         </span>
     </h3>
-    <div class="menu-container">
-        <button class="menu-btn">☰ Menu</button>
-        <div class="dropdown-content">
-            <a href="{% url 'register_choice' %}">🏠 Home (Select Role)</a>
-            <a href="{% url 'logout' %}">🚪 Logout</a>
-        </div>
-    </div>
+    <a href="{% url 'logout' %}" class="logout-btn">🚪 Logout</a>
 </div>
 
 <div class="filter-bar"
@@ -182,6 +182,7 @@
         <option value="all">All Requests</option>
         <option value="pending">⏳ Pending (Accept Rental)</option>
         <option value="confirmed">✅ Accepted / Confirmed</option>
+        <option value="cancelled">🚫 Cancelled</option>
     </select>
 </div>
 

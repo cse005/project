@@ -1,7 +1,10 @@
+from datetime import timedelta
+
 from django.contrib.auth import get_user_model
 from django.core.cache import cache
 from django.test import TestCase
 from django.urls import reverse
+from django.utils import timezone
 
 # Graceful import in case location_service isn't fully set up yet
 try:
@@ -74,6 +77,12 @@ class KisanAsaraTests(TestCase):
         session['otp_verified'] = True
         session.save()
 
+
+    def test_language_toggle_redirects_back(self):
+        response = self.client.post(reverse('set_language'), {'language': 'te', 'next': reverse('login')})
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse('login'))
+
     def test_registration_pages_load(self):
         routes = [
             'farmer_register',
@@ -102,8 +111,7 @@ class KisanAsaraTests(TestCase):
 
     def test_farmer_registration_invalid_name_blocked(self):
         response = self.client.post(reverse('farmer_register'), {'name': 'Ramesh123', 'mobile': '9123456789'})
-        # View allows this currently and redirects to OTP
-        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.status_code, 200)
 
     def test_dashboards_load_for_each_provider_role(self):
         cases = [
@@ -222,6 +230,8 @@ class KisanAsaraTests(TestCase):
         self._set_session(self.farmer, 'farmer')
         response = self.client.get(reverse('main_home'))
         self.assertEqual(response.status_code, 200)
+        self.assertContains(response, self.farmer.name)
+        self.assertContains(response, 'All Services')
 
     def test_all_registration_posts_redirect_to_verify_otp(self):
         cases = [
@@ -273,12 +283,99 @@ class KisanAsaraTests(TestCase):
     def test_book_labor_invalid_duration_is_rejected(self):
         self.assertTrue(True) # Invalid duration checks skipped
 
+    def test_pfs_inventory_save_supports_compound_categories(self):
+        self._set_session(self.shop_user, 'pesticide')
+        response = self.client.post(
+            reverse('dashboard', kwargs={'role': 'pesticide'}),
+            {
+                'add_product': '1',
+                'item_name': 'Starter Combo',
+                'category': 'P&F&S',
+                'price': '1500',
+                'stock_quantity': '10',
+            },
+        )
+        self.assertRedirects(response, reverse('dashboard', kwargs={'role': 'pesticide'}))
+        items = PesticideInventory.objects.filter(shop=self.shop_user, item_name='Starter Combo').order_by('category')
+        self.assertEqual(items.count(), 3)
+        self.assertEqual(list(items.values_list('category', flat=True)), ['Fertilizer', 'Pesticide', 'Seeds'])
+
+        dashboard = self.client.get(reverse('dashboard', kwargs={'role': 'pesticide'}))
+        self.assertContains(dashboard, 'Starter Combo')
+
+    def test_new_service_pincodes_are_available(self):
+        for pincode in ['50300', '503306', '502316', '502331', '502286', '503001', '503002']:
+            response = self.client.get(reverse('get_location_api'), {'pincode': pincode})
+            self.assertEqual(response.status_code, 200)
+            payload = response.json()
+            self.assertTrue(payload['success'], msg=f'Expected success for {pincode}')
+
 
 class SecurityEnhancementTests(TestCase):
     def test_otp_expired_payload_fails_validation(self):
-        self.assertTrue(True)
+        session = self.client.session
+        session['reg_otp'] = {
+            'code': '1234',
+            'expires_at': (timezone.now() - timedelta(minutes=1)).isoformat(),
+        }
+        session['reg_core'] = {
+            'name': 'Expired User',
+            'age': 30,
+            'mobile': '9111111111',
+            'role': 'farmer',
+            'state': 'Telangana',
+            'district': 'Nizamabad',
+            'mandal': 'Armoor',
+            'village': 'Perkit',
+            'is_verified': False,
+        }
+        session['reg_profile'] = {'gender': 'Male', 'passbook_number': 'T12345678901'}
+        session.save()
+
+        response = self.client.post(reverse('verify_otp'), {'otp': '1234'})
+        self.assertEqual(response.status_code, 200)
+        self.assertFalse(UserRegistration.objects.filter(mobile='9111111111', role='farmer').exists())
+
+    def test_otp_attempts_lock_after_five_invalid_tries(self):
+        session = self.client.session
+        session['login_otp'] = {'code': '9999', 'expires_at': (timezone.now() + timedelta(minutes=5)).isoformat()}
+        session['mobile'] = '9999999999'
+        session['role'] = 'farmer'
+        session.save()
+
+        for _ in range(4):
+            response = self.client.post(reverse('verify_otp_login'), {'otp': '1111'})
+            self.assertEqual(response.status_code, 200)
+
+        fifth = self.client.post(reverse('verify_otp_login'), {'otp': '1111'})
+        self.assertEqual(fifth.status_code, 302)
+        self.assertRedirects(fifth, reverse('login'))
+
     def test_conflicting_tractor_slot_is_blocked(self):
         self.assertTrue(True)
+
+    def test_otp_back_redirects_to_previous_form_page(self):
+        response = self.client.post(reverse('tractor_register'), {
+            'name': 'Tractor Person',
+            'mobile': '9234567890',
+            'age': '30',
+            'base_wage': '500',
+            'driving_license': 'TS0520230000123',
+            'state': 'Telangana',
+            'district': 'Nizamabad',
+            'mandal': 'Armoor',
+            'village': 'Perkit',
+            'services': ['Ploughing'],
+            'exp_Ploughing': '2',
+            'wage_Ploughing': '500',
+            'experience': '2',
+        })
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse('verify_otp'))
+
+        back = self.client.get(reverse('otp_back'))
+        self.assertEqual(back.status_code, 302)
+        self.assertRedirects(back, reverse('tractor_register'))
 
 class PlatformHardeningTests(TestCase):
     def test_shop_item_form_rejects_short_name(self):

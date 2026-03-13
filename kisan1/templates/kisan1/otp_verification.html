@@ -80,9 +80,13 @@
         .btn-verify:hover { background: #1b5e20; transform: scale(1.02); }
 
         .error { color: #d32f2f; font-size: 13px; font-weight: 600; margin-bottom: 15px; display: block; }
+
+        .back-btn {position: absolute; top: 24px; left: 24px; background: rgba(255,255,255,0.9); color: var(--dark-green, #0b2e24); text-decoration: none; padding: 10px 14px; border-radius: 10px; font-weight: 700; box-shadow: 0 6px 14px rgba(0,0,0,0.15);}
     </style>
 </head>
 <body>
+    {% include 'kisan1/partials/language_toggle.html' %}
+    <a href="{% url 'otp_back' %}" class="back-btn">⬅ Back</a>
     <div class="otp-card">
         <span class="key-icon">🔑</span>
         <h2>{% trans "Verify OTP" %}</h2>
