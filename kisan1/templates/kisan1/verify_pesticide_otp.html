@@ -84,10 +84,24 @@
             background: #1b5e20;
             transform: translateY(-2px);
         }
+
+        .back-btn {
+            position: absolute;
+            top: 24px;
+            left: 24px;
+            background: rgba(255,255,255,0.9);
+            color: #0b2e24;
+            text-decoration: none;
+            padding: 10px 14px;
+            border-radius: 10px;
+            font-weight: 700;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+        }
     </style>
 </head>
 
 <body>
+    <a href="{% url 'otp_back' %}" class="back-btn">⬅ Back</a>
     <div class="login-card">
         <div class="icon-box">🔑</div>
         <div class="logo-area">Verify OTP</div>
