@@ -42,5 +42,12 @@ PINCODE_DATA = {
             "501101": { "district": "Vikarabad", "mandal": "Vikarabad", "villages": ["Vikarabad Town", "Marpalle", "Bantwaram"] },
             "509103": { "district": "Wanaparthy", "mandal": "Wanaparthy", "villages": ["Wanaparthy Town", "Gopalpeta", "Peddamandadi"] },
             "506002": { "district": "Warangal", "mandal": "Warangal", "villages": ["Fort Warangal", "Deshaipet", "Kashibugga"] },
-            "508116": { "district": "Yadadri Bhuvanagiri", "mandal": "Bhongir", "villages": ["Bhongir Town", "Bibinagar", "Bommalaramaram"] }
+            "508116": { "district": "Yadadri Bhuvanagiri", "mandal": "Bhongir", "villages": ["Bhongir Town", "Bibinagar", "Bommalaramaram"] },
+
+            "502280": { "district": "Sangareddy", "mandal": "Munipally", "villages": ["Munipally", "Malkapur", "Bondepalle"] },
+            "503306": { "district": "Nizamabad", "mandal": "Dharpally", "villages": ["Dharpally", "Dubbaka", "Ramadugu"] },
+            "502216": { "district": "Sangareddy", "mandal": "Kondapur", "villages": ["Kondapur", "Mallepally", "Gollapally"] },
+            "502331": { "district": "Sangareddy", "mandal": "Jinnaram", "villages": ["Jinnaram", "Nallavalli", "Kistapur"] },
+            "502286": { "district": "Sangareddy", "mandal": "Andole", "villages": ["Andole", "Mansanpally", "Mallepalli"] },
+            "503002": { "district": "Nizamabad", "mandal": "Nizamabad South", "villages": ["Nizamabad Rural", "Malkapur", "Yellammakunta"] },
         }
