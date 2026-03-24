@@ -1,0 +1,91 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home | Kisan Asara</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: #f4f7f6;
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .welcome-card {
+            background: white;
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h1 {
+            color: #2e7d32;
+        }
+
+        .btn-logout {
+            margin-top: 20px;
+            display: inline-block;
+            padding: 10px 25px;
+            background: #c62828;
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+        }
+
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 9999;
+
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+
+            padding: 10px 16px;
+            border-radius: 10px;
+
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: #ffffff;
+            color: #042409;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+
+<body>
+    <button onclick="window.history.back()" class="back-btn"
+        style="position:fixed;top:16px;left:16px;z-index:9999;">Back</button>
+    <div class="welcome-card">
+        <h1>Welcome to Kisan Asara!</h1>
+        <p>Login Successful. You are now on the Dashboard.</p>
+
+        {% if messages %}
+        {% for message in messages %}
+        <p style="color: #2e7d32; font-weight: bold;">{{ message }}</p>
+        {% endfor %}
+        {% endif %}
+
+        <a href="{% url 'login' %}" class="btn-logout">Logout</a>
+    </div>
+</body>
+
+</html>

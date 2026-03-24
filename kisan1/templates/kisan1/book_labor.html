@@ -1,0 +1,372 @@
+﻿{% load i18n %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{% trans "Hire Labor | Kisan Asara" %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* =========================================
+           ULTRA PRO MAX METALLIC UI STYLES
+           ========================================= */
+        :root {
+            --prime-green: #118a28;
+            --dark-green: #042409;
+            --input-bg: #f7fbf7;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+
+            /* 3D METALLIC GLOSSY GREEN SWIRL BACKGROUND */
+            background-color: #010a02;
+            background-image:
+                radial-gradient(circle at 30% 70%, rgba(25, 171, 64, 0.6) 0%, transparent 45%),
+                radial-gradient(circle at 75% 25%, rgba(13, 102, 37, 0.8) 0%, transparent 55%),
+                radial-gradient(ellipse at 50% 50%, #063d14 0%, #000000 100%);
+            background-attachment: fixed;
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Premium Glassmorphism Booking Card */
+        .booking-card {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            width: 100%;
+            max-width: 520px;
+            border-radius: 30px;
+            padding: 40px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            position: relative;
+            z-index: 10;
+            animation: slideUp 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(40px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Provider Info Box */
+        .provider-info {
+            background: rgba(46, 125, 50, 0.05);
+            border-left: 6px solid var(--prime-green);
+            padding: 20px 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.02);
+        }
+
+        .provider-info h3 {
+            margin: 0 0 12px 0;
+            color: var(--dark-green);
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .provider-info p {
+            margin: 6px 0;
+            color: #444;
+            font-size: 15px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .provider-info p i {
+            color: var(--prime-green);
+            width: 20px;
+            text-align: center;
+        }
+
+        .provider-info span {
+            font-weight: 700;
+            color: #111;
+        }
+
+        /* Form Styling */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--dark-green);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid #e0e0e0;
+            border-radius: 14px;
+            font-family: inherit;
+            font-size: 15px;
+            background: var(--input-bg);
+            box-sizing: border-box;
+            outline: none;
+            transition: all 0.3s ease;
+            color: #111;
+            font-weight: 500;
+        }
+
+        input:focus {
+            border-color: var(--prime-green);
+            background: #ffffff;
+            box-shadow: 0 0 0 4px rgba(17, 138, 40, 0.1);
+            transform: translateY(-1px);
+        }
+
+        .input-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        /* Total Amount Box */
+        .total-box {
+            background: #111;
+            padding: 20px;
+            text-align: center;
+            border-radius: 18px;
+            margin: 25px 0;
+            color: #fff;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .total-box-label {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #aaa;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .total-amount {
+            color: #69f0ae;
+            font-size: 32px;
+            font-weight: 800;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* Action Buttons */
+        .btn-hire {
+            background: linear-gradient(135deg, #118a28, #0a5a1a);
+            color: white;
+            border: none;
+            padding: 18px;
+            width: 100%;
+            border-radius: 16px;
+            font-size: 18px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 25px rgba(17, 138, 40, 0.4);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-hire:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 15px 35px rgba(17, 138, 40, 0.6);
+            filter: brightness(1.1);
+        }
+
+        .btn-hire:active {
+            transform: scale(0.97);
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #666;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 700;
+            transition: 0.3s;
+        }
+
+        .back-link:hover {
+            color: var(--dark-green);
+            transform: translateX(-3px);
+        }
+
+
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 9999;
+
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+
+            padding: 10px 16px;
+            border-radius: 10px;
+
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: #ffffff;
+            color: #042409;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+
+<body>
+    <button onclick="window.history.back()" class="back-btn"
+        style="position:fixed;top:16px;left:16px;z-index:9999;">Back</button>
+    <div class="booking-card">
+        <div class="provider-info">
+            <h3>{{ laborer.user.name }}</h3>
+            <p><i class="fas fa-map-marker-alt"></i> {% trans "Location:" %} <span>{{ laborer.user.village }}</span></p>
+            <p><i class="fas fa-screwdriver-wrench"></i> {% trans "Skills:" %} <span>{{ laborer.skills }}</span></p>
+            <p><i class="fas fa-wallet"></i> {% trans "Wages:" %}
+
+                <span>Rs. {{ laborer.wage_amount }} / {{ laborer.wage_type }}</span>
+            </p>
+
+        </div>
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label>{% trans "Quantity" %} ({{ laborer.wage_type|cut:"Per " }}s) {% trans "Required" %}</label>
+                <input type="number" name="duration" id="duration" min="1" value="1" required
+                    oninput="calculateTotal()">
+            </div>
+
+            <div class="input-row">
+                <div class="form-group">
+                    <label>{% trans "Booking Date" %}</label>
+                    <input type="date" name="booking_date" id="booking_date" required>
+                </div>
+                <div class="form-group">
+                    <label>{% trans "Start Timing" %}</label>
+                    <input type="time" name="start_time" id="start_time" min="05:00" max="18:00" required>
+                </div>
+            </div>
+
+            <p style="color: #2e7d32; font-size: 11px; margin-top: -10px; margin-bottom: 20px; font-weight: 600;">
+                <i class="fas fa-circle-info"></i> {% trans "Work hours: 05:00 AM to 06:00 PM" %}
+            </p>
+
+            <div class="form-group">
+                <label>{% trans "Field Address / Location" %}</label>
+                <input type="text" name="location" placeholder="{% trans 'e.g., Survey No 45, Near Main Canal' %}"
+                    minlength="5" maxlength="255" required>
+            </div>
+
+            <div class="total-box">
+                <span class="total-box-label">{% trans "Estimated Total" %}</span>
+                <div class="total-amount">Rs. <span id="displayTotal">{{ laborer.wage_amount }}</span></div>
+            </div>
+
+            <button type="submit" class="btn-hire">
+                <i class="fas fa-check-circle"></i> {% trans "Confirm Booking" %}
+            </button>
+
+            <a href="javascript:history.back()" class="back-link">
+                <i class="fas fa-arrow-left"></i> {% trans "Cancel and Go Back" %}
+            </a>
+        </form>
+    </div>
+
+    <script>
+        // Keep your original logic exactly as is
+        const wageAmount = parseFloat("{{ laborer.wage_amount }}");
+
+        function calculateTotal() {
+            let duration = document.getElementById('duration').value;
+            if (!duration || duration < 1) duration = 0;
+            document.getElementById('displayTotal').innerText = (duration * wageAmount).toFixed(2);
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            // Lock past dates
+            const dateInput = document.getElementById('booking_date');
+            if (dateInput) {
+                const today = new Date();
+                const year = today.getFullYear();
+                const month = String(today.getMonth() + 1).padStart(2, '0');
+                const day = String(today.getDate()).padStart(2, '0');
+                const minDate = `${year}-${month}-${day}`;
+                dateInput.setAttribute('min', minDate);
+            }
+
+            // Time validation logic
+            const timeInput = document.getElementById('start_time');
+            if (timeInput) {
+                timeInput.addEventListener('change', function () {
+                    const timeValue = this.value;
+                    if (timeValue) {
+                        const hour = parseInt(timeValue.split(':')[0], 10);
+                        const minute = parseInt(timeValue.split(':')[1], 10);
+
+                        if (hour < 5 || hour > 18 || (hour === 18 && minute > 0)) {
+                            alert('{% trans "Booking is only allowed between 05:00 AM and 06:00 PM." %}');
+                            this.value = '';
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

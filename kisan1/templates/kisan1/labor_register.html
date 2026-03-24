@@ -1,0 +1,428 @@
+﻿{% load i18n %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE|default:'en' }}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% trans "Labor Registration | Kisan Asara" %}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --prime-green: #118a28;
+            --dark-green: #042409;
+            --input-bg: #f7fbf7;
+        }
+
+        body {
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Inter', sans-serif;
+            background-color: #010a02;
+            background-image:
+                radial-gradient(circle at 30% 70%, rgba(25, 171, 64, 0.6) 0%, transparent 45%),
+                radial-gradient(circle at 75% 25%, rgba(13, 102, 37, 0.8) 0%, transparent 55%),
+                radial-gradient(ellipse at 50% 50%, #063d14 0%, #000000 100%);
+            background-attachment: fixed;
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        .reg-card {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 45px 40px;
+            border-radius: 28px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
+            width: 100%;
+            max-width: 600px;
+            box-sizing: border-box;
+            position: relative;
+            z-index: 10;
+            animation: slideUp 0.6s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .reg-card h2 {
+            color: var(--dark-green);
+            margin: 0 0 8px;
+            font-size: 28px;
+            font-weight: 800;
+            text-align: center;
+            letter-spacing: -0.5px;
+        }
+
+        .reg-card p {
+            text-align: center;
+            color: #446644;
+            margin-bottom: 30px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .input-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--dark-green);
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="tel"],
+        select {
+            width: 100%;
+            padding: 14px 16px;
+            background: var(--input-bg);
+            color: #333333;
+            border: 1px solid #cce0cc;
+            border-radius: 14px;
+            font-size: 15px;
+            font-weight: 500;
+            box-sizing: border-box;
+            outline: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-family: inherit;
+        }
+
+        input::placeholder {
+            color: #8da68d;
+        }
+
+        input:focus,
+        select:focus {
+            background: #ffffff;
+            border-color: var(--prime-green);
+            box-shadow: 0 0 0 4px rgba(17, 138, 40, 0.15);
+            transform: translateY(-1px);
+        }
+
+        select:disabled,
+        input[readonly] {
+            background-color: #eef5ee;
+            color: #7a997a;
+            cursor: not-allowed;
+            border-color: #dceadc;
+        }
+
+        .skills-container {
+            background: rgba(247, 251, 247, 0.6);
+            padding: 18px;
+            border-radius: 14px;
+            border: 1px solid rgba(204, 224, 204, 0.8);
+            margin-bottom: 15px;
+        }
+
+        .skill-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+
+        .skill-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .skill-row label {
+            margin-bottom: 0;
+            font-size: 15px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+
+        .skill-row input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--prime-green);
+        }
+
+        .skill-row input[type="number"] {
+            width: 150px;
+            padding: 10px 14px;
+            font-size: 14px;
+        }
+
+        .btn-next {
+            background: var(--prime-green);
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 14px;
+            width: 100%;
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+            box-shadow: 0 8px 20px rgba(17, 138, 40, 0.3);
+        }
+
+        .btn-next:hover {
+            background: #0d6e1f;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px rgba(17, 138, 40, 0.4);
+        }
+
+        .btn-next:active {
+            transform: scale(0.98) translateY(0);
+            box-shadow: 0 4px 10px rgba(17, 138, 40, 0.2);
+        }
+
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 9999;
+
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+
+            padding: 10px 16px;
+            border-radius: 10px;
+
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: #ffffff;
+            color: #042409;
+            transform: translateY(-2px);
+        }
+
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 9999;
+
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+
+            padding: 10px 16px;
+            border-radius: 10px;
+
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: #ffffff;
+            color: #042409;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+
+<body>
+    <a href="{% url 'register_choice' %}" class="back-btn">{% trans "Back" %}</a>
+    <div class="reg-card">
+        <h2>{% trans "Labor Registration" %}</h2>
+        <p>{% trans "Complete your profile & get employability / work opportunities" %}</p>
+        {% include 'kisan1/partials/form_messages.html' %}
+
+        <form id="laborForm" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="role" value="labor">
+
+            <div class="form-group">
+                <label>{% trans "Full name:" %}</label>
+                <input type="text" name="name" placeholder="{% trans 'e.g., Ramesh Kumar' %}" pattern="[A-Za-z\s]{3,50}"
+                    minlength="3" maxlength="50" autocomplete="name" required>
+            </div>
+
+            <div class="input-row">
+                <div class="form-group">
+                    <label>{% trans "Age:" %}</label>
+                    <input type="number" name="age" min="18" max="100" step="1" inputmode="numeric"
+                        placeholder="{% trans 'e.g., 25' %}" required>
+                </div>
+                <div class="form-group">
+                    <label>{% trans "Mobile No:" %}</label>
+                    <input type="tel" name="mobile" minlength="10" maxlength="10" inputmode="numeric" autocomplete="tel"
+                        placeholder="{% trans 'e.g., 9876543210' %}" pattern="[6789][0-9]{9}" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>{% trans "Gender:" %}</label>
+                <select name="gender" required>
+                    <option value="" disabled selected>{% trans "Select Gender" %}</option>
+                    <option value="Male">{% trans "Male" %}</option>
+                    <option value="Female">{% trans "Female" %}</option>
+                    <option value="Other">{% trans "Other" %}</option>
+                </select>
+            </div>
+
+            <div class="input-row">
+                <div class="form-group">
+                    <label>{% trans "Wage Amount (Rs.):" %}</label>
+                    <input type="number" name="wage_amount" min="1" max="100000" step="1" inputmode="numeric"
+                        placeholder="{% trans 'e.g., 500' %}" required>
+                </div>
+                <div class="form-group">
+                    <label>{% trans "Per Day / Hour:" %}</label>
+                    <select name="wage_type" required>
+                        <option value="Per Day">{% trans "Per Day" %}</option>
+                        <option value="Per Hour">{% trans "Per Hour" %}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>{% trans "Pincode (Try: 503224, 506002, 500038):" %}</label>
+                <input type="text" id="pincode" name="pincode" placeholder="{% trans 'Enter 6-digit Pincode' %}"
+                    minlength="6" maxlength="6" inputmode="numeric" pattern="[0-9]{6}" oninput="fetchLocationDetails()"
+                    required>
+            </div>
+
+            <div class="input-row">
+                <div class="form-group">
+                    <label>{% trans "State:" %}</label>
+                    <input type="text" id="state" name="state" value="Telangana" maxlength="100" readonly required>
+                </div>
+                <div class="form-group">
+                    <label>{% trans "District:" %}</label>
+                    <input type="text" id="district" name="district" placeholder="{% trans 'Auto-filled' %}"
+                        maxlength="100" readonly required>
+                </div>
+            </div>
+
+            <div class="input-row">
+                <div class="form-group">
+                    <label>{% trans "Mandal:" %}</label>
+                    <input type="text" id="mandal" name="mandal" placeholder="{% trans 'Auto-filled' %}" maxlength="100"
+                        readonly required>
+                </div>
+                <div class="form-group">
+                    <label>{% trans "Village:" %}</label>
+                    <select id="village" name="village" required>
+                        <option value="" disabled selected>{% trans "-- Enter Pincode First --" %}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>{% trans "Select your skills:" %}</label>
+                <div class="skills-container">
+                    <div class="skill-row">
+                        <label><input type="checkbox" name="skills" value="Harvesting"> {% trans "Harvesting" %}</label>
+                        <input type="number" name="exp_Harvesting" min="0" max="60" step="1" inputmode="numeric"
+                            placeholder="{% trans 'Years of exp' %}">
+                    </div>
+                    <div class="skill-row">
+                        <label><input type="checkbox" name="skills" value="Ploughing"> {% trans "Ploughing" %}</label>
+                        <input type="number" name="exp_Ploughing" min="0" max="60" step="1" inputmode="numeric"
+                            placeholder="{% trans 'Years of exp' %}">
+                    </div>
+                    <div class="skill-row">
+                        <label><input type="checkbox" name="skills" value="Sowing"> {% trans "Sowing" %}</label>
+                        <input type="number" name="exp_Sowing" min="0" max="60" step="1" inputmode="numeric"
+                            placeholder="{% trans 'Years of exp' %}">
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-next">{% trans "Submit Register" %}</button>
+        </form>
+    </div>
+    <script src="{% static 'js/location.js' %}"></script>
+
+    <script>
+        document.getElementById('laborForm').addEventListener('submit', function (event) {
+            const ageField = document.querySelector('input[name="age"]');
+            const checkedSkills = document.querySelectorAll('input[name="skills"]:checked');
+
+            function getExperienceLimit() {
+                const age = parseInt(ageField.value || '0', 10);
+                if (Number.isNaN(age)) {
+                    return null;
+                }
+                return Math.max(0, age - 18);
+            }
+
+            if (checkedSkills.length === 0) {
+                event.preventDefault();
+                alert('{% trans "Please select at least one skill to continue." %}');
+                return;
+            }
+
+            for (const skill of checkedSkills) {
+                const expField = document.querySelector(`input[name="exp_${skill.value}"]`);
+                if (!expField || expField.value.trim() === "") {
+                    event.preventDefault();
+                    alert('{% trans "Please enter years of experience for:" %} ' + skill.value);
+                    return;
+                }
+
+                const limit = getExperienceLimit();
+                const years = parseInt(expField.value, 10);
+                if (limit !== null && !Number.isNaN(years) && years > limit) {
+                    event.preventDefault();
+                    alert('{% trans "Experience must be less than or equal to age minus 18." %} ' + skill.value + ': ' + limit);
+                    return;
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

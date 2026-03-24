@@ -1,0 +1,232 @@
+{% extends 'kisan1/base.html' %}
+{% load i18n %}
+
+{% block content %}
+<div class="dashboard-shell dashboard-shell--{{ role }}">
+    <div class="dashboard-topbar">
+        <a class="dash-back" href="{% url 'welcome' %}">{% trans "Back" %}</a>
+
+        <div class="dash-title">
+            <span>{{ user.name|upper }}&#39;S {% trans "Dashboard" %}</span>
+            <span>({% trans "Role" %}: {{ role|upper }})</span>
+        </div>
+
+        <div class="menu-container">
+            <button class="dash-menu">{% trans "Menu" %}</button>
+            <div class="dropdown-content">
+                <a href="#add-product" data-panel-target="add-product">{% trans "Add Product" %}</a>
+                <a href="#change-rate" data-panel-target="change-rate">{% trans "Change Price" %}</a>
+                <a href="#view-products" data-panel-target="view-products">{% trans "Current Inventory" %}</a>
+                <a href="#orders-panel" data-panel-target="orders-panel">{% trans "Orders" %}</a>
+                <a href="{% url 'logout' %}">{% trans "Logout" %}</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="filter-card">
+        <label for="bookingFilter">{% trans "Filter Orders:" %}</label>
+        <select id="bookingFilter">
+            <option value="all">{% trans "All Requests" %}</option>
+            <option value="pending">{% trans "Pending" %}</option>
+            <option value="confirmed">{% trans "Confirmed" %}</option>
+            <option value="rejected">{% trans "Rejected" %}</option>
+            <option value="cancelled">{% trans "Cancelled" %}</option>
+        </select>
+    </div>
+
+    <div class="profile-card">
+        <div class="profile-main">
+            <h2 class="profile-name">{{ user.name|upper }}</h2>
+            <div class="profile-location">
+                {{ user.village|default_if_none:"" }}{% if user.district %}, {{ user.district }}{% endif %}
+            </div>
+        </div>
+        <div class="profile-status">
+            <div class="status-label">{% trans "Status" %}</div>
+            {% if is_available and service_status == 'Active' %}
+            <div class="status-value">{% trans "Active Service" %}</div>
+            {% else %}
+            <div class="status-value status-paused">{% trans "Paused" %}</div>
+            {% endif %}
+        </div>
+    </div>
+
+    <div id="orders-panel" class="section-title">
+        <span class="section-bar"></span>
+        {% trans "Orders" %}
+    </div>
+
+    <div class="request-grid">
+        {% for req in work_requests %}
+        <div class="request-card" data-status="{{ req.status|lower }}">
+            <div class="request-header">
+                <div class="request-name">{{ req.farmer.name }}</div>
+                <span class="status-pill {{ req.status|lower }}">{{ req.status }}</span>
+            </div>
+            <div class="request-meta">
+                <span>{% trans "Order" %}: {{ req.items_ordered }}</span>
+                <span>{% trans "Total" %}: Rs {{ req.total_cost }}</span>
+            </div>
+            {% if req.status == 'Pending' %}
+            <div class="request-actions">
+                <form action="{% url 'accept_shop_order' req.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="action-btn action-accept">{% trans "Accept" %}</button>
+                </form>
+                <form action="{% url 'reject_shop_order' req.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="action-btn action-reject">{% trans "Reject" %}</button>
+                </form>
+            </div>
+            {% endif %}
+        </div>
+        {% empty %}
+        <div class="empty-card">
+            <p>{% trans "No active shop orders right now." %}</p>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div id="add-product" class="settings-panel">
+        <h3>{% trans "Add New Product" %}</h3>
+        <form method="post" class="settings-form">
+            {% csrf_token %}
+            <input type="hidden" name="add_product" value="1">
+
+            <label for="itemName">{% trans "Product Name" %}</label>
+            <input id="itemName" type="text" name="item_name" required>
+
+            <label for="itemCategory">{% trans "Category" %}</label>
+            <select id="itemCategory" name="category" required>
+                <option value="Seeds">{% trans "Seeds" %}</option>
+                <option value="Fertilizer">{% trans "Fertilizer" %}</option>
+                <option value="Pesticides">{% trans "Pesticides" %}</option>
+            </select>
+
+            <label for="marketPrice">{% trans "Market Price" %}</label>
+            <input id="marketPrice" type="number" name="market_price" min="1" required>
+
+            <label for="shopPrice">{% trans "Shop Price" %}</label>
+            <input id="shopPrice" type="number" name="price" min="1" required>
+
+            <label for="stockQuantity">{% trans "Stock Quantity" %}</label>
+            <input id="stockQuantity" type="number" name="stock_quantity" min="1" required>
+
+            <div class="settings-actions">
+                <button type="submit">{% trans "Add Product" %}</button>
+            </div>
+        </form>
+    </div>
+
+    <div id="change-rate" class="settings-panel">
+        <h3>{% trans "Change Price" %}</h3>
+        <form method="post" class="settings-form">
+            {% csrf_token %}
+            <input type="hidden" name="save_shop_price" value="1">
+
+            <label for="priceItemSelect">{% trans "Select Product" %}</label>
+            <select id="priceItemSelect" name="item_id" required>
+                {% for item in inventory %}
+                <option value="{{ item.id }}" data-price="{{ item.price }}">
+                    {{ item.item_name }}
+                </option>
+                {% endfor %}
+            </select>
+
+            <p>{% trans "Current Price" %}: Rs <span id="currentRateValue">0</span></p>
+
+            <label for="updatedShopPrice">{% trans "New Price" %}</label>
+            <input id="updatedShopPrice" type="number" name="shop_price" min="1" required>
+
+            <div class="settings-actions">
+                <button type="submit">{% trans "Update Price" %}</button>
+            </div>
+        </form>
+    </div>
+
+    <div id="view-products" class="settings-panel">
+        <h3>{% trans "Current Inventory" %}</h3>
+
+        {% if inventory %}
+        <div style="margin-top: 15px; display: flex; flex-direction: column; gap: 15px;">
+            {% for item in inventory %}
+            <div style="background: #ffffff; border-radius: 12px; padding: 16px; border: 1px solid #e5e7eb;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; gap: 12px;">
+                    <div style="font-size: 16px; font-weight: 700; color: #111;">
+                        {{ item.item_name }}
+                    </div>
+
+                    <div style="background: #e6f4ea; color: #065f46; padding: 4px 10px; border-radius: 8px; font-size: 12px;">
+                        {{ item.category }}
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; font-size: 13px; color: #374151;">
+                    <div>
+                        <strong>{% trans "Market Price" %}</strong><br>
+                        Rs {{ item.market_price }}
+                    </div>
+
+                    <div>
+                        <strong>{% trans "Shop Price" %}</strong><br>
+                        Rs {{ item.price }}
+                    </div>
+
+                    <div>
+                        <strong>{% trans "Stock Quantity" %}</strong><br>
+                        {{ item.stock_quantity }}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p>{% trans "No products found." %}</p>
+        {% endif %}
+    </div>
+</div>
+
+<script>
+    (function () {
+        const filter = document.getElementById('bookingFilter');
+        const cards = Array.from(document.querySelectorAll('.request-card'));
+
+        if (filter) {
+            filter.addEventListener('change', function () {
+                const value = this.value;
+                cards.forEach((card) => {
+                    const status = (card.dataset.status || '').toLowerCase();
+                    card.style.display = value === 'all' || status === value ? '' : 'none';
+                });
+            });
+        }
+
+        document.querySelectorAll('[data-panel-target]').forEach((link) => {
+            link.addEventListener('click', (event) => {
+                const targetId = event.currentTarget.getAttribute('data-panel-target');
+                const panel = document.getElementById(targetId);
+                if (panel) {
+                    event.preventDefault();
+                    panel.classList.toggle('is-open');
+                }
+            });
+        });
+
+        const productSelect = document.getElementById('priceItemSelect');
+        const currentRateValue = document.getElementById('currentRateValue');
+
+        function syncCurrentRate() {
+            if (!productSelect || !currentRateValue) {
+                return;
+            }
+            const selectedOption = productSelect.options[productSelect.selectedIndex];
+            currentRateValue.textContent = selectedOption ? selectedOption.getAttribute('data-price') || '0' : '0';
+        }
+
+        if (productSelect) {
+            productSelect.addEventListener('change', syncCurrentRate);
+            syncCurrentRate();
+        }
+    })();
+</script>
+{% endblock %}

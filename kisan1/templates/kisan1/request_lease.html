@@ -1,0 +1,279 @@
+﻿{% load i18n %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{% trans "Request Lease | Kisan Asara" %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #f4f6f8;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .booking-card {
+            background: #fff;
+            width: 100%;
+            max-width: 550px;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .provider-info {
+            background: #f3e5f5;
+            border-left: 5px solid #673ab7;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+        }
+
+        .provider-info h3 {
+            margin: 0 0 10px 0;
+            color: #4a148c;
+            font-size: 20px;
+        }
+
+        .provider-info p {
+            margin: 5px 0;
+            color: #444;
+            font-size: 14px;
+        }
+
+        .provider-info span {
+            font-weight: 600;
+            color: #673ab7;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 6px;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        input[type="number"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            box-sizing: border-box;
+            outline: none;
+        }
+
+        .soil-list {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #eee;
+            margin-bottom: 15px;
+        }
+
+        .soil-row {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .soil-row:last-child {
+            border-bottom: none;
+        }
+
+        .soil-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .soil-inputs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .btn-hire {
+            background: #673ab7;
+            color: white;
+            border: none;
+            padding: 15px;
+            width: 100%;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 15px;
+            color: #673ab7;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 9999;
+
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+
+            padding: 10px 16px;
+            border-radius: 10px;
+
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: #ffffff;
+            color: #042409;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+
+<body>
+    <button onclick="window.history.back()" class="back-btn"
+        style="position:fixed;top:16px;left:16px;z-index:9999;">Back</button>
+    <div class="reg-card">
+        <div class="booking-card">
+            <div class="provider-info">
+                <h3>{{ land.user.name }}</h3>
+                <p>{% trans "Location:" %} <span>{{ land.user.village }}</span></p>
+                <p>{% trans "Passbook No:" %} <span>{{ land.passbook_number }}</span></p>
+            </div>
+
+            <form method="POST" id="leaseForm">
+                {% csrf_token %}
+
+                <div class="form-group">
+                    <label>Choose Soil Types:</label>
+                    <div class="soil-list">
+                        <div class="soil-row">
+                            <div class="soil-header">
+                                <input type="checkbox" name="soil_types" value="Red Soil" class="soil-checkbox"
+                                    id="red">
+                                <label for="red">Red Soil</label>
+                            </div>
+                            <div class="soil-inputs">
+                                <input type="number" name="acres_Red" placeholder="Acres">
+                                <input type="number" name="rate_Red" placeholder="Rate (Rs.)">
+                            </div>
+                        </div>
+
+                        <div class="soil-row">
+                            <div class="soil-header">
+                                <input type="checkbox" name="soil_types" value="Black Soil" class="soil-checkbox"
+                                    id="black">
+                                <label for="black">Black Soil</label>
+                            </div>
+                            <div class="soil-inputs">
+                                <input type="number" name="acres_Black" placeholder="Acres">
+                                <input type="number" name="rate_Black" placeholder="Rate (Rs.)">
+                            </div>
+                        </div>
+
+                        <div class="soil-row">
+                            <div class="soil-header">
+                                <input type="checkbox" name="soil_types" value="Alluvial Soil" class="soil-checkbox"
+                                    id="alluvial">
+                                <label for="alluvial">Alluvial Soil</label>
+                            </div>
+                            <div class="soil-inputs">
+                                <input type="number" name="acres_Alluvial" placeholder="Acres">
+                                <input type="number" name="rate_Alluvial" placeholder="Rate (Rs.)">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>{% trans "Proposed Start Date:" %}</label>
+                    <input type="date" name="start_date" id="start_date">
+                </div>
+
+                <div class="form-group">
+                    <label>{% trans "Message to Owner:" %}</label>
+                    <textarea name="message_to_owner" id="message_to_owner" rows="3"></textarea>
+                </div>
+
+                <button type="submit" class="btn-hire">Register</button>
+                <a href="javascript:history.back()" class="back-link">{% trans "Cancel" %}</a>
+            </form>
+        </div>
+
+        <script>
+            document.getElementById('leaseForm').onsubmit = function (e) {
+                const checkboxes = document.querySelectorAll('.soil-checkbox');
+                const startDate = document.getElementById('start_date').value;
+                const message = document.getElementById('message_to_owner').value.trim();
+
+                let isChecked = false;
+                let missingInputs = false;
+
+                checkboxes.forEach((checkbox) => {
+                    if (checkbox.checked) {
+                        isChecked = true;
+                        // Find the input fields associated with this soil type prefix
+                        const prefix = checkbox.value.split(" ")[0]; // e.g., "Red" from "Red Soil"
+                        const acres = document.querySelector(`input[name="acres_${prefix}"]`).value.trim();
+                        const rate = document.querySelector(`input[name="rate_${prefix}"]`).value.trim();
+
+                        if (!acres || !rate) {
+                            missingInputs = true;
+                        }
+                    }
+                });
+
+                // Validation logic
+                if (!isChecked) {
+                    e.preventDefault();
+                    alert("Please select at least one Soil Type before registering.");
+                    return false;
+                }
+
+                if (missingInputs) {
+                    e.preventDefault();
+                    alert("Please enter both Acres and Rate for the selected Soil Type(s).");
+                    return false;
+                }
+
+                if (!startDate || !message) {
+                    e.preventDefault();
+                    alert("Please provide a Start Date and a Message to the owner.");
+                    return false;
+                }
+            };
+        </script>
+</body>
+
+</html>

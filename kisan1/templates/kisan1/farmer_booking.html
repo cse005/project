@@ -1,0 +1,1239 @@
+﻿{% load i18n %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE|default:'en' }}">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{% trans "My Service Requests | Kisan Asara" %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* =========================================
+           ULTRA PRO MAX DASHBOARD STYLES
+           ========================================= */
+        :root {
+            --labor-green: #2e7d32;
+            --tractor-gold: #fbc02d;
+            --tool-blue: #0288d1;
+            --lease-purple: #9c27b0;
+            --shop-teal: #009688;
+            --glass-bg: rgba(255, 255, 255, 0.95);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            color: #fff;
+            overflow-x: hidden;
+            background: linear-gradient(135deg, #010a02, #063d14, #011406);
+            background-size: 400% 400%;
+            animation: gradientAnimation 15s ease infinite;
+        }
+
+        body.dialog-open {
+            overflow: hidden;
+        }
+
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 60px 20px;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        h2 {
+            font-size: clamp(28px, 5vw, 42px);
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 40px;
+            text-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+            letter-spacing: -1px;
+        }
+
+        .section-title {
+            font-size: 22px;
+            font-weight: 700;
+            margin: 40px 0 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #c5e1a5;
+        }
+
+        .section-title::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .request-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            padding: 25px 30px;
+            border-radius: 24px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            color: #333;
+        }
+
+        .request-card:hover {
+            transform: translateY(-8px) scale(1.01);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            background: #ffffff;
+        }
+
+        .card-tool {
+            border-left: 8px solid var(--tool-blue);
+        }
+
+        .card-tractor {
+            border-left: 8px solid var(--tractor-gold);
+        }
+
+        .card-labor {
+            border-left: 8px solid var(--labor-green);
+        }
+
+        .card-shop {
+            border-left: 8px solid var(--shop-teal);
+        }
+
+        .card-lease {
+            border-left: 8px solid var(--lease-purple);
+        }
+
+        .card-details h4 {
+            margin: 0 0 8px 0;
+            color: #111;
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .card-details p {
+            margin: 5px 0;
+            color: #555;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .card-details i {
+            width: 20px;
+            color: #2e7d32;
+        }
+
+        .price-tag {
+            font-size: 22px;
+            font-weight: 800;
+            color: #111;
+            margin-bottom: 8px;
+        }
+
+        .status-badge {
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            display: inline-block;
+            border: 1px solid transparent;
+        }
+
+        .status-Pending {
+            background: #fff3e0;
+            color: #e65100;
+            border-color: #ffe0b2;
+        }
+
+        .status-Confirmed {
+            background: #e8f5e9;
+            color: #2e7d32;
+            border-color: #c8e6c9;
+        }
+
+        .status-Completed {
+            background: #e3f2fd;
+            color: #1565c0;
+            border-color: #bbdefb;
+        }
+
+        .status-Rejected {
+            background: #ffebee;
+            color: #c62828;
+            border-color: #ffcdd2;
+        }
+
+        .status-Cancelled {
+            background: #f3f4f6;
+            color: #4b5563;
+            border-color: #e5e7eb;
+        }
+
+        .btn-group {
+            margin-top: 15px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            padding: 10px 20px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.3s ease;
+            border: none;
+        }
+
+        .btn-cancel {
+            background: #fbe9e7;
+            color: #d32f2f;
+        }
+
+        .btn-cancel:hover {
+            background: #d32f2f;
+            color: #fff;
+            transform: scale(1.05);
+        }
+
+        .btn-track {
+            background: #e1f5fe;
+            color: #0288d1;
+        }
+
+        .btn-track:hover {
+            background: #0288d1;
+            color: #fff;
+            transform: scale(1.05);
+        }
+
+        .empty-state {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 80px 20px;
+            text-align: center;
+            border-radius: 30px;
+            border: 2px dashed rgba(255, 255, 255, 0.2);
+            color: #aaa;
+        }
+
+        .empty-state h1 {
+            font-size: 60px;
+            margin-bottom: 20px;
+            filter: grayscale(1);
+            opacity: 0.5;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            margin-top: 40px;
+            color: #c5e1a5;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.3s;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50px;
+        }
+
+        .back-link:hover {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateX(-5px);
+        }
+
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 9999;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 14px;
+            padding: 10px 16px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .back-btn:hover {
+            background: #ffffff;
+            color: #042409;
+            transform: translateY(-2px);
+        }
+
+        .toast-stack {
+            position: fixed;
+            right: 16px;
+            top: 16px;
+            z-index: 2000;
+            display: grid;
+            gap: 12px;
+            width: min(340px, calc(100vw - 32px));
+        }
+
+        .toast-item {
+            padding: 14px 16px;
+            border-radius: 14px;
+            font-size: 14px;
+            font-weight: 700;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+
+        .toast-item.success {
+            background: #e8f5e9;
+            color: #166534;
+        }
+
+        .toast-item.error {
+            background: #fef2f2;
+            color: #b91c1c;
+        }
+
+        .toast-item.warning {
+            background: #fff7ed;
+            color: #9a3412;
+        }
+
+        .toast-item.info {
+            background: #eff6ff;
+            color: #1d4ed8;
+        }
+
+        .tracking-dialog-backdrop {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            background: rgba(3, 10, 5, 0.75);
+            backdrop-filter: blur(12px);
+            z-index: 3000;
+        }
+
+        .tracking-dialog-backdrop[hidden] {
+            display: none;
+        }
+
+        .tracking-dialog {
+            width: min(820px, 100%);
+            max-height: min(90vh, 860px);
+            overflow: auto;
+            border-radius: 28px;
+            padding: 28px;
+            background: linear-gradient(180deg, rgba(7, 62, 25, 0.98), rgba(4, 32, 12, 0.98));
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.45);
+        }
+
+        .tracking-dialog-header {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            align-items: flex-start;
+            margin-bottom: 24px;
+        }
+
+        .tracking-dialog-kicker {
+            margin: 0 0 6px 0;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #b7f7c8;
+        }
+
+        .tracking-dialog-title {
+            margin: 0;
+            font-size: clamp(26px, 4vw, 34px);
+            font-weight: 800;
+        }
+
+        .tracking-dialog-summary {
+            margin: 8px 0 0 0;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        .tracking-close {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            background: rgba(255, 255, 255, 0.08);
+            color: #fff;
+            cursor: pointer;
+            font-size: 16px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .tracking-meta-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 22px;
+        }
+
+        .tracking-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 9px 14px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: #ecfdf5;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .tracking-layout {
+            display: grid;
+            grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+            gap: 18px;
+        }
+
+        .tracking-panel {
+            padding: 22px;
+            border-radius: 22px;
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.09);
+        }
+
+        .tracking-panel h4 {
+            margin: 0 0 16px 0;
+            font-size: 17px;
+            color: #d1fae5;
+        }
+
+        .tracking-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 14px;
+        }
+
+        .tracking-data {
+            min-width: 0;
+        }
+
+        .tracking-data span {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: rgba(255, 255, 255, 0.58);
+            font-weight: 700;
+        }
+
+        .tracking-data strong {
+            display: block;
+            color: #f8fafc;
+            font-size: 15px;
+            line-height: 1.55;
+            word-break: break-word;
+        }
+
+        .tracking-note {
+            margin-top: 18px;
+            padding: 14px 16px;
+            border-radius: 16px;
+            background: rgba(21, 128, 61, 0.16);
+            border: 1px solid rgba(187, 247, 208, 0.2);
+            color: #dcfce7;
+            font-size: 14px;
+            line-height: 1.65;
+        }
+
+        .tracking-progress {
+            display: grid;
+            gap: 14px;
+        }
+
+        .tracking-step {
+            position: relative;
+            padding: 16px 16px 16px 56px;
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .tracking-step::before {
+            content: "";
+            position: absolute;
+            left: 22px;
+            top: 18px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.05);
+        }
+
+        .tracking-step.done::before {
+            background: #16a34a;
+        }
+
+        .tracking-step.current::before {
+            background: #f59e0b;
+        }
+
+        .tracking-step.pending::before {
+            background: rgba(255, 255, 255, 0.22);
+        }
+
+        .tracking-step h5 {
+            margin: 0 0 6px 0;
+            font-size: 15px;
+            color: #f8fafc;
+        }
+
+        .tracking-step p {
+            margin: 0;
+            font-size: 13px;
+            line-height: 1.55;
+            color: rgba(255, 255, 255, 0.76);
+        }
+
+        .tracking-actions {
+            margin-top: 22px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .tracking-map-btn {
+            background: #e1f5fe;
+            color: #075985;
+        }
+
+        .tracking-map-btn:hover {
+            background: #0284c7;
+            color: #fff;
+        }
+
+        .tracking-map-btn[hidden] {
+            display: none;
+        }
+
+        @media (max-width: 600px) {
+            .request-card {
+                text-align: center;
+                justify-content: center;
+                padding: 30px 20px;
+            }
+
+            .card-details,
+            div[style*="text-align: right"] {
+                text-align: center !important;
+                width: 100%;
+            }
+
+            .btn-group {
+                justify-content: center;
+            }
+
+            .tracking-dialog {
+                padding: 22px;
+            }
+
+            .tracking-dialog-header {
+                flex-direction: column;
+            }
+
+            .tracking-layout,
+            .tracking-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    {% if messages %}
+    <div class="toast-stack">
+        {% for message in messages %}
+        <div class="toast-item {% if 'success' in message.tags %}success{% elif 'warning' in message.tags %}warning{% elif 'info' in message.tags %}info{% else %}error{% endif %}"
+            data-toast>
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <button onclick="window.history.back()" class="back-btn">{% trans "Back" %}</button>
+
+    <div class="container">
+        <h2>{% trans "My Service Requests" %}</h2>
+
+        {% if not has_bookings %}
+        <div class="empty-state">
+            <h1>{% trans "No Requests" %}</h1>
+            <p style="font-size: 18px;">{% trans "Your request list is empty." %}</p>
+            <p>{% trans "Explore our portal to find the best agricultural services." %}</p>
+        </div>
+        {% else %}
+
+        {% if tool_bookings %}
+        <h3 class="section-title"><i class="fas fa-tools"></i> {% trans "Tool Rentals" %}</h3>
+        {% for booking in tool_bookings %}
+        <div class="request-card card-tool" style="animation-delay: 0.1s;">
+            <div class="card-details">
+                <h4>{{ booking.tool_shop.shop_name }}</h4>
+                <p><i class="fas fa-list-check"></i> <strong>{% trans "Tools:" %}</strong> {{ booking.tools_selected }}
+                </p>
+                <p><i class="fas fa-calendar-alt"></i> <strong>{% trans "Dates:" %}</strong> {{ booking.receive_date }}
+                    {% trans "to" %} {{ booking.return_date }}</p>
+            </div>
+            <div style="text-align: right;">
+                <div class="price-tag">Rs. {{ booking.total_cost }}</div>
+                <br>
+                <span class="status-badge status-{{ booking.status }}">{{ booking.status }}</span>
+                <div class="btn-group">
+                    {% if booking.status == 'Pending' %}
+                    <form method="POST" action="{% url 'cancel_booking' 'tool' booking.id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="action-btn btn-cancel"
+                            onclick="return confirm('Are you sure you want to cancel?')">
+                            <i class="fas fa-times"></i> {% trans "Cancel" %}
+                        </button>
+                    </form>
+                    {% endif %}
+                    {% if booking.status == 'Confirmed' or booking.status == 'Completed' %}
+                    <button type="button" class="action-btn btn-track" data-track-request
+                        data-track-kind="tool"
+                        data-track-service="{% trans 'Tool Rental' %}"
+                        data-track-reference="TLR-{{ booking.id|stringformat:'04d' }}"
+                        data-track-provider="{{ booking.tool_shop.shop_name }}"
+                        data-track-details="{{ booking.tools_selected }} | {{ booking.receive_date }} {% trans 'to' %} {{ booking.return_date }}"
+                        data-track-status="{{ booking.status }}"
+                        data-track-created="{{ booking.created_at|date:'M d, Y h:i A' }}"
+                        data-track-source="{% if booking.tool_shop.user.village %}{{ booking.tool_shop.user.village }}{% endif %}{% if booking.tool_shop.user.mandal %}, {{ booking.tool_shop.user.mandal }}{% endif %}{% if booking.tool_shop.user.district %}, {{ booking.tool_shop.user.district }}{% endif %}{% if booking.tool_shop.user.state %}, {{ booking.tool_shop.user.state }}{% endif %}"
+                        data-track-destination="{% if booking.home_delivery and booking.delivery_location %}{{ booking.delivery_location }}{% else %}{% if booking.tool_shop.user.village %}{{ booking.tool_shop.user.village }}{% endif %}{% if booking.tool_shop.user.mandal %}, {{ booking.tool_shop.user.mandal }}{% endif %}{% if booking.tool_shop.user.district %}, {{ booking.tool_shop.user.district }}{% endif %}{% if booking.tool_shop.user.state %}, {{ booking.tool_shop.user.state }}{% endif %}{% endif %}"
+                        data-track-map-mode="{% if booking.home_delivery and booking.delivery_location %}route{% else %}location{% endif %}">
+                        <i class="fas fa-location-dot"></i> {% trans "Track Tools" %}
+                    </button>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% endif %}
+
+        {% if tractor_bookings %}
+        <h3 class="section-title"><i class="fas fa-tractor"></i> {% trans "Tractor Bookings" %}</h3>
+        {% for booking in tractor_bookings %}
+        <div class="request-card card-tractor" style="animation-delay: 0.2s;">
+            <div class="card-details">
+                <h4>{{ booking.tractor_owner.user.name }}</h4>
+                <p><i class="fas fa-clock"></i> <strong>{% trans "Timing:" %}</strong> {{ booking.booking_date }} {% trans "at" %} {{
+                    booking.start_time|time:"h:i A" }}</p>
+                <p><i class="fas fa-hourglass-half"></i> <strong>{% trans "Duration:" %}</strong> {{
+                    booking.duration_hours }} {% trans "Hours" %}</p>
+            </div>
+            <div style="text-align: right;">
+                <div class="price-tag">Rs. {{ booking.total_cost }}</div>
+                <br>
+                <span class="status-badge status-{{ booking.status }}">{{ booking.status }}</span>
+                <div class="btn-group">
+                    {% if booking.status == 'Pending' %}
+                    <form method="POST" action="{% url 'cancel_booking' 'tractor' booking.id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="action-btn btn-cancel">
+                            <i class="fas fa-times"></i> {% trans "Cancel" %}
+                        </button>
+                    </form>
+                    {% endif %}
+                    {% if booking.status == 'Confirmed' or booking.status == 'Completed' %}
+                    <button type="button" class="action-btn btn-track" data-track-request
+                        data-track-kind="tractor"
+                        data-track-service="{% trans 'Tractor Service' %}"
+                        data-track-reference="TRC-{{ booking.id|stringformat:'04d' }}"
+                        data-track-provider="{{ booking.tractor_owner.user.name }}"
+                        data-track-details="{{ booking.booking_date }} {% trans 'at' %} {{ booking.start_time|time:'h:i A' }} | {{ booking.duration_hours }} {% trans 'hours' %}"
+                        data-track-status="{{ booking.status }}"
+                        data-track-created="{{ booking.created_at|date:'M d, Y h:i A' }}"
+                        data-track-source="{% if booking.tractor_owner.user.village %}{{ booking.tractor_owner.user.village }}{% endif %}{% if booking.tractor_owner.user.mandal %}, {{ booking.tractor_owner.user.mandal }}{% endif %}{% if booking.tractor_owner.user.district %}, {{ booking.tractor_owner.user.district }}{% endif %}{% if booking.tractor_owner.user.state %}, {{ booking.tractor_owner.user.state }}{% endif %}"
+                        data-track-destination="{{ booking.location }}"
+                        data-track-map-mode="route">
+                        <i class="fas fa-map-location-dot"></i> {% trans "Track Tractor" %}
+                    </button>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% endif %}
+
+        {% if labor_bookings %}
+        <h3 class="section-title"><i class="fas fa-person-digging"></i> {% trans "Labor Bookings" %}</h3>
+        {% for booking in labor_bookings %}
+        <div class="request-card card-labor" style="animation-delay: 0.3s;">
+            <div class="card-details">
+                <h4>{{ booking.laborer.user.name }}</h4>
+                <p><i class="fas fa-calendar-check"></i> {{ booking.booking_date }} at {{ booking.start_time|time:"h:i
+                    A" }}</p>
+                <p><i class="fas fa-business-time"></i> <strong>{% trans "Duration:" %}</strong> {{ booking.duration }}
+                    {% trans "Hours/Days" %}</p>
+            </div>
+            <div style="text-align: right;">
+                <div class="price-tag">Rs. {{ booking.total_cost }}</div>
+                <br>
+                <span class="status-badge status-{{ booking.status }}">{{ booking.status }}</span>
+                <div class="btn-group">
+                    {% if booking.status == 'Pending' %}
+                    <form method="POST" action="{% url 'cancel_booking' 'labor' booking.id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="action-btn btn-cancel">
+                            <i class="fas fa-trash-can"></i> {% trans "Cancel Request" %}
+                        </button>
+                    </form>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% endif %}
+
+        {% if shop_orders %}
+        <h3 class="section-title"><i class="fas fa-shop"></i> {% trans "Shop Orders" %}</h3>
+        {% for booking in shop_orders %}
+        <div class="request-card card-shop" style="animation-delay: 0.4s;">
+            <div class="card-details">
+                <h4>{{ booking.shop.shop_name }}</h4>
+                <p><i class="fas fa-box-open"></i> <strong>{% trans "Items:" %}</strong> {{ booking.items_ordered }}</p>
+                <p><i class="fas fa-calendar-day"></i> <strong>{% trans "Ordered On:" %}</strong> {{
+                    booking.created_at|date:"M d, Y" }}</p>
+            </div>
+            <div style="text-align: right;">
+                <div class="price-tag">Rs. {{ booking.total_cost }}</div>
+                <br>
+                <span class="status-badge status-{{ booking.status }}">{{ booking.status }}</span>
+                <div class="btn-group">
+                    {% if booking.status == 'Pending' %}
+                    <form method="POST" action="{% url 'cancel_booking' 'shop' booking.id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="action-btn btn-cancel">
+                            <i class="fas fa-times"></i> {% trans "Cancel Order" %}
+                        </button>
+                    </form>
+                    {% endif %}
+                    {% if booking.status != 'Cancelled' %}
+                    <button type="button" class="action-btn btn-track" data-track-request
+                        data-track-kind="shop"
+                        data-track-service="{% trans 'Shop Order' %}"
+                        data-track-reference="ORD-{{ booking.id|stringformat:'04d' }}"
+                        data-track-provider="{{ booking.shop.shop_name }}"
+                        data-track-details="{{ booking.items_ordered }}"
+                        data-track-status="{{ booking.status }}"
+                        data-track-created="{{ booking.created_at|date:'M d, Y h:i A' }}"
+                        data-track-source="{% if booking.shop.user.village %}{{ booking.shop.user.village }}{% endif %}{% if booking.shop.user.mandal %}, {{ booking.shop.user.mandal }}{% endif %}{% if booking.shop.user.district %}, {{ booking.shop.user.district }}{% endif %}{% if booking.shop.user.state %}, {{ booking.shop.user.state }}{% endif %}"
+                        data-track-destination="{% if booking.farmer.village %}{{ booking.farmer.village }}{% endif %}{% if booking.farmer.mandal %}, {{ booking.farmer.mandal }}{% endif %}{% if booking.farmer.district %}, {{ booking.farmer.district }}{% endif %}{% if booking.farmer.state %}, {{ booking.farmer.state }}{% endif %}"
+                        data-track-map-mode="route">
+                        <i class="fas fa-route"></i> {% trans "Track Order" %}
+                    </button>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% endif %}
+
+        {% if lease_requests %}
+        <h3 class="section-title"><i class="fas fa-wheat-awn"></i> {% trans "Lease Requests" %}</h3>
+        {% for booking in lease_requests %}
+        <div class="request-card card-lease" style="animation-delay: 0.5s;">
+            <div class="card-details">
+                <h4>{{ booking.land.user.name }}</h4>
+                <p><i class="fas fa-seedling"></i> <strong>{% trans "Soil:" %}</strong> {{ booking.soil_type_requested
+                    }}</p>
+                <p><i class="fas fa-clock-rotate-left"></i> <strong>{% trans "Starts:" %}</strong> {{ booking.start_date
+                    }} ({{ booking.duration_months }} Months)</p>
+            </div>
+            <div style="text-align: right;">
+                <span class="status-badge status-{{ booking.status }}" style="margin-bottom: 10px;">{{ booking.status
+                    }}</span>
+                <div class="btn-group">
+                    {% if booking.status == 'Pending' %}
+                    <form method="POST" action="{% url 'cancel_booking' 'lease' booking.id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="action-btn btn-cancel">
+                            <i class="fas fa-ban"></i> {% trans "Cancel" %}
+                        </button>
+                    </form>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% endif %}
+
+        {% endif %}
+
+        <div style="text-align: center;">
+            <a href="{% url 'main_home' %}" class="back-link"><i class="fas fa-arrow-left"></i> {% trans "Back to
+                Services" %}</a>
+        </div>
+    </div>
+
+    <div class="tracking-dialog-backdrop" id="trackingDialogBackdrop" hidden>
+        <div class="tracking-dialog" role="dialog" aria-modal="true" aria-labelledby="trackingDialogTitle">
+            <div class="tracking-dialog-header">
+                <div>
+                    <p class="tracking-dialog-kicker" id="trackingDialogKicker">{% trans "Live Request Tracking" %}</p>
+                    <h3 class="tracking-dialog-title" id="trackingDialogTitle">{% trans "My Service Request" %}</h3>
+                    <p class="tracking-dialog-summary" id="trackingDialogSummary"></p>
+                </div>
+                <button type="button" class="tracking-close" data-close-tracking aria-label="{% trans 'Close tracking dialog' %}">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <div class="tracking-meta-row">
+                <div class="tracking-chip"><i class="fas fa-hashtag"></i> <span id="trackingDialogReference"></span></div>
+                <div class="tracking-chip"><i class="fas fa-tag"></i> <span id="trackingDialogService"></span></div>
+                <div class="tracking-chip"><i class="fas fa-shield-heart"></i> <span id="trackingDialogStatus"></span></div>
+            </div>
+
+            <div class="tracking-layout">
+                <div class="tracking-panel">
+                    <h4>{% trans "Tracking Details" %}</h4>
+                    <div class="tracking-grid">
+                        <div class="tracking-data">
+                            <span>{% trans "Provider" %}</span>
+                            <strong id="trackingDialogProvider"></strong>
+                        </div>
+                        <div class="tracking-data">
+                            <span>{% trans "Requested On" %}</span>
+                            <strong id="trackingDialogCreated"></strong>
+                        </div>
+                        <div class="tracking-data">
+                            <span>{% trans "Dispatch Point" %}</span>
+                            <strong id="trackingDialogSource"></strong>
+                        </div>
+                        <div class="tracking-data">
+                            <span>{% trans "Destination" %}</span>
+                            <strong id="trackingDialogDestination"></strong>
+                        </div>
+                        <div class="tracking-data" style="grid-column: 1 / -1;">
+                            <span>{% trans "Request Details" %}</span>
+                            <strong id="trackingDialogDetails"></strong>
+                        </div>
+                    </div>
+                    <div class="tracking-note" id="trackingDialogNote"></div>
+                </div>
+
+                <div class="tracking-panel">
+                    <h4>{% trans "Tracking Timeline" %}</h4>
+                    <div class="tracking-progress" id="trackingDialogProgress"></div>
+                </div>
+            </div>
+
+            <div class="tracking-actions">
+                <button type="button" class="action-btn tracking-map-btn" id="trackingDialogMapButton">
+                    <i class="fas fa-map-location-dot"></i> <span id="trackingDialogMapLabel"></span>
+                </button>
+                <button type="button" class="action-btn btn-cancel" data-close-tracking>
+                    <i class="fas fa-xmark"></i> {% trans "Close" %}
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.querySelectorAll('[data-toast]').forEach((toast) => {
+            window.setTimeout(() => {
+                toast.remove();
+            }, 4200);
+        });
+
+        const backdrop = document.getElementById('trackingDialogBackdrop');
+        const progressContainer = document.getElementById('trackingDialogProgress');
+        const mapButton = document.getElementById('trackingDialogMapButton');
+        const mapLabel = document.getElementById('trackingDialogMapLabel');
+        const dialogKicker = document.getElementById('trackingDialogKicker');
+        const dialogFields = {
+            summary: document.getElementById('trackingDialogSummary'),
+            reference: document.getElementById('trackingDialogReference'),
+            service: document.getElementById('trackingDialogService'),
+            status: document.getElementById('trackingDialogStatus'),
+            provider: document.getElementById('trackingDialogProvider'),
+            created: document.getElementById('trackingDialogCreated'),
+            source: document.getElementById('trackingDialogSource'),
+            destination: document.getElementById('trackingDialogDestination'),
+            details: document.getElementById('trackingDialogDetails'),
+            note: document.getElementById('trackingDialogNote'),
+        };
+
+        const trackingCopy = {
+            fallbackLocation: "{% trans 'Location will be shared after confirmation.' %}",
+            pickupLocation: "{% trans 'Pickup from provider location' %}",
+            mapRoute: "{% trans 'Open Delivery Route' %}",
+            mapLocation: "{% trans 'Open in Google Maps' %}",
+            placedTitle: "{% trans 'Request Placed' %}",
+            placedText: "{% trans 'Your request has been recorded successfully.' %}",
+            waitingTitle: "{% trans 'Awaiting Provider Confirmation' %}",
+            waitingText: "{% trans 'The provider is reviewing your request.' %}",
+            confirmedTitle: "{% trans 'Provider Confirmed' %}",
+            confirmedText: "{% trans 'The provider accepted your request and started preparation.' %}",
+            rejectedTitle: "{% trans 'Request Rejected' %}",
+            rejectedText: "{% trans 'This request was not accepted by the provider.' %}",
+            cancelledTitle: "{% trans 'Request Cancelled' %}",
+            cancelledText: "{% trans 'Tracking stopped because the request was cancelled.' %}",
+            shopPendingTitle: "{% trans 'Delivery Pending' %}",
+            shopPendingText: "{% trans 'Tracking becomes active after the shop confirms the order.' %}",
+            shopConfirmedTitle: "{% trans 'Products In Delivery Process' %}",
+            shopConfirmedText: "{% trans 'Use the route below to view the dispatch point and delivery destination.' %}",
+            shopCompletedTitle: "{% trans 'Order Delivered' %}",
+            shopCompletedText: "{% trans 'The order has been completed for the shown destination.' %}",
+            tractorPendingTitle: "{% trans 'Tractor Route Pending' %}",
+            tractorPendingText: "{% trans 'Tracking becomes active after the tractor owner confirms the service route.' %}",
+            tractorConfirmedTitle: "{% trans 'Tractor On Service Route' %}",
+            tractorConfirmedText: "{% trans 'Use the route below to view the tractor location and your field destination.' %}",
+            tractorCompletedTitle: "{% trans 'Tractor Service Completed' %}",
+            tractorCompletedText: "{% trans 'The tractor request has been completed for the selected field.' %}",
+            toolPendingTitle: "{% trans 'Tool Dispatch Pending' %}",
+            toolPendingText: "{% trans 'Tracking becomes active after the tool owner confirms the request.' %}",
+            toolConfirmedTitle: "{% trans 'Tools In Delivery Process' %}",
+            toolConfirmedText: "{% trans 'Use the route below to view the tool dispatch point and delivery destination.' %}",
+            toolCompletedTitle: "{% trans 'Tool Delivery Completed' %}",
+            toolCompletedText: "{% trans 'The tool request has reached its recorded destination.' %}",
+            shopPendingNote: "{% trans 'The shop has not confirmed your order yet. The dialog shows the seller location and your delivery destination so tracking is clear once dispatch starts.' %}",
+            shopConfirmedNote: "{% trans 'The shop confirmed your order. This route shows where the products are dispatching from and where they should reach.' %}",
+            shopCompletedNote: "{% trans 'This shop order is completed. The last known delivery route is still available for reference.' %}",
+            tractorPendingNote: "{% trans 'The tractor provider has not confirmed the travel route yet. Once confirmed, this dialog shows the tractor source point and your service destination.' %}",
+            tractorConfirmedNote: "{% trans 'The tractor provider confirmed the request. This route shows where the tractor is coming from and where it should reach.' %}",
+            tractorCompletedNote: "{% trans 'This tractor booking is completed. The last known service route remains available for reference.' %}",
+            toolPendingNote: "{% trans 'The tool request is still waiting for confirmation. Once approved, this dialog shows the dispatch point and delivery destination.' %}",
+            toolConfirmedNote: "{% trans 'The tool owner confirmed the request. This route shows where the tools are dispatching from and where they should reach.' %}",
+            toolCompletedNote: "{% trans 'This tool request is completed. The last known delivery location information remains available for reference.' %}",
+            shopRouteLabel: "{% trans 'Open Delivery Route' %}",
+            tractorRouteLabel: "{% trans 'Open Tractor Route' %}",
+            toolRouteLabel: "{% trans 'Open Tool Route' %}",
+            viewShopLocationLabel: "{% trans 'View Shop Location' %}",
+        };
+
+        const normalizeText = (value) => (value || '').trim();
+
+        const getTrackingStage = (kind, status, mode) => {
+            const normalizedStatus = normalizeText(status);
+            const normalizedMode = normalizeText(mode);
+            const stageMap = {
+                shop: {
+                    pending: [trackingCopy.shopPendingTitle, trackingCopy.shopPendingText, trackingCopy.shopPendingNote],
+                    confirmed: [trackingCopy.shopConfirmedTitle, trackingCopy.shopConfirmedText, trackingCopy.shopConfirmedNote],
+                    completed: [trackingCopy.shopCompletedTitle, trackingCopy.shopCompletedText, trackingCopy.shopCompletedNote],
+                },
+                tractor: {
+                    pending: [trackingCopy.tractorPendingTitle, trackingCopy.tractorPendingText, trackingCopy.tractorPendingNote],
+                    confirmed: [trackingCopy.tractorConfirmedTitle, trackingCopy.tractorConfirmedText, trackingCopy.tractorConfirmedNote],
+                    completed: [trackingCopy.tractorCompletedTitle, trackingCopy.tractorCompletedText, trackingCopy.tractorCompletedNote],
+                },
+                tool: {
+                    pending: [trackingCopy.toolPendingTitle, trackingCopy.toolPendingText, trackingCopy.toolPendingNote],
+                    confirmed: [trackingCopy.toolConfirmedTitle, trackingCopy.toolConfirmedText, trackingCopy.toolConfirmedNote],
+                    completed: [trackingCopy.toolCompletedTitle, trackingCopy.toolCompletedText, trackingCopy.toolCompletedNote],
+                },
+            };
+
+            const currentMap = stageMap[kind] || stageMap.shop;
+            if (kind === 'tool' && normalizedMode === 'location' && normalizedStatus === 'Confirmed') {
+                return [
+                    "{% trans 'Tool Pickup Location Ready' %}",
+                    "{% trans 'Open the location below to view the tool shop pickup point.' %}",
+                    "{% trans 'The tool owner confirmed the request. Open the location below to view the current pickup point for your tools.' %}",
+                ];
+            }
+            if (kind === 'tool' && normalizedMode === 'location' && normalizedStatus === 'Completed') {
+                return [
+                    "{% trans 'Tool Pickup Completed' %}",
+                    "{% trans 'The tool pickup was completed for the selected booking.' %}",
+                    "{% trans 'This tool request is completed. The last known pickup location remains available for reference.' %}",
+                ];
+            }
+            if (normalizedStatus === 'Rejected') {
+                return [trackingCopy.rejectedTitle, trackingCopy.rejectedText, trackingCopy.rejectedText];
+            }
+            if (normalizedStatus === 'Cancelled') {
+                return [trackingCopy.cancelledTitle, trackingCopy.cancelledText, trackingCopy.cancelledText];
+            }
+            if (normalizedStatus === 'Completed') {
+                return currentMap.completed;
+            }
+            if (normalizedStatus === 'Confirmed') {
+                return currentMap.confirmed;
+            }
+            return currentMap.pending;
+        };
+
+        const getTimelineSteps = (kind, status, mode) => {
+            const normalizedStatus = normalizeText(status);
+            const normalizedMode = normalizeText(mode);
+            let finalTitle = trackingCopy.shopPendingTitle;
+            let finalText = trackingCopy.shopPendingText;
+
+            if (kind === 'tractor') {
+                finalTitle = trackingCopy.tractorPendingTitle;
+                finalText = trackingCopy.tractorPendingText;
+            } else if (kind === 'tool') {
+                finalTitle = trackingCopy.toolPendingTitle;
+                finalText = trackingCopy.toolPendingText;
+            }
+
+            if (normalizedStatus === 'Confirmed') {
+                if (kind === 'tractor') {
+                    finalTitle = trackingCopy.tractorConfirmedTitle;
+                    finalText = trackingCopy.tractorConfirmedText;
+                } else if (kind === 'tool') {
+                    if (normalizedMode === 'location') {
+                        finalTitle = "{% trans 'Tool Pickup Location Ready' %}";
+                        finalText = "{% trans 'Open the map below to view the tool pickup point.' %}";
+                    } else {
+                        finalTitle = trackingCopy.toolConfirmedTitle;
+                        finalText = trackingCopy.toolConfirmedText;
+                    }
+                } else {
+                    finalTitle = trackingCopy.shopConfirmedTitle;
+                    finalText = trackingCopy.shopConfirmedText;
+                }
+            } else if (normalizedStatus === 'Completed') {
+                if (kind === 'tractor') {
+                    finalTitle = trackingCopy.tractorCompletedTitle;
+                    finalText = trackingCopy.tractorCompletedText;
+                } else if (kind === 'tool') {
+                    if (normalizedMode === 'location') {
+                        finalTitle = "{% trans 'Tool Pickup Completed' %}";
+                        finalText = "{% trans 'The pickup booking is completed for the selected tool request.' %}";
+                    } else {
+                        finalTitle = trackingCopy.toolCompletedTitle;
+                        finalText = trackingCopy.toolCompletedText;
+                    }
+                } else {
+                    finalTitle = trackingCopy.shopCompletedTitle;
+                    finalText = trackingCopy.shopCompletedText;
+                }
+            } else if (normalizedStatus === 'Rejected') {
+                finalTitle = trackingCopy.rejectedTitle;
+                finalText = trackingCopy.rejectedText;
+            } else if (normalizedStatus === 'Cancelled') {
+                finalTitle = trackingCopy.cancelledTitle;
+                finalText = trackingCopy.cancelledText;
+            }
+
+            const steps = [
+                {
+                    state: 'done',
+                    title: trackingCopy.placedTitle,
+                    text: trackingCopy.placedText,
+                },
+            ];
+
+            if (normalizedStatus === 'Pending') {
+                steps.push({
+                    state: 'current',
+                    title: trackingCopy.waitingTitle,
+                    text: trackingCopy.waitingText,
+                });
+                steps.push({
+                    state: 'pending',
+                    title: finalTitle,
+                    text: finalText,
+                });
+                return steps;
+            }
+
+            if (normalizedStatus === 'Rejected' || normalizedStatus === 'Cancelled') {
+                steps.push({
+                    state: 'current',
+                    title: finalTitle,
+                    text: finalText,
+                });
+                steps.push({
+                    state: 'pending',
+                    title: trackingCopy.mapLocation,
+                    text: trackingCopy.fallbackLocation,
+                });
+                return steps;
+            }
+
+            steps.push({
+                state: 'done',
+                title: trackingCopy.confirmedTitle,
+                text: trackingCopy.confirmedText,
+            });
+            steps.push({
+                state: normalizedStatus === 'Completed' ? 'done' : 'current',
+                title: finalTitle,
+                text: finalText,
+            });
+            return steps;
+        };
+
+        const renderTimeline = (kind, status, mode) => {
+            progressContainer.replaceChildren();
+            getTimelineSteps(kind, status, mode).forEach((step) => {
+                const wrapper = document.createElement('div');
+                wrapper.className = `tracking-step ${step.state}`;
+
+                const title = document.createElement('h5');
+                title.textContent = step.title;
+
+                const text = document.createElement('p');
+                text.textContent = step.text;
+
+                wrapper.appendChild(title);
+                wrapper.appendChild(text);
+                progressContainer.appendChild(wrapper);
+            });
+        };
+
+        const buildMapUrl = (source, destination, mode) => {
+            const origin = normalizeText(source);
+            const target = normalizeText(destination);
+
+            if (mode === 'route' && origin && target) {
+                const params = new URLSearchParams({
+                    api: '1',
+                    origin,
+                    destination: target,
+                });
+                return `https://www.google.com/maps/dir/?${params.toString()}`;
+            }
+
+            const query = target || origin;
+            if (!query) {
+                return '';
+            }
+
+            const params = new URLSearchParams({ query });
+            return `https://www.google.com/maps/search/?${params.toString()}`;
+        };
+
+        const getMapLabel = (kind, mode) => {
+            if (normalizeText(mode) === 'route') {
+                if (kind === 'tractor') {
+                    return trackingCopy.tractorRouteLabel;
+                }
+                if (kind === 'tool') {
+                    return trackingCopy.toolRouteLabel;
+                }
+                return trackingCopy.shopRouteLabel;
+            }
+            if (kind === 'tool') {
+                return trackingCopy.viewShopLocationLabel;
+            }
+            return trackingCopy.mapLocation;
+        };
+
+        const openTrackingDialog = (button) => {
+            const data = button.dataset;
+            const kind = normalizeText(data.trackKind);
+            const status = normalizeText(data.trackStatus);
+            const source = normalizeText(data.trackSource);
+            const destination = normalizeText(data.trackDestination);
+            const mapMode = normalizeText(data.trackMapMode);
+            const [summaryTitle, summaryText, noteText] = getTrackingStage(kind, status, mapMode);
+            const mapUrl = buildMapUrl(source, destination, mapMode);
+
+            dialogKicker.textContent = summaryTitle;
+            dialogFields.summary.textContent = summaryText;
+            dialogFields.reference.textContent = normalizeText(data.trackReference);
+            dialogFields.service.textContent = normalizeText(data.trackService);
+            dialogFields.status.textContent = status;
+            dialogFields.provider.textContent = normalizeText(data.trackProvider);
+            dialogFields.created.textContent = normalizeText(data.trackCreated);
+            dialogFields.source.textContent = source || trackingCopy.fallbackLocation;
+            dialogFields.destination.textContent = destination || trackingCopy.pickupLocation;
+            dialogFields.details.textContent = normalizeText(data.trackDetails);
+            dialogFields.note.textContent = noteText;
+
+            renderTimeline(kind, status, mapMode);
+
+            if (mapUrl) {
+                mapButton.hidden = false;
+                mapLabel.textContent = getMapLabel(kind, mapMode);
+                mapButton.onclick = () => window.open(mapUrl, '_blank', 'noopener,noreferrer');
+            } else {
+                mapButton.hidden = true;
+                mapButton.onclick = null;
+            }
+
+            backdrop.hidden = false;
+            document.body.classList.add('dialog-open');
+        };
+
+        const closeTrackingDialog = () => {
+            backdrop.hidden = true;
+            document.body.classList.remove('dialog-open');
+        };
+
+        document.querySelectorAll('[data-track-request]').forEach((button) => {
+            button.addEventListener('click', () => openTrackingDialog(button));
+        });
+
+        document.querySelectorAll('[data-close-tracking]').forEach((button) => {
+            button.addEventListener('click', closeTrackingDialog);
+        });
+
+        backdrop.addEventListener('click', (event) => {
+            if (event.target === backdrop) {
+                closeTrackingDialog();
+            }
+        });
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && !backdrop.hidden) {
+                closeTrackingDialog();
+            }
+        });
+    </script>
+</body>
+
+</html>

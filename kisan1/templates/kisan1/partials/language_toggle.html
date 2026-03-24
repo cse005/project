@@ -1,0 +1,16 @@
+{% load i18n %}
+<div style="position: fixed; top: 16px; right: 16px; z-index: 2000;">
+    <form action="{% url 'set_language' %}" method="post" style="background: rgba(255,255,255,0.92); padding: 8px 10px; border-radius: 10px; box-shadow: 0 4px 14px rgba(0,0,0,0.18);">
+        {% csrf_token %}
+        <input name="next" type="hidden" value="{{ request.get_full_path }}">
+        <label for="lang-switch" style="font-size: 12px; font-weight: 700; margin-right: 6px;">{% trans "Language" %}</label>
+        <select id="lang-switch" name="language" onchange="this.form.submit()" style="border: 1px solid #cfd8dc; border-radius: 6px; padding: 4px 6px;">
+            {% get_current_language as LANGUAGE_CODE %}
+            {% get_available_languages as LANGUAGES %}
+            {% get_language_info_list for LANGUAGES as languages %}
+            {% for language in languages %}
+                <option value="{{ language.code }}" {% if language.code == LANGUAGE_CODE %}selected{% endif %}>{{ language.name_local }}</option>
+            {% endfor %}
+        </select>
+    </form>
+</div>

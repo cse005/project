@@ -1,0 +1,136 @@
+﻿{% extends 'kisan1/base.html' %}
+{% load i18n %}
+{% block content %}
+<div class="dashboard-shell dashboard-shell--{{ role }}">
+    <div class="dashboard-topbar">
+        <button class="dash-back" onclick="window.location.href=`{% url 'welcome' %}`">{% trans "Back" %}</button>
+        <div class="dash-title">
+            <span>{{ user.name|upper }}&#39;S {% trans "Dashboard" %}</span>
+            <span>({% trans "Role" %}: {{ role|upper }})</span>
+        </div>
+        <div class="menu-container">
+            <button class="dash-menu">{% trans "Menu" %}</button>
+            <div class="dropdown-content">
+                <a href="#service-settings" data-panel-target="service-settings">{% trans "Service Settings" %}</a>
+                <a href="{% url 'logout' %}">{% trans "Logout" %}</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="filter-card">
+        <label for="bookingFilter">{% trans "Filter Bookings:" %}</label>
+        <select id="bookingFilter">
+            <option value="all">{% trans "All Requests" %}</option>
+            <option value="pending">{% trans "Pending" %}</option>
+            <option value="confirmed">{% trans "Confirmed" %}</option>
+            <option value="rejected">{% trans "Rejected" %}</option>
+            <option value="cancelled">{% trans "Cancelled" %}</option>
+        </select>
+    </div>
+
+    <div class="profile-card">
+        <div class="profile-main">
+            <h2 class="profile-name">{{ user.name|upper }}</h2>
+            <div class="profile-location">
+                {{ user.village|default_if_none:"" }}{% if user.district %}, {{ user.district }}{% endif %}
+            </div>
+        </div>
+        <div class="profile-status">
+            <div class="status-label">{% trans "Status" %}</div>
+            {% if is_available and service_status == 'Active' %}
+            <div class="status-value">{% trans "Active Service" %}</div>
+            {% else %}
+            <div class="status-value status-paused">{% trans "Paused" %}</div>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="section-title">
+        <span class="section-bar"></span>
+        {% trans "New Booking Requests" %}
+    </div>
+
+    <div class="request-grid">
+        {% for req in work_requests %}
+        <div class="request-card" data-status="{{ req.status|lower }}">
+            <div class="request-header">
+                <div class="request-name">{{ req.farmer.name }}</div>
+                <span class="status-pill {{ req.status|lower }}">{{ req.status }}</span>
+            </div>
+            <div class="request-meta">
+                <span>{% trans "Start Date" %}: {{ req.start_date }}</span>
+                <span>{% trans "Duration (Months)" %}: {{ req.duration_months }}</span>
+                <span>{% trans "Soil Type" %}: {{ req.soil_type_requested }}</span>
+            </div>
+            {% if req.status == 'Pending' %}
+            <div class="request-actions">
+                <form action="{% url 'accept_lease_request' req.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="action-btn action-accept">{% trans "Accept" %}</button>
+                </form>
+                <form action="{% url 'reject_lease_request' req.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="action-btn action-reject">{% trans "Reject" %}</button>
+                </form>
+            </div>
+            {% endif %}
+        </div>
+        {% empty %}
+        <div class="empty-card">
+            <div class="empty-icon"></div>
+            <p>{% trans "No active lease requests right now." %}</p>
+            <p class="empty-sub">{% trans "Available requests will appear here." %}</p>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div id="service-settings" class="settings-panel">
+        <h3>{% trans "Service Settings" %}</h3>
+        <p>{% trans "Current Rate" %}: Rs {{ current_rate }}/day</p>
+        <form method="post" action="{% url 'update_service_settings' role %}" class="settings-form">
+            {% csrf_token %}
+            <label for="serviceRate">{% trans "Change Rate" %}</label>
+            <input id="serviceRate" type="number" min="0" max="100000" name="rate" value="{{ current_rate }}" required>
+            <label><input type="checkbox" name="is_available" {% if is_available %}checked{% endif %}> {% trans "Update
+                Availability" %}</label>
+            <label for="serviceStatus">{% trans "Service Status" %}</label>
+            <select id="serviceStatus" name="service_status">
+                <option value="Active" {% if service_status == 'Active' %}selected{% endif %}>{% trans "Active" %}
+                </option>
+                <option value="Paused" {% if service_status == 'Paused' %}selected{% endif %}>{% trans "Paused" %}
+                </option>
+            </select>
+            <div class="settings-actions">
+                <button type="submit">{% trans "Save Settings" %}</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    (function () {
+        const filter = document.getElementById('bookingFilter');
+        const cards = Array.from(document.querySelectorAll('.request-card'));
+        if (filter) {
+            filter.addEventListener('change', function () {
+                const value = this.value;
+                cards.forEach((card) => {
+                    const status = (card.dataset.status || '').toLowerCase();
+                    card.style.display = value === 'all' || status === value ? '' : 'none';
+                });
+            });
+        }
+
+        document.querySelectorAll('[data-panel-target]').forEach((link) => {
+            link.addEventListener('click', (event) => {
+                const targetId = event.currentTarget.getAttribute('data-panel-target');
+                const panel = document.getElementById(targetId);
+                if (panel) {
+                    event.preventDefault();
+                    panel.classList.toggle('is-open');
+                }
+            });
+        });
+    })();
+</script>
+{% endblock %}

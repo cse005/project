@@ -1,0 +1,49 @@
+{% extends 'kisan1/base.html' %}
+{% block content %}
+<div style="max-width:1100px;margin:0 auto;">
+  <h2 style="margin-bottom:20px;color:#1b5e20;">Platform Analytics Dashboard</h2>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-bottom:24px;">
+    <div style="background:#fff;border-radius:14px;padding:18px;box-shadow:0 8px 24px rgba(0,0,0,.08);">
+      <div style="font-size:13px;color:#666;">Total Bookings</div>
+      <div style="font-size:30px;font-weight:700;color:#2e7d32;">{{ total_bookings }}</div>
+    </div>
+    <div style="background:#fff;border-radius:14px;padding:18px;box-shadow:0 8px 24px rgba(0,0,0,.08);">
+      <div style="font-size:13px;color:#666;">Total Revenue</div>
+      <div style="font-size:30px;font-weight:700;color:#0d47a1;">Rs. {{ total_revenue }}</div>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+    <div style="background:#fff;border-radius:14px;padding:18px;box-shadow:0 8px 24px rgba(0,0,0,.08);">
+      <h3 style="margin-top:0;">Bookings by Service</h3>
+      <ul>
+      {% for row in by_service %}
+        <li><strong>{{ row.service_type|title }}</strong>: {{ row.count }}</li>
+      {% empty %}
+        <li>No data.</li>
+      {% endfor %}
+      </ul>
+    </div>
+
+    <div style="background:#fff;border-radius:14px;padding:18px;box-shadow:0 8px 24px rgba(0,0,0,.08);">
+      <h3 style="margin-top:0;">Role Activity Metrics</h3>
+      <ul>
+      {% for row in role_activity %}
+        <li><strong>{{ row.role|title }}</strong>: {{ row.count }}</li>
+      {% empty %}
+        <li>No data.</li>
+      {% endfor %}
+      </ul>
+
+      <h3 style="margin-top:16px;">Bookings by Status</h3>
+      <ul>
+      {% for row in by_status %}
+        <li><strong>{{ row.status }}</strong>: {{ row.count }}</li>
+      {% empty %}
+        <li>No data.</li>
+      {% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>
+{% endblock %}

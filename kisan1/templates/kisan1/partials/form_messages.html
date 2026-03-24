@@ -1,0 +1,47 @@
+{% if messages %}
+<div style="display: grid; gap: 12px; margin-bottom: 20px;">
+    {% for message in messages %}
+    <div
+        role="alert"
+        style="
+            padding: 12px 14px;
+            border-radius: 12px;
+            border: 1px solid
+                {% if 'success' in message.tags %}
+                    #c8e6c9
+                {% elif 'warning' in message.tags %}
+                    #fed7aa
+                {% elif 'info' in message.tags %}
+                    #bfdbfe
+                {% else %}
+                    #fecaca
+                {% endif %};
+            background:
+                {% if 'success' in message.tags %}
+                    #e8f5e9
+                {% elif 'warning' in message.tags %}
+                    #fff7ed
+                {% elif 'info' in message.tags %}
+                    #eff6ff
+                {% else %}
+                    #fef2f2
+                {% endif %};
+            color:
+                {% if 'success' in message.tags %}
+                    #166534
+                {% elif 'warning' in message.tags %}
+                    #9a3412
+                {% elif 'info' in message.tags %}
+                    #1d4ed8
+                {% else %}
+                    #b91c1c
+                {% endif %};
+            font-size: 14px;
+            font-weight: 600;
+        "
+    >
+        {{ message }}
+    </div>
+    {% endfor %}
+</div>
+{% endif %}

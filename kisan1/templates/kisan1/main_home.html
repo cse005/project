@@ -1,0 +1,367 @@
+﻿{% extends 'kisan1/base.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block content %}
+<style>
+    /* =========================================
+       ULTRA PRO MAX DASHBOARD STYLES
+       ========================================= */
+    :root {
+        --labor-green: #2e7d32;
+        --tractor-orange: #e65100;
+        --tool-blue: #0277bd;
+        --lease-purple: #512da8;
+        --pesticide-teal: #00695c;
+        --dark-bg: #010a02;
+    }
+
+    /* Premium Animated Background Overlay */
+    .premium-dashboard-bg {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: -1;
+        background: linear-gradient(135deg, #010a02, #063d14, #011406, #042409);
+        background-size: 300% 300%;
+        animation: gradientMove 15s ease infinite;
+    }
+
+    @keyframes gradientMove {
+        0% {
+            background-position: 0% 50%;
+        }
+
+        50% {
+            background-position: 100% 50%;
+        }
+
+        100% {
+            background-position: 0% 50%;
+        }
+    }
+
+    .portal-container {
+        max-width: 1300px;
+        margin: 0 auto;
+        padding: 20px;
+        font-family: 'Inter', sans-serif;
+        animation: fadeIn 0.8s ease-out;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+
+    /* Floating My Requests Button */
+    .my-requests-btn {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        background: linear-gradient(135deg, #fbc02d, #f57f17);
+        color: #000;
+        padding: 15px 30px;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 800;
+        font-size: 16px;
+        box-shadow: 0 10px 25px rgba(251, 192, 45, 0.4);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        z-index: 1000;
+        border: 2px solid white;
+    }
+
+    .my-requests-btn:hover {
+        transform: translateY(-10px) scale(1.05);
+        box-shadow: 0 15px 35px rgba(251, 192, 45, 0.6);
+        color: #000;
+    }
+
+    /* Welcome Header - Glassmorphism */
+    .welcome-header {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        color: white;
+        padding: 40px;
+        border-radius: 30px;
+        margin-bottom: 30px;
+        text-align: center;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .welcome-header h1 {
+        font-size: clamp(28px, 4vw, 42px);
+        font-weight: 800;
+        margin: 0;
+    }
+
+    /* Section Titles */
+    .section-title {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        font-size: 26px;
+        font-weight: 800;
+        margin-top: 50px;
+        margin-bottom: 30px;
+        color: #ffffff;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Grid & Cards */
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 30px;
+    }
+
+    .item-card {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(20px);
+        border-radius: 28px;
+        padding: 30px;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .item-card:hover {
+        transform: translateY(-12px) scale(1.02);
+        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
+    }
+
+    .price-tag {
+        font-size: 20px !important;
+        font-weight: 800 !important;
+        background: #f4f9f4;
+        padding: 8px 15px;
+        border-radius: 12px;
+        display: inline-block;
+        margin: 10px 0;
+    }
+
+    .btn {
+        padding: 16px;
+        border-radius: 16px;
+        color: white;
+        font-weight: 800;
+        text-align: center;
+        text-decoration: none;
+        transition: 0.3s;
+    }
+
+    .btn-labor {
+        background: var(--labor-green);
+    }
+
+    .btn-tractor {
+        background: var(--tractor-orange);
+    }
+
+    .btn-tool {
+        background: var(--tool-blue);
+    }
+
+    .btn-lease {
+        background: var(--lease-purple);
+    }
+
+    .btn-pesticide {
+        background: var(--pesticide-teal);
+    }
+
+    /* Filter Bar Overrides */
+    .filter-bar {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        padding: 15px 25px;
+        border-radius: 15px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        margin-bottom: 30px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+</style>
+
+<div class="premium-dashboard-bg"></div>
+
+<a href="{% url 'farmer_booking' %}" class="my-requests-btn">
+    {% trans "Track My Bookings" %}
+</a>
+
+<div class="portal-container">
+
+    <div class="dash-nav"
+        style="background: var(--primary-color); color: white; border-radius: 16px; padding: 18px 24px; margin-bottom: 25px; display: flex; justify-content: space-between; align-items: center; box-shadow: var(--shadow-md);">
+        <button onclick="history.back()" class="back-btn"
+            style="background: rgba(255, 255, 255, 0.2); border: none; color: white; padding: 10px 18px; border-radius: 8px; cursor: pointer; font-weight: 600;">
+            {% trans "Back" %}</button>
+
+        <h3 style="margin: 0; text-transform: uppercase; font-weight: 800;">
+            {{ farmer.name }}&#39;S {% trans "Dashboard" %}
+            <span style="font-size: 0.7em; opacity: 0.9; font-weight: 400; margin-left: 10px;">
+                ({% trans "Role" %}: {% trans "Farmer" %})
+            </span>
+        </h3>
+
+        <div class="menu-container">
+            <button class="menu-btn"
+                style="background: white; color: var(--primary-color); border: none; padding: 10px 18px; border-radius: 8px; font-weight: 700; cursor: pointer;">{% trans "Menu" %}</button>
+            <div class="dropdown-content">
+                <a href="{% url 'register_choice' %}">{% trans "Select Your Role" %}</a>
+                <a href="{% url 'farmer_booking' %}">{% trans "Track My Bookings" %}</a>
+                <a href="{% url 'logout' %}">{% trans "Logout" %}</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="welcome-header">
+        <h1>{% trans "Welcome to Farmer Portal" %}</h1>
+        <p>{% trans "Select a service below to boost your farming productivity!" %}</p>
+    </div>
+
+    <div class="filter-bar">
+        <label style="font-weight: bold; color: #fff;">{% trans "Show Categories:" %}</label>
+        <select id="dashboardFilter" onchange="filterDashboard()"
+            style="padding: 10px 15px; border-radius: 8px; border: none; background: white; font-weight: 700;">
+            <option value="all">{% trans "All Services" %}</option>
+            <option value="labor-sec">{% trans "Laborers" %}</option>
+            <option value="tractor-sec">{% trans "Tractor Services" %}</option>
+            <option value="tool-sec">{% trans "Farm Tools" %}</option>
+            <option value="lease-sec">{% trans "Land Lease" %}</option>
+            <option value="shop-sec">{% trans "Pesticide Shops" %}</option>
+        </select>
+    </div>
+
+    <div id="labor-sec" class="service-section">
+        <h3 class="section-title">{% trans "Available Laborers" %}</h3>
+        <div class="grid">
+            {% for labor in labors %}
+            <div class="item-card" style="border-top: 6px solid var(--labor-green);">
+                <div>
+                    <h4 style="color: #111;">{{ labor.user.name }}</h4>
+                    <p><strong>{% trans "Skills" %}:</strong> {{ labor.skills }}</p>
+                    <p class="price-tag" style="color: var(--labor-green);">
+                        Rs. {{ labor.wage_amount }} / {{ labor.wage_type }}</p>
+
+                </div>
+                <a href="{% url 'book_labor' labor.id %}" class="btn btn-labor">{% trans "Book Labor" %}</a>
+            </div>
+            {% empty %}
+            <div class="empty-msg">{% trans "No laborers available right now." %}</div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div id="tractor-sec" class="service-section">
+        <h3 class="section-title"> {% trans "Tractor Services" %}</h3>
+        <div class="grid">
+            {% for tractor in tractors %}
+            <div class="item-card" style="border-top: 6px solid var(--tractor-orange);">
+                <div>
+                    <h4 style="color: #111;">{{ tractor.user.name }}</h4>
+                    <p><strong>{% trans "Village" %}:</strong> {{ tractor.user.village }}</p>
+                    <p class="price-tag" style="color: var(--tractor-orange);">
+                        Rs. {{ tractor.wage_amount }} / {% trans "Hour"%}</p>
+
+                </div>
+                <a href="{% url 'book_tractor' tractor.id %}" class="btn btn-tractor">{% trans "Book Tractor" %}</a>
+            </div>
+            {% empty %}
+            <div class="empty-msg">{% trans "No tractors available." %}</div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div id="tool-sec" class="service-section">
+        <h3 class="section-title">{% trans "Farm Tools for Rent" %}</h3>
+        <div class="grid">
+            {% for tool in tools %}
+            <div class="item-card" style="border-top: 6px solid var(--tool-blue);">
+                <div>
+                    <h4 style="color: #111;">{{ tool.shop_name }}</h4>
+                    <p><strong>{% trans "Available" %}:</strong> {{ tool.tools_type }}</p>
+                </div>
+                <a href="{% url 'book_tool' tool.id %}" class="btn btn-tool">{% trans "Rent Tools Now" %}</a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div id="lease-sec" class="service-section">
+        <h3 class="section-title">{% trans "Land for Lease" %}</h3>
+        <div class="grid">
+            {% for land in lands %}
+            <div class="item-card" style="border-top: 6px solid var(--lease-purple);">
+                <div>
+                    <h4 style="color: #111;">{{ land.user.village }}</h4>
+                    <p><strong>{% trans "Area" %}:</strong> {{ land.total_land }} {% trans "Acres" %}</p>
+                    <p class="price-tag" style="color: var(--lease-purple);">
+                        Rs. {{ land.lease_per_day }} / {% trans "Day" %}</p>
+
+                </div>
+                <a href="{% url 'request_lease' land.id %}" class="btn btn-lease">{% trans "Request Lease" %}</a>
+            </div>
+            {% empty %}
+            <div class="empty-msg">{% trans "No land listings available right now." %}</div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div id="shop-sec" class="service-section">
+        <h3 class="section-title">{% trans "Fertilizer & Pesticide Shops" %}</h3>
+        <div class="grid">
+            {% for shop in pesticides %}
+            <div class="item-card" style="border-top: 6px solid var(--pesticide-teal);">
+                <div>
+                    <h4 style="color: #111;">{{ shop.shop_name }}</h4>
+                    <p><strong>{% trans "Village" %}:</strong> {{ shop.user.village }}</p>
+                    <p><strong>{% trans "Products" %}:</strong> {{ shop.products_sold }}</p>
+                </div>
+                <a href="{% url 'book_shop' shop.id %}" class="btn btn-pesticide">{% trans "Buy Products" %}</a>
+            </div>
+            {% empty %}
+            <div class="empty-msg">{% trans "No pesticide shops available right now." %}</div>
+            {% endfor %}
+        </div>
+    </div>
+
+</div>
+
+<script>
+    function filterDashboard() {
+        const filterValue = document.getElementById('dashboardFilter').value;
+        const sections = document.querySelectorAll('.service-section');
+
+        sections.forEach(section => {
+            if (filterValue === 'all') {
+                section.style.display = 'block';
+            } else if (section.id === filterValue) {
+                section.style.display = 'block';
+            } else {
+                section.style.display = 'none';
+            }
+        });
+    }
+</script>
+
+{% endblock %}

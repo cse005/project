@@ -1,0 +1,459 @@
+{% load i18n %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE|default:'en' }}">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{% trans "Rent Tools | Kisan Asara" %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --tool-green: #1f6f3d;
+            --tool-green-dark: #0f4022;
+            --tool-cream: rgba(255, 255, 255, 0.93);
+            --tool-border: rgba(31, 111, 61, 0.14);
+            --tool-soft: #edf7ef;
+            --tool-muted: #526b64;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            background-color: #031108;
+            background-image:
+                radial-gradient(circle at 25% 20%, rgba(36, 145, 76, 0.52) 0%, transparent 32%),
+                radial-gradient(circle at 80% 18%, rgba(15, 88, 43, 0.72) 0%, transparent 42%),
+                linear-gradient(150deg, #04190a 0%, #0f4022 50%, #031108 100%);
+        }
+
+        .booking-card {
+            background: var(--tool-cream);
+            backdrop-filter: blur(16px);
+            width: 100%;
+            max-width: 760px;
+            border-radius: 28px;
+            padding: 34px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.35);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .provider-info {
+            background: linear-gradient(135deg, #e6f6ea, #f4fbf5);
+            border: 1px solid var(--tool-border);
+            border-left: 6px solid var(--tool-green);
+            padding: 22px 24px;
+            border-radius: 18px;
+            margin-bottom: 24px;
+        }
+
+        .provider-info h3 {
+            margin: 0 0 10px;
+            color: var(--tool-green-dark);
+            font-size: 24px;
+            font-weight: 800;
+        }
+
+        .provider-info p {
+            margin: 6px 0;
+            color: #234131;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .provider-info span {
+            font-weight: 700;
+            color: var(--tool-green);
+        }
+
+        .form-grid {
+            display: grid;
+            gap: 20px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 16px;
+        }
+
+        label {
+            display: block;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--tool-green-dark);
+            margin-bottom: 8px;
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #d9e6dc;
+            border-radius: 14px;
+            font-family: inherit;
+            font-size: 14px;
+            box-sizing: border-box;
+            outline: none;
+            background: #f7fbf8;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: var(--tool-green);
+            background: #ffffff;
+            box-shadow: 0 0 0 4px rgba(31, 111, 61, 0.14);
+            transform: translateY(-1px);
+        }
+
+        .tools-list {
+            background: var(--tool-soft);
+            padding: 20px;
+            border-radius: 18px;
+            border: 1px solid var(--tool-border);
+        }
+
+        .tool-item {
+            display: grid;
+            grid-template-columns: 1.4fr 0.9fr 0.8fr;
+            gap: 14px;
+            align-items: center;
+            padding: 14px 0;
+            border-bottom: 1px solid rgba(31, 111, 61, 0.1);
+        }
+
+        .tool-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .tool-select {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 0;
+            cursor: pointer;
+            text-transform: none;
+            font-size: 15px;
+            color: #163724;
+        }
+
+        .tool-select input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--tool-green);
+        }
+
+        .tool-rate {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--tool-green);
+        }
+
+        .tool-empty {
+            margin: 0;
+            color: var(--tool-muted);
+            font-weight: 600;
+        }
+
+        .delivery-toggle {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 18px;
+            background: #fff8e8;
+            border-radius: 14px;
+            border: 1px dashed #d99c1a;
+            cursor: pointer;
+            font-weight: 700;
+            color: #9a5d00;
+            transition: 0.2s ease;
+        }
+
+        .delivery-toggle:hover {
+            background: #fff1cd;
+        }
+
+        .delivery-toggle input {
+            width: 20px;
+            height: 20px;
+            accent-color: #b7791f;
+        }
+
+        .total-box {
+            background: linear-gradient(135deg, #0f4022, #174f2c);
+            padding: 22px;
+            text-align: center;
+            border-radius: 18px;
+            color: #ffffff;
+        }
+
+        .total-amount {
+            color: #b9f3ca;
+            font-size: 30px;
+            font-weight: 800;
+            margin-top: 6px;
+            display: block;
+        }
+
+        .btn-hire {
+            background: linear-gradient(135deg, var(--tool-green), #2d8a4d);
+            color: white;
+            border: none;
+            padding: 18px;
+            width: 100%;
+            border-radius: 16px;
+            font-size: 18px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: 0.2s ease;
+            box-shadow: 0 14px 28px rgba(31, 111, 61, 0.28);
+        }
+
+        .btn-hire:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 18px 34px rgba(31, 111, 61, 0.34);
+        }
+
+        .btn-hire:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 18px;
+            color: #526b64;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 9999;
+            background: rgba(255, 255, 255, 0.18);
+            backdrop-filter: blur(10px);
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            padding: 10px 16px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.24);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: #ffffff;
+            color: var(--tool-green-dark);
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 720px) {
+            body {
+                padding: 14px;
+                align-items: flex-start;
+            }
+
+            .booking-card {
+                padding: 22px 18px;
+                border-radius: 22px;
+                margin-top: 70px;
+            }
+
+            .form-row,
+            .tool-item {
+                grid-template-columns: 1fr;
+            }
+
+            .tool-item {
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <button onclick="window.history.back()" class="back-btn">{% trans "Back" %}</button>
+    <div class="booking-card">
+        <div class="provider-info">
+            <h3>{{ tool_shop.shop_name }}</h3>
+            <p><i class="fas fa-user-tie"></i> {% trans "Owner:" %} <span>{{ tool_shop.user.name }}</span></p>
+            <p><i class="fas fa-phone"></i> {% trans "Mobile:" %} <span>{{ tool_shop.user.mobile }}</span></p>
+            <p><i class="fas fa-location-dot"></i> {% trans "Location:" %} <span>{{ tool_shop.user.village }}</span></p>
+            <p>
+                <i class="fas fa-tractor"></i> {% trans "Available Fleet:" %}
+                <span>
+                    {% if tool_shop.tools_type %}
+                        {{ tool_shop.tools_type }}
+                    {% else %}
+                        {% trans "No tools listed" %}
+                    {% endif %}
+                </span>
+            </p>
+        </div>
+
+        <form method="POST" class="form-grid">
+            {% csrf_token %}
+            <div>
+                <label>{% trans "Choose tools to rent" %}</label>
+                <div class="tools-list">
+                    {% if available_tools %}
+                        {% for item in available_tools %}
+                        <div class="tool-item">
+                            <label class="tool-select">
+                                <input
+                                    type="checkbox"
+                                    name="tool_{{ item.id }}"
+                                    value="{{ item.id }}"
+                                    data-rate="{{ item.rate }}"
+                                    data-unit="{{ item.rate_unit }}"
+                                    onchange="calculateTotal()"
+                                >
+                                <span>{{ item.tool_name }}</span>
+                            </label>
+                            <div class="tool-rate">Rs. {{ item.rate }}/{{ item.rate_unit }}</div>
+                            <input
+                                type="number"
+                                name="duration_{{ item.id }}"
+                                id="duration_{{ item.id }}"
+                                min="1"
+                                placeholder="{% if item.rate_unit == 'day' %}{% trans 'Days' %}{% else %}{% trans 'Hours' %}{% endif %}"
+                                oninput="calculateTotal()"
+                                disabled
+                            >
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <p class="tool-empty">{% trans "No tools are currently available for the selected owner." %}</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <label class="delivery-toggle">
+                <input type="checkbox" name="home_delivery" id="home_delivery" onchange="toggleAddress()">
+                <i class="fas fa-truck"></i> {% trans "Request Home Delivery" %}
+            </label>
+
+            <div id="address-fields" style="display:none;">
+                <div class="form-row">
+                    <div>
+                        <label>{% trans "State" %}</label>
+                        <input type="text" name="state" placeholder="{% trans 'State' %}">
+                    </div>
+                    <div>
+                        <label>{% trans "District" %}</label>
+                        <input type="text" name="district" placeholder="{% trans 'District' %}">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div>
+                        <label>{% trans "Mandal" %}</label>
+                        <input type="text" name="mandal" placeholder="{% trans 'Mandal' %}">
+                    </div>
+                    <div>
+                        <label>{% trans "Village" %}</label>
+                        <input type="text" name="village" placeholder="{% trans 'Village' %}">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div>
+                    <label>{% trans "Date of Receiving" %}</label>
+                    <input type="date" name="receive_date" id="receive_date" required>
+                </div>
+                <div>
+                    <label>{% trans "Date of Returning" %}</label>
+                    <input type="date" name="return_date" id="return_date" required>
+                </div>
+            </div>
+
+            <div class="total-box">
+                <span style="text-transform: uppercase; font-size: 11px; letter-spacing: 1px; color: rgba(255,255,255,0.75);">
+                    {% trans "Estimated Total" %}
+                </span>
+                <span class="total-amount">Rs. <span id="displayTotal">0.00</span></span>
+            </div>
+
+            <button type="submit" class="btn-hire" {% if not available_tools %}disabled{% endif %}>{% trans "Book Tools Now" %}</button>
+            <a href="javascript:history.back()" class="back-link">{% trans "Cancel" %}</a>
+        </form>
+    </div>
+
+    <script>
+        function calculateTotal() {
+            let grandTotal = 0;
+            const tools = document.querySelectorAll('input[type="checkbox"][name^="tool_"]');
+            tools.forEach((checkbox) => {
+                const durationInput = document.getElementById(`duration_${checkbox.value}`);
+                if (!durationInput) {
+                    return;
+                }
+
+                if (checkbox.checked) {
+                    durationInput.disabled = false;
+                    durationInput.required = true;
+                    const rate = parseFloat(checkbox.dataset.rate || '0');
+                    const duration = parseFloat(durationInput.value || '0');
+                    if (rate > 0 && duration > 0) {
+                        grandTotal += rate * duration;
+                    }
+                } else {
+                    durationInput.disabled = true;
+                    durationInput.required = false;
+                    durationInput.value = '';
+                }
+            });
+            document.getElementById('displayTotal').innerText = grandTotal.toFixed(2);
+        }
+
+        function toggleAddress() {
+            const checkBox = document.getElementById('home_delivery');
+            const addressBox = document.getElementById('address-fields');
+            const inputs = addressBox.querySelectorAll('input[type="text"]');
+            if (checkBox.checked) {
+                addressBox.style.display = 'block';
+                inputs.forEach(input => input.required = true);
+            } else {
+                addressBox.style.display = 'none';
+                inputs.forEach(input => {
+                    input.required = false;
+                    input.value = '';
+                });
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const receiveDateInput = document.getElementById('receive_date');
+            const returnDateInput = document.getElementById('return_date');
+            if (receiveDateInput && returnDateInput) {
+                const today = new Date().toISOString().split('T')[0];
+                receiveDateInput.setAttribute('min', today);
+                returnDateInput.setAttribute('min', today);
+                receiveDateInput.addEventListener('change', function () {
+                    returnDateInput.setAttribute('min', this.value);
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,6 @@
+numpy
+requests
+django
+pillow
+python-dotenv
+dj-database-url

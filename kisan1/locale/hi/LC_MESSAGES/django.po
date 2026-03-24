@@ -1,0 +1,259 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: kisan1\n"
+"Language: hi\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Language"
+msgstr "भाषा"
+
+msgid "Kisan Asara - Your Farming Partner"
+msgstr "किसान आसरा - आपका कृषि साथी"
+
+msgid "Close"
+msgstr "बंद करें"
+
+msgid "Total experience"
+msgstr "कुल अनुभव"
+
+msgid "Business experience"
+msgstr "व्यापार अनुभव"
+
+msgid "Ploughing experience"
+msgstr "जुताई का अनुभव"
+
+msgid "Harrowing experience"
+msgstr "हैरोइंग का अनुभव"
+
+msgid "Transport experience"
+msgstr "परिवहन अनुभव"
+
+msgid "Harvesting experience"
+msgstr "कटाई का अनुभव"
+
+msgid "Sowing experience"
+msgstr "बुवाई का अनुभव"
+
+msgid "Please fill in all required fields before continuing."
+msgstr "आगे बढ़ने से पहले सभी आवश्यक फ़ील्ड भरें।"
+
+msgid "Age must be between %(minimum_age)s and %(maximum_age)s."
+msgstr "आयु %(minimum_age)s और %(maximum_age)s के बीच होनी चाहिए।"
+
+msgid "%(field)s must be less than or equal to %(limit)s years because minimum working age is %(minimum_age)s."
+msgstr "न्यूनतम कार्य आयु %(minimum_age)s होने के कारण %(field)s %(limit)s वर्षों से अधिक नहीं होना चाहिए।"
+
+msgid "All fields are required!"
+msgstr "सभी फ़ील्ड अनिवार्य हैं!"
+
+msgid "Name should contain only letters and spaces (minimum 3 characters)."
+msgstr "नाम में केवल अक्षर और खाली स्थान होने चाहिए (कम से कम 3 अक्षर)।"
+
+msgid "Enter a valid 10-digit mobile number."
+msgstr "मान्य 10 अंकों का मोबाइल नंबर दर्ज करें।"
+
+msgid "Enter a valid farmer passbook number (T followed by 11 digits)."
+msgstr "मान्य किसान पासबुक नंबर दर्ज करें (T के बाद 11 अंक)।"
+
+msgid "Please provide both experience and hourly rate for every selected tractor service."
+msgstr "चुनी गई प्रत्येक ट्रैक्टर सेवा के लिए अनुभव और प्रति घंटा दर दोनों दर्ज करें।"
+
+msgid "Please provide experience for every selected skill."
+msgstr "चुनी गई प्रत्येक कौशल के लिए अनुभव दर्ज करें।"
+
+msgid "Too many OTP requests. Please wait a few minutes and try again."
+msgstr "बहुत अधिक OTP अनुरोध हुए हैं। कृपया कुछ मिनट बाद फिर प्रयास करें।"
+
+msgid "OTP has expired. Please register again to generate a new OTP."
+msgstr "OTP की समय सीमा समाप्त हो गई है। नया OTP प्राप्त करने के लिए फिर से पंजीकरण करें।"
+
+msgid "Too many invalid OTP attempts. Please register again to generate a new OTP."
+msgstr "बहुत अधिक गलत OTP प्रयास हुए हैं। नया OTP प्राप्त करने के लिए फिर से पंजीकरण करें।"
+
+msgid "User not registered!"
+msgstr "उपयोगकर्ता पंजीकृत नहीं है!"
+
+msgid "Too many failed login attempts. Please wait before trying again."
+msgstr "बहुत अधिक असफल लॉगिन प्रयास हुए हैं। कृपया थोड़ी देर बाद फिर प्रयास करें।"
+
+msgid "OTP has expired. Please login again to generate a new OTP."
+msgstr "OTP की समय सीमा समाप्त हो गई है। नया OTP प्राप्त करने के लिए फिर से लॉगिन करें।"
+
+msgid "Too many invalid OTP attempts. Please login again to generate a new OTP."
+msgstr "बहुत अधिक गलत OTP प्रयास हुए हैं। नया OTP प्राप्त करने के लिए फिर से लॉगिन करें।"
+
+msgid "Self-booking is not allowed across your own accounts."
+msgstr "आपके अपने खातों के बीच स्वयं बुकिंग की अनुमति नहीं है।"
+
+msgid "Please provide valid service settings values."
+msgstr "कृपया मान्य सेवा सेटिंग्स मान दर्ज करें।"
+
+msgid "Complete P&F registration first to manage inventory."
+msgstr "इन्वेंटरी प्रबंधित करने के लिए पहले उर्वरक और कीटनाशक पंजीकरण पूरा करें।"
+
+msgid "Product '%(item_name)s' added to inventory."
+msgstr "'%(item_name)s' उत्पाद इन्वेंटरी में जोड़ दिया गया।"
+
+msgid "Product '%(item_name)s' updated in inventory."
+msgstr "'%(item_name)s' उत्पाद इन्वेंटरी में अपडेट कर दिया गया।"
+
+msgid "Updated shop price for '%(item_name)s'."
+msgstr "'%(item_name)s' के लिए दुकान की कीमत अपडेट कर दी गई।"
+
+msgid "Unable to update price for this product."
+msgstr "इस उत्पाद की कीमत अपडेट नहीं की जा सकी।"
+
+msgid "Sorry, only %(quantity)s units of %(item_name)s are available."
+msgstr "क्षमा करें, %(item_name)s की केवल %(quantity)s इकाइयाँ उपलब्ध हैं।"
+
+msgid "Accepted booking from %(farmer_name)s!"
+msgstr "%(farmer_name)s की बुकिंग स्वीकार कर ली गई!"
+
+msgid "Accepted tractor booking from %(farmer_name)s!"
+msgstr "%(farmer_name)s की ट्रैक्टर बुकिंग स्वीकार कर ली गई!"
+
+msgid "Accepted tool rental from %(farmer_name)s!"
+msgstr "%(farmer_name)s का उपकरण किराया अनुरोध स्वीकार कर लिया गया!"
+
+msgid "Accepted lease meeting with %(farmer_name)s!"
+msgstr "%(farmer_name)s के साथ पट्टा बैठक स्वीकार कर ली गई!"
+
+msgid "Accepted shop order from %(farmer_name)s and updated inventory!"
+msgstr "%(farmer_name)s का दुकान ऑर्डर स्वीकार कर लिया गया और इन्वेंटरी अपडेट कर दी गई!"
+
+msgid "Unauthorized action for this role."
+msgstr "इस भूमिका के लिए यह कार्रवाई अनुमत नहीं है।"
+
+msgid "Booking rejected."
+msgstr "बुकिंग अस्वीकार कर दी गई।"
+
+msgid "Rental request rejected."
+msgstr "किराये का अनुरोध अस्वीकार कर दिया गया।"
+
+msgid "Lease request rejected."
+msgstr "पट्टा अनुरोध अस्वीकार कर दिया गया।"
+
+msgid "Shop order rejected."
+msgstr "दुकान का ऑर्डर अस्वीकार कर दिया गया।"
+
+msgid "Your tool request has been cancelled."
+msgstr "आपका उपकरण अनुरोध रद्द कर दिया गया है।"
+
+msgid "Your tractor request has been cancelled."
+msgstr "आपका ट्रैक्टर अनुरोध रद्द कर दिया गया है।"
+
+msgid "Your labor request has been cancelled."
+msgstr "आपका मजदूर अनुरोध रद्द कर दिया गया है।"
+
+msgid "Your shop order has been cancelled."
+msgstr "आपका दुकान ऑर्डर रद्द कर दिया गया है।"
+
+msgid "Your lease request has been cancelled."
+msgstr "आपका पट्टा अनुरोध रद्द कर दिया गया है।"
+
+msgid "Your request has been cancelled."
+msgstr "आपका अनुरोध रद्द कर दिया गया है।"
+
+msgid "Labor Request Sent!"
+msgstr "मजदूर अनुरोध भेज दिया गया!"
+
+msgid "Labor is hired but please wait for approval."
+msgstr "मजदूर बुक कर लिया गया है, कृपया स्वीकृति की प्रतीक्षा करें।"
+
+msgid "Tractor Request Sent!"
+msgstr "ट्रैक्टर अनुरोध भेज दिया गया!"
+
+msgid "Your request has been sent to the tractor driver. Please wait for confirmation."
+msgstr "आपका अनुरोध ट्रैक्टर चालक को भेज दिया गया है। कृपया पुष्टि की प्रतीक्षा करें।"
+
+msgid "Tools Booked!"
+msgstr "उपकरण बुक कर दिए गए!"
+
+msgid "Tools are booked, but please wait for confirmation by the owner."
+msgstr "उपकरण बुक हो गए हैं, कृपया मालिक की पुष्टि की प्रतीक्षा करें।"
+
+msgid "Lease Request Sent!"
+msgstr "पट्टा अनुरोध भेज दिया गया!"
+
+msgid "Your request has been sent. Please wait for owner approval."
+msgstr "आपका अनुरोध भेज दिया गया है। कृपया मालिक की स्वीकृति की प्रतीक्षा करें।"
+
+msgid "Booking Sent Successfully!"
+msgstr "बुकिंग सफलतापूर्वक भेज दी गई!"
+
+msgid "Your request has been sent to the owner."
+msgstr "आपका अनुरोध मालिक को भेज दिया गया है।"
+
+msgid "Your order is confirmed, but the shop owner has not given approval yet."
+msgstr "आपका ऑर्डर पुष्टि हो गया है, लेकिन दुकान मालिक ने अभी स्वीकृति नहीं दी है।"
+
+msgid "Change Price"
+msgstr "कीमत बदलें"
+
+msgid "Market Price"
+msgstr "बाज़ार मूल्य"
+
+msgid "Shop Price"
+msgstr "दुकान की कीमत"
+
+msgid "Stock Quantity"
+msgstr "स्टॉक मात्रा"
+
+msgid "Select Product"
+msgstr "उत्पाद चुनें"
+
+msgid "Current Price"
+msgstr "वर्तमान कीमत"
+
+msgid "New Price"
+msgstr "नई कीमत"
+
+msgid "Update Price"
+msgstr "कीमत अपडेट करें"
+
+msgid "Show Categories:"
+msgstr "श्रेणियाँ दिखाएँ:"
+
+msgid "All Services"
+msgstr "सभी सेवाएँ"
+
+msgid "Laborers"
+msgstr "मजदूर"
+
+msgid "Farm Tools"
+msgstr "कृषि उपकरण"
+
+msgid "Land Lease"
+msgstr "भूमि पट्टा"
+
+msgid "Pesticide Shops"
+msgstr "कीटनाशक दुकानें"
+
+msgid "No land listings available right now."
+msgstr "इस समय कोई भूमि सूची उपलब्ध नहीं है।"
+
+msgid "No pesticide shops available right now."
+msgstr "इस समय कोई कीटनाशक दुकान उपलब्ध नहीं है।"
+
+msgid "Are you sure you want to cancel?"
+msgstr "क्या आप वाकई रद्द करना चाहते हैं?"
+
+msgid "GPS tracking will be available on delivery day."
+msgstr "डिलीवरी वाले दिन GPS ट्रैकिंग उपलब्ध होगी।"
+
+msgid "Driver location:"
+msgstr "ड्राइवर का स्थान:"
+
+msgid "On the way to"
+msgstr "रास्ते में है"
+
+msgid "Experience must be less than or equal to age minus 18."
+msgstr "अनुभव आयु में से 18 घटाने पर आने वाली सीमा से कम या बराबर होना चाहिए।"
+
+msgid "Passbook must start with 1 capital letter followed by exactly 11 numbers."
+msgstr "पासबुक 1 बड़े अक्षर से शुरू होनी चाहिए और उसके बाद ठीक 11 अंक होने चाहिए।"
+
+msgid "License must be 8-20 characters long and contain only uppercase letters, numbers, and hyphens (-)."
+msgstr "लाइसेंस 8-20 वर्ण लंबा होना चाहिए और इसमें केवल बड़े अक्षर, अंक और हाइफ़न (-) होने चाहिए।"

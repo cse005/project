@@ -1,0 +1,312 @@
+﻿{% load i18n %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE|default:'en' }}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% trans "Farmer Registration | Kisan Asara" %}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            /* Premium Color Palette */
+            --prime-green: #118a28;
+            /* Bright vibrant green for buttons */
+            --dark-green: #042409;
+            /* Very dark green for text readability */
+            --input-bg: #f7fbf7;
+            /* Clean, almost-white input background */
+        }
+
+        body {
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Inter', sans-serif;
+
+            /* =========================================
+               3D METALLIC GLOSSY GREEN BACKGROUND
+               ========================================= */
+            background-color: #010a02;
+            /* Deep black/green base */
+            background-image:
+                /* Creates the bright, glossy neon green swirl highlight */
+                radial-gradient(circle at 30% 70%, rgba(25, 171, 64, 0.6) 0%, transparent 45%),
+                /* Creates the secondary mid-tone curve */
+                radial-gradient(circle at 75% 25%, rgba(13, 102, 37, 0.8) 0%, transparent 55%),
+                /* Creates the deep, rich green center fading to black at the edges */
+                radial-gradient(ellipse at 50% 50%, #063d14 0%, #000000 100%);
+            background-attachment: fixed;
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        /* Premium Frosted Glass Card */
+        .reg-card {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 45px 40px;
+            border-radius: 28px;
+            /* Heavy, deep shadow to float above the dark background */
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
+            width: 100%;
+            max-width: 520px;
+            box-sizing: border-box;
+            position: relative;
+            z-index: 10;
+            animation: slideUp 0.6s ease-out;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .reg-card h2 {
+            color: var(--dark-green);
+            margin: 0 0 8px;
+            font-size: 28px;
+            font-weight: 800;
+            text-align: center;
+            letter-spacing: -0.5px;
+        }
+
+        .reg-card p {
+            text-align: center;
+            color: #446644;
+            margin-bottom: 30px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .input-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--dark-green);
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 14px 16px;
+            background: var(--input-bg);
+            color: #333333;
+            border: 1px solid #cce0cc;
+            border-radius: 14px;
+            font-size: 15px;
+            font-weight: 500;
+            box-sizing: border-box;
+            outline: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-family: inherit;
+        }
+
+        input::placeholder {
+            color: #8da68d;
+        }
+
+        input:focus,
+        select:focus {
+            background: #ffffff;
+            border-color: var(--prime-green);
+            box-shadow: 0 0 0 4px rgba(17, 138, 40, 0.15);
+            transform: translateY(-1px);
+        }
+
+        select:disabled,
+        input[readonly] {
+            background-color: #eef5ee;
+            color: #7a997a;
+            cursor: not-allowed;
+            border-color: #dceadc;
+        }
+
+        /* Premium Button */
+        .btn-next {
+            background: var(--prime-green);
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 14px;
+            width: 100%;
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+            box-shadow: 0 8px 20px rgba(17, 138, 40, 0.3);
+        }
+
+        .btn-next:hover {
+            background: #0d6e1f;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px rgba(17, 138, 40, 0.4);
+        }
+
+        .btn-next:active {
+            transform: scale(0.98) translateY(0);
+            box-shadow: 0 4px 10px rgba(17, 138, 40, 0.2);
+        }
+
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 9999;
+
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+
+            padding: 10px 16px;
+            border-radius: 10px;
+
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: #ffffff;
+            color: #042409;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+
+<body>
+    <a href="{% url 'welcome' %}" class="back-btn">{% trans "Back" %}</a>
+    <div class="reg-card">
+        <h2>{% trans "Farmer Registration" %}</h2>
+        <p>{% trans "Join Kisan Asara and grow your farming future" %}</p>
+        {% include 'kisan1/partials/form_messages.html' %}
+
+        <form method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="role" value="farmer">
+
+            <div class="form-group">
+                <label>{% trans "Full name:" %}</label>
+                <input type="text" name="name" placeholder="{% trans 'e.g., Ramesh Kumar' %}" pattern="[A-Za-z\s]{3,50}"
+                    minlength="3" maxlength="50" autocomplete="name"
+                    title="{% trans 'Only letters and spaces allowed' %}" required>
+            </div>
+
+            <div class="input-row">
+                <div class="form-group">
+                    <label>{% trans "Phone:" %}</label>
+                    <input type="tel" name="mobile" minlength="10" maxlength="10" inputmode="numeric" autocomplete="tel"
+                        placeholder="{% trans 'e.g., 9876543210' %}" pattern="[6789][0-9]{9}"
+                        title="{% trans 'Enter a valid 10-digit Indian mobile number' %}" required>
+                </div>
+                <div class="form-group">
+                    <label>{% trans "Age:" %}</label>
+                    <input type="number" name="age" min="18" max="100" step="1" inputmode="numeric"
+                        placeholder="{% trans 'e.g., 45' %}" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>{% trans "Gender:" %}</label>
+                <select name="gender" required>
+                    <option value="" disabled selected>{% trans "Select Gender" %}</option>
+                    <option value="Male">{% trans "Male" %}</option>
+                    <option value="Female">{% trans "Female" %}</option>
+                    <option value="Other">{% trans "Other" %}</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>{% trans "Pattadar Passbook No:" %}</label>
+                <input type="text" name="passbook" placeholder="{% trans 'e.g., T12345678901' %}"
+                    pattern="[Tt][0-9]{11}" minlength="12" maxlength="12" inputmode="text" autocomplete="off"
+                    style="text-transform: uppercase;"
+                    title="{% trans '* Must start with \'T\' followed by exactly 11 numbers' %}"
+                    oninput="this.value = this.value.toUpperCase().replace(/[^T0-9]/g, '').slice(0, 12);" required>
+            </div>
+
+            <div class="form-group">
+                <label>{% trans "Pincode (Try: 503224, 506002, 500038):" %}</label>
+                <input type="text" id="pincode" name="pincode" placeholder="{% trans 'Enter 6-digit Pincode' %}"
+                    minlength="6" maxlength="6" inputmode="numeric" pattern="[0-9]{6}" oninput="fetchLocationDetails()"
+                    required>
+            </div>
+
+            <div class="input-row">
+                <div class="form-group">
+                    <label>{% trans "State:" %}</label>
+                    <input type="text" id="state" name="state" value="Telangana" maxlength="100" readonly required>
+                </div>
+                <div class="form-group">
+                    <label>{% trans "District:" %}</label>
+                    <input type="text" id="district" name="district" placeholder="{% trans 'Auto-filled' %}"
+                        maxlength="100" readonly required>
+                </div>
+            </div>
+
+            <div class="input-row">
+                <div class="form-group">
+                    <label>{% trans "Mandal:" %}</label>
+                    <input type="text" id="mandal" name="mandal" placeholder="{% trans 'Auto-filled' %}" maxlength="100"
+                        readonly required>
+                </div>
+                <div class="form-group">
+                    <label>{% trans "Village:" %}</label>
+                    <select id="village" name="village" required>
+                        <option value="" disabled selected>{% trans "-- Enter Pincode First --" %}</option>
+                    </select>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-next">{% trans "Register" %}</button>
+        </form>
+    </div>
+
+    <script src="{% static 'js/location.js' %}"></script>
+
+</body>
+
+</html>
