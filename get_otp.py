@@ -1,7 +1,7 @@
 import argparse
 import os
-import requests
 import django
+import requests
 
 # Setup Django
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'farmer_project.settings')
@@ -15,45 +15,46 @@ parser.add_argument('--show-otp', action='store_true')
 parser.add_argument('--phone', type=str, help='Enter phone number')
 args = parser.parse_args()
 
-# Get phone number
+# STEP 1: Get phone number
 phone = args.phone
-
 if not phone:
     phone = input("Enter phone number: ")
 
-# Generate OTP
-payload = create_otp_session_payload()
+# STEP 2: Generate OTP
+payload = create_otp_session_payload(phone)
 otp = payload['code']
 
-# Show OTP (optional)
+# STEP 3: Print info
 if args.show_otp:
     print(f"OTP: {otp}")
 
 print(f"Expires At: {payload['expires_at']}")
 print("Sending OTP to:", phone)
 
-# Get API key
+# STEP 4: Get API key
 API_KEY = os.getenv("FAST2SMS_API_KEY")
 
-# Function to send OTP
+# STEP 5: Send OTP function
 def send_otp(phone, otp):
     url = "https://www.fast2sms.com/dev/bulkV2"
 
-    payload = {
+    headers = {
         "authorization": API_KEY,
-        "sender_id": "FSTSMS",
+        "Content-Type": "application/x-www-form-urlencoded"
+    }
+
+    data = {
+        "sender_id": "FSTSMS",   # REQUIRED
         "message": f"Your OTP is {otp}",
         "language": "english",
-        "route": "q",
+        "route": "q",            # keep q for now
         "numbers": phone
     }
 
-    headers = {
-        "cache-control": "no-cache"
-    }
+    response = requests.post(url, data=data, headers=headers)
 
-    response = requests.post(url, data=payload, headers=headers)
-    print("SMS Response:", response.text)
+    print("STATUS:", response.status_code)
+    print("RESPONSE:", response.text)
 
-# CALL FUNCTION (VERY IMPORTANT)
+# STEP 6: CALL FUNCTION
 send_otp(phone, otp)

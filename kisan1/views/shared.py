@@ -82,11 +82,15 @@ def _hash_otp_code(code):
     return salted_hmac('kisan1.otp', str(code).strip()).hexdigest()
 
 
-def create_otp_session_payload():
+def create_otp_session_payload(mobile):
     otp = f"{secrets.randbelow(9000) + 1000}"
     expires_at = (timezone.now() + timedelta(minutes=5)).isoformat()
-    return otp, {'code_hash': _hash_otp_code(otp), 'expires_at': expires_at}
 
+    return {
+        "code": otp,
+        "expires_at": expires_at,
+        "phone": mobile
+    }
 
 def get_otp_remaining_seconds(payload):
     if not payload or isinstance(payload, str):
@@ -156,25 +160,27 @@ def announce_otp(mobile, otp, context='generic'):
 
 
 def send_real_otp_sms(mobile, otp):
-    api_token = os.getenv('FAST2SMS_API_KEY', '').strip()
-    if not api_token:
-        logger.warning('FAST2SMS_API_KEY not configured. OTP SMS skipped.')
-        return False
+    import requests
+    import os
+
+    API_KEY = os.getenv("FAST2SMS_API_KEY")
 
     url = "https://www.fast2sms.com/dev/bulkV2"
-    querystring = {
-        "authorization": api_token,
-        "message": f"Your Kisan Asara test OTP is {otp}",
+
+    headers = {
+        "authorization": API_KEY,
+        "Content-Type": "application/x-www-form-urlencoded"
+    }
+
+    data = {
+        "sender_id": "FSTSMS",
+        "message": f"Your OTP is {otp}",
         "language": "english",
         "route": "q",
-        "numbers": mobile,
+        "numbers": mobile
     }
-    headers = {'cache-control': "no-cache"}
 
-    try:
-        response = requests.request("GET", url, headers=headers, params=querystring, timeout=10)
-        logger.info('SMS API Response: %s', response.text)
-        return True
-    except requests.RequestException as exc:
-        logger.exception('Error sending SMS: %s', exc)
-        return False
+    response = requests.post(url, data=data, headers=headers)
+
+    print("SMS STATUS:", response.status_code)
+    print("SMS RESPONSE:", response.text)

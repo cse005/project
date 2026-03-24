@@ -1,7 +1,7 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+﻿{% extends "base.html" %}
 
-<head>
+{% block content %}
+
     <meta charset="UTF-8">
     <title>Secure Confirmation | Kisan Asara</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,7 +24,6 @@
             font-family: 'Poppins', sans-serif;
             margin: 0;
             backdrop-filter: blur(8px);
-            /* Background blur effect */
         }
 
         .container {
@@ -187,9 +186,7 @@
         }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
-</head>
 
-<body>
     <button onclick="window.history.back()" class="back-btn"
         style="position:fixed;top:16px;left:16px;z-index:9999;">Back</button>
     <div class="container">
@@ -221,6 +218,4 @@
         <a href="javascript:history.back()" class="cancel-link">Go Back & Edit</a>
     </div>
 
-</body>
-
-</html>
+{% endblock %}

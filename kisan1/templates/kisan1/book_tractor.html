@@ -1,8 +1,8 @@
-﻿{% load i18n %}
-<!DOCTYPE html>
-<html lang="en">
+﻿{% extends "base.html" %}
+{% load i18n %}
 
-<head>
+{% block content %}
+
     <meta charset="UTF-8">
     <title>{% trans "Book Tractor | Kisan Asara" %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -205,11 +205,10 @@
             transform: translateY(-2px);
         }
     </style>
-</head>
 
-<body>
     <button onclick="window.history.back()" class="back-btn"
         style="position:fixed;top:16px;left:16px;z-index:9999;">Back</button>
+
     <div class="booking-card">
         <div class="provider-info">
             <h3>{{ tractor.user.name }}</h3>
@@ -221,7 +220,6 @@
                 <span>Rs. {{ tractor.wage_amount }} / {% trans "Hour" %}</span>
             </p>
         </div>
-
 
         <form method="POST">
             {% csrf_token %}
@@ -241,10 +239,10 @@
                     <input type="time" name="start_time" id="start_time" min="05:00" max="18:00" required>
                 </div>
             </div>
+
             <p style="color: #f57c00; font-size: 11px; margin-top: -10px; font-weight: 600;">
-
-                * {% trans "Available: 05:00 AM to 06:00 PM" %}</p>
-
+                * {% trans "Available: 05:00 AM to 06:00 PM" %}
+            </p>
 
             <div class="form-group">
                 <label>{% trans "Field Address" %}</label>
@@ -264,15 +262,16 @@
 
     <script>
         const wageAmount = parseFloat("{{ tractor.wage_amount }}");
+
         function calculateTotal() {
             let duration = document.getElementById('duration').value || 0;
             document.getElementById('displayTotal').innerText = (duration * wageAmount).toFixed(2);
         }
+
         document.addEventListener("DOMContentLoaded", function () {
             const today = new Date().toISOString().split('T')[0];
             document.getElementById('booking_date').setAttribute('min', today);
         });
     </script>
-</body>
 
-</html>
+{% endblock %}
