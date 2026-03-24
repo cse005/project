@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 ﻿{% extends "base.html" %}
+=======
+>>>>>>> e269057f31acc877883c73872c721f061bc906e8
 {% load static %}
 {% load i18n %}
 <!DOCTYPE html>
@@ -87,6 +90,8 @@
 
         .back-btn {position: absolute; top: 24px; left: 24px; background: rgba(255,255,255,0.9); color: var(--dark-green, #0b2e24); text-decoration: none; padding: 10px 14px; border-radius: 10px; font-weight: 700; box-shadow: 0 6px 14px rgba(0,0,0,0.15);}
     </style>
+    <link rel="stylesheet" href="{% static 'css/responsive_overrides.css' %}" />
+
 </head>
 <body>
     <a href="{% url 'otp_back' %}" class="back-btn">Back</a>
