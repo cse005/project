@@ -156,10 +156,11 @@ def announce_otp(mobile, otp, context='generic'):
 
 
 def send_real_otp_sms(mobile, otp):
-    api_token = os.getenv('FAST2SMS_API_KEY', '').strip()
+    api_token = os.getenv('FAST2SMS_API_KEY')
+
     if not api_token:
-        logger.warning('FAST2SMS_API_KEY not configured. OTP SMS skipped.')
-        return False
+     logger.warning('FAST2SMS_API_KEY not configured. OTP SMS skipped.')
+     return False
 
     url = "https://www.fast2sms.com/dev/bulkV2"
     querystring = {
@@ -178,3 +179,6 @@ def send_real_otp_sms(mobile, otp):
     except requests.RequestException as exc:
         logger.exception('Error sending SMS: %s', exc)
         return False
+import requests
+import os
+
