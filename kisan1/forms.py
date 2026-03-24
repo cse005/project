@@ -12,7 +12,7 @@ from kisan1.models import (
 )
 
 
-ALLOWED_SHOP_CATEGORIES = {'Seeds', 'Fertilizer', 'Pesticides'}
+ALLOWED_SHOP_CATEGORIES = {'Seeds', 'Fertilizer', 'Pesticides', 'Herbicides', 'Insecticides'}
 ALLOWED_SHOP_CATEGORY_ALIASES = {
     'p&f',
     'p&f&s',
@@ -58,10 +58,11 @@ class PesticideForm(forms.ModelForm):
 class ShopItemForm(forms.ModelForm):
     class Meta:
         model = PesticideInventory
-        fields = ['item_name', 'category', 'market_price', 'price', 'stock_quantity']
+        fields = ['item_name', 'category', 'image', 'market_price', 'price', 'stock_quantity']
         widgets = {
             'item_name': forms.TextInput(attrs={'class': 'form-control'}),
             'category': forms.TextInput(attrs={'class': 'form-control'}),
+            'image': forms.ClearableFileInput(attrs={'class': 'form-control', 'accept': 'image/*'}),
             'market_price': forms.NumberInput(attrs={'class': 'form-control', 'min': 1}),
             'price': forms.NumberInput(attrs={'class': 'form-control', 'min': 1}),
             'stock_quantity': forms.NumberInput(attrs={'class': 'form-control', 'min': 1}),
@@ -72,7 +73,7 @@ class ShopItemForm(forms.ModelForm):
         normalized = value.lower()
         if value not in ALLOWED_SHOP_CATEGORIES and normalized not in ALLOWED_SHOP_CATEGORY_ALIASES:
             raise ValidationError(
-                _('Category must be one of: Seeds, Fertilizer, Pesticides, P&F, or P&F&S.')
+                _('Category must be one of: Seeds, Fertilizer, Pesticides, Herbicides, Insecticides, P&F, or P&F&S.')
             )
         return value
 

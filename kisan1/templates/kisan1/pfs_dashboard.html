@@ -1,5 +1,6 @@
 {% extends 'kisan1/base.html' %}
 {% load i18n %}
+{% load static %}
 
 {% block content %}
 <div class="dashboard-shell dashboard-shell--{{ role }}">
@@ -89,33 +90,69 @@
 
     <div id="add-product" class="settings-panel">
         <h3>{% trans "Add New Product" %}</h3>
-        <form method="post" class="settings-form">
-            {% csrf_token %}
-            <input type="hidden" name="add_product" value="1">
+        <div class="add-product-layout">
+            <form method="post" enctype="multipart/form-data" class="settings-form add-product-form">
+                {% csrf_token %}
+                <input type="hidden" name="add_product" value="1">
 
-            <label for="itemName">{% trans "Product Name" %}</label>
-            <input id="itemName" type="text" name="item_name" required>
+                <label for="itemName">{% trans "Product Name" %}</label>
+                <input id="itemName" type="text" name="item_name" required>
 
-            <label for="itemCategory">{% trans "Category" %}</label>
-            <select id="itemCategory" name="category" required>
-                <option value="Seeds">{% trans "Seeds" %}</option>
-                <option value="Fertilizer">{% trans "Fertilizer" %}</option>
-                <option value="Pesticides">{% trans "Pesticides" %}</option>
-            </select>
+                <label for="itemCategory">{% trans "Category" %}</label>
+                <select id="itemCategory" name="category" required>
+                    <option value="Pesticides" selected>{% trans "Pesticides" %}</option>
+                    <option value="Herbicides">{% trans "Herbicides" %}</option>
+                    <option value="Insecticides">{% trans "Insecticides" %}</option>
+                    <option value="Fertilizer">{% trans "Fertilizer" %}</option>
+                    <option value="Seeds">{% trans "Seeds" %}</option>
+                </select>
 
-            <label for="marketPrice">{% trans "Market Price" %}</label>
-            <input id="marketPrice" type="number" name="market_price" min="1" required>
+                <label for="productImage">{% trans "Product Image" %}</label>
+                <input id="productImage" type="file" name="image" accept="image/*">
 
-            <label for="shopPrice">{% trans "Shop Price" %}</label>
-            <input id="shopPrice" type="number" name="price" min="1" required>
+                <label for="marketPrice">{% trans "Market Price" %}</label>
+                <input id="marketPrice" type="number" name="market_price" min="1" required>
 
-            <label for="stockQuantity">{% trans "Stock Quantity" %}</label>
-            <input id="stockQuantity" type="number" name="stock_quantity" min="1" required>
+                <label for="shopPrice">{% trans "Shop Price" %}</label>
+                <input id="shopPrice" type="number" name="price" min="1" required>
 
-            <div class="settings-actions">
-                <button type="submit">{% trans "Add Product" %}</button>
-            </div>
-        </form>
+                <label for="stockQuantity">{% trans "Stock Quantity" %}</label>
+                <input id="stockQuantity" type="number" name="stock_quantity" min="1" required>
+
+                <div class="settings-actions">
+                    <button type="submit" class="add-product-btn">{% trans "Add Product" %}</button>
+                </div>
+            </form>
+
+            <aside class="product-preview-shell" aria-live="polite">
+                <h4>{% trans "Product Card Preview (Live Update)" %}</h4>
+                <div class="preview-card">
+                    <div class="preview-discount" id="previewDiscount">25% OFF</div>
+                    <button type="button" class="preview-wishlist" aria-label="wishlist">
+                        <i class="far fa-heart"></i>
+                    </button>
+                    <img src="{% static 'kisan1/images/product-placeholder.svg' %}" id="previewImage"
+                        alt="Product preview image" class="preview-image">
+                    <div class="preview-content">
+                        <div class="preview-rating"><i class="fas fa-star"></i> <span id="previewRating">4.8</span></div>
+                        <p class="preview-name" id="previewName">Premium Crop Protector</p>
+                        <p class="preview-brand" id="previewBrand">Pesticides</p>
+                        <div class="preview-price-row">
+                            <strong id="previewCurrentPrice">₹750</strong>
+                            <span id="previewMarketPrice">₹1000</span>
+                        </div>
+                        <p class="preview-save" id="previewSave">Save ₹250</p>
+                        <p class="preview-stock" id="previewStock">120 units available</p>
+                        <label for="previewSize">{% trans "Size" %}</label>
+                        <select id="previewSize">
+                            <option>500 ml</option>
+                            <option>1 L</option>
+                            <option>2 L</option>
+                        </select>
+                    </div>
+                </div>
+            </aside>
+        </div>
     </div>
 
     <div id="change-rate" class="settings-panel">
@@ -227,6 +264,85 @@
             productSelect.addEventListener('change', syncCurrentRate);
             syncCurrentRate();
         }
+
+        const nameInput = document.getElementById('itemName');
+        const categoryInput = document.getElementById('itemCategory');
+        const marketPriceInput = document.getElementById('marketPrice');
+        const shopPriceInput = document.getElementById('shopPrice');
+        const stockInput = document.getElementById('stockQuantity');
+        const imageInput = document.getElementById('productImage');
+
+        const previewName = document.getElementById('previewName');
+        const previewBrand = document.getElementById('previewBrand');
+        const previewCurrentPrice = document.getElementById('previewCurrentPrice');
+        const previewMarketPrice = document.getElementById('previewMarketPrice');
+        const previewSave = document.getElementById('previewSave');
+        const previewDiscount = document.getElementById('previewDiscount');
+        const previewStock = document.getElementById('previewStock');
+        const previewImage = document.getElementById('previewImage');
+
+        const placeholderImage = previewImage ? previewImage.getAttribute('src') : '';
+
+        function toNumber(value) {
+            const num = Number(value);
+            return Number.isFinite(num) && num > 0 ? num : 0;
+        }
+
+        function formatINR(value) {
+            return `₹${Math.round(value)}`;
+        }
+
+        function updatePreviewMeta() {
+            if (!previewName) {
+                return;
+            }
+            const productName = (nameInput?.value || '').trim();
+            const productCategory = (categoryInput?.value || '').trim();
+            const currentPrice = toNumber(shopPriceInput?.value);
+            const marketPrice = toNumber(marketPriceInput?.value);
+            const stockQty = toNumber(stockInput?.value);
+
+            previewName.textContent = productName || 'Premium Crop Protector';
+            previewBrand.textContent = productCategory || 'Pesticides';
+
+            previewCurrentPrice.textContent = formatINR(currentPrice || 750);
+            previewMarketPrice.textContent = formatINR(marketPrice || 1000);
+
+            const effectiveMarket = marketPrice || 1000;
+            const effectiveCurrent = currentPrice || 750;
+            const saveAmount = Math.max(effectiveMarket - effectiveCurrent, 0);
+            const discountPercent = effectiveMarket > 0
+                ? Math.round((saveAmount / effectiveMarket) * 100)
+                : 0;
+
+            previewSave.textContent = `Save ₹${saveAmount}`;
+            previewDiscount.textContent = `${discountPercent}% OFF`;
+            previewStock.textContent = `${stockQty || 120} units available`;
+        }
+
+        [nameInput, categoryInput, marketPriceInput, shopPriceInput, stockInput].forEach((el) => {
+            if (el) {
+                el.addEventListener('input', updatePreviewMeta);
+                el.addEventListener('change', updatePreviewMeta);
+            }
+        });
+
+        if (imageInput && previewImage) {
+            imageInput.addEventListener('change', (event) => {
+                const file = event.target.files && event.target.files[0];
+                if (!file) {
+                    previewImage.src = placeholderImage;
+                    return;
+                }
+                const reader = new FileReader();
+                reader.onload = (loadEvent) => {
+                    previewImage.src = loadEvent.target?.result || placeholderImage;
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+
+        updatePreviewMeta();
     })();
 </script>
 {% endblock %}

@@ -166,6 +166,7 @@ class PesticideInventory(models.Model):
     shop = models.ForeignKey(UserRegistration, on_delete=models.CASCADE, related_name='inventory')
     item_name = models.CharField(max_length=150)
     category = models.CharField(max_length=50)
+    image = models.ImageField(upload_to='product_images/', null=True, blank=True)
     market_price = models.PositiveIntegerField(default=1)
     price = models.PositiveIntegerField()
     stock_quantity = models.PositiveIntegerField()

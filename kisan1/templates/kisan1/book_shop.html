@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿{% load static %}
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -166,27 +167,121 @@
         }
 
         .stock-list {
-            margin-top: 10px;
-            border-top: 1px solid var(--border);
+            margin-top: 12px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
         }
 
-        .stock-item {
+        .product-card {
+            position: relative;
+            background: #ffffff;
+            border: 1px solid #e4eee7;
+            border-radius: 16px;
+            box-shadow: 0 8px 18px rgba(18, 92, 39, 0.08);
+            overflow: hidden;
             display: flex;
-            justify-content: space-between;
-            gap: 14px;
-            padding: 16px 0;
-            border-bottom: 1px solid var(--border);
+            flex-direction: column;
         }
 
-        .stock-item h3 {
-            margin: 0 0 6px;
+        .product-image {
+            width: 100%;
+            height: 180px;
+            background: linear-gradient(135deg, #e8f5e9, #f7fbf8);
+            object-fit: cover;
+        }
+
+        .product-image-placeholder {
+            width: 100%;
+            height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 10px;
+            color: #2e7d32;
+            background: linear-gradient(145deg, #e8f5e9, #f5faf6);
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .product-image-placeholder i {
+            font-size: 30px;
+            opacity: 0.85;
+        }
+
+        .product-content {
+            padding: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            flex: 1;
+        }
+
+        .discount-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            padding: 6px 10px;
+            border-radius: 999px;
+            background: #ff9800;
+            color: #fff;
+            font-size: 12px;
+            font-weight: 700;
+            z-index: 2;
+        }
+
+        .rating-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            width: fit-content;
+            background: #1f9d55;
+            color: #fff;
+            border-radius: 8px;
+            padding: 4px 8px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .product-content {
+            padding: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            flex: 1;
+        }
+
+        .product-name {
+            margin: 0;
             font-size: 16px;
+            font-weight: 700;
+            line-height: 1.35;
         }
 
-        .price {
+        .brand {
+            margin: 0;
+            font-size: 13px;
+            color: #73808a;
+        }
+
+        .product-price {
             color: var(--text);
             font-size: 14px;
             font-weight: 700;
+        }
+
+        .original-price {
+            color: #8a94a1;
+            margin-left: 8px;
+            text-decoration: line-through;
+            font-weight: 500;
+        }
+
+        .save-row {
+            color: #1f9d55;
+            font-size: 13px;
+            font-weight: 600;
         }
 
         .availability {
@@ -202,8 +297,7 @@
         }
 
         .qty-wrap {
-            width: 122px;
-            text-align: right;
+            margin-top: auto;
         }
 
         .qty-label {
@@ -293,10 +387,14 @@
         }
 
         .empty {
+            grid-column: 1 / -1;
             text-align: center;
             color: var(--muted);
             padding: 24px 10px;
             font-size: 14px;
+            border: 1px dashed var(--border);
+            border-radius: 12px;
+            background: #fafafa;
         }
 
         @media (max-width: 600px) {
@@ -312,13 +410,8 @@
                 border-bottom: 1px solid var(--border);
             }
 
-            .stock-item {
-                flex-direction: column;
-            }
-
             .qty-wrap {
                 width: 100%;
-                text-align: left;
             }
         }
 
@@ -403,18 +496,26 @@
                 <h2>Available products</h2>
                 <div class="stock-list">
                     {% for item in inventory %}
-                    <div class="stock-item">
-                        <div>
-                            <h3>{{ item.item_name }}</h3>
+                    <div class="product-card">
+                        {% if item.image %}
+                        <img src="{{ item.image.url }}" alt="{{ item.item_name }}" class="product-image">
+                        {% else %}
+                        <div class="product-image-placeholder">
+                            <i class="fas fa-seedling"></i>
+                            <span>No product image</span>
+                        </div>
+                        {% endif %}
+                        <div class="product-content">
+                            <h3 class="product-name">{{ item.item_name }}</h3>
                             <div class="availability"><i class="fas fa-circle-check"></i> {{ item.stock_quantity }}
                                 units available</div>
-                            <div class="price">Rs. {{ item.price }} / unit</div>
-                        </div>
-                        <div class="qty-wrap">
-                            <label for="qty_{{ item.id }}" class="qty-label">Quantity</label>
-                            <input type="number" name="qty_{{ item.id }}" id="qty_{{ item.id }}" class="qty-input"
-                                min="0" max="{{ item.stock_quantity }}" placeholder="0" data-price="{{ item.price }}"
-                                oninput="calculateTotal()">
+                            <div class="product-price">Rs. {{ item.price }} / unit</div>
+                            <div class="qty-wrap">
+                                <label for="qty_{{ item.id }}" class="qty-label">Quantity</label>
+                                <input type="number" name="qty_{{ item.id }}" id="qty_{{ item.id }}"
+                                    class="qty-input" min="0" max="{{ item.stock_quantity }}" placeholder="0"
+                                    data-price="{{ item.price }}" oninput="calculateTotal()">
+                            </div>
                         </div>
                     </div>
                     {% empty %}

@@ -402,12 +402,13 @@ def dashboard(request, role):
             if not shop_profile:
                 messages.error(request, _('Complete P&F registration first to manage inventory.'))
             elif 'add_product' in request.POST:
-                item_form = ShopItemForm(request.POST)
+                item_form = ShopItemForm(request.POST, request.FILES)
                 if not item_form.is_valid():
                     messages.error(request, _('Please provide valid product, category, market price, shop price, and stock quantity.'))
                 else:
                     item_name = item_form.cleaned_data['item_name']
                     category = item_form.cleaned_data['category']
+                    image = item_form.cleaned_data.get('image')
                     market_price = item_form.cleaned_data['market_price']
                     price = item_form.cleaned_data['price']
                     stock_quantity = item_form.cleaned_data['stock_quantity']
@@ -416,15 +417,18 @@ def dashboard(request, role):
                     inventory_item = None
                     created = False
                     for normalized_category in normalized_categories:
+                        defaults = {
+                            'market_price': market_price,
+                            'price': price,
+                            'stock_quantity': stock_quantity,
+                        }
+                        if image:
+                            defaults['image'] = image
                         inventory_item, item_created = PesticideInventory.objects.update_or_create(
                             shop=user_profile,
                             item_name=item_name,
                             category=normalized_category,
-                            defaults={
-                                'market_price': market_price,
-                                'price': price,
-                                'stock_quantity': stock_quantity,
-                            },
+                            defaults=defaults,
                         )
                         created = created or item_created
 
@@ -846,6 +850,24 @@ def request_lease(request, land_id):
 def book_shop(request, shop_id):
     shop = get_object_or_404(PesticideProfile.objects.exclude(user__pincode__in=_HIDDEN_PINCODE_STRINGS), id=shop_id)
     inventory_items = PesticideInventory.objects.filter(shop=shop.user)
+    products = []
+    for item in inventory_items:
+        original_price = item.market_price or item.price
+        current_price = item.price or 0
+        savings = max(original_price - current_price, 0)
+        discount_percent = int((savings / original_price) * 100) if original_price else 0
+        products.append({
+            'id': item.id,
+            'name': item.item_name,
+            'brand': item.category,
+            'image': item.image,
+            'original_price': original_price,
+            'current_price': current_price,
+            'stock_available': item.stock_quantity,
+            'rating': getattr(item, 'rating', 4.4),
+            'savings': savings,
+            'discount_percent': discount_percent,
+        })
 
     if request.method == 'POST':
         if not check_login(request):
@@ -897,6 +919,7 @@ def book_shop(request, shop_id):
     return render(request, 'kisan1/book_shop.html', {
         'shop': shop,
         'inventory': inventory_items,
+        'products': products,
     })
 
 
