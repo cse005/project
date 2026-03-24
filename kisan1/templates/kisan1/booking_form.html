@@ -1,15 +1,8 @@
-<<<<<<< HEAD
-﻿{% extends "base.html" %}
-{% load i18n %}
-
-{% block content %}
-=======
-{% load i18n %}
-{% load static %}
+﻿{% load i18n %}
 <!DOCTYPE html>
 <html lang="en">
->>>>>>> e269057f31acc877883c73872c721f061bc906e8
 
+<head>
     <meta charset="UTF-8">
     <title>{% trans "Book Service | Kisan Asara" %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -168,16 +161,11 @@
             transform: translateY(-2px);
         }
     </style>
-<<<<<<< HEAD
-=======
-    <link rel="stylesheet" href="{% static 'css/responsive_overrides.css' %}" />
-
 </head>
->>>>>>> e269057f31acc877883c73872c721f061bc906e8
 
+<body>
     <button onclick="window.history.back()" class="back-btn"
         style="position:fixed;top:16px;left:16px;z-index:9999;">Back</button>
-
     <div class="card">
         <h2>{% trans "Book" %} {{ service_type|title }}</h2>
 
@@ -210,17 +198,16 @@
 
     <script>
         const ratePerUnit = parseFloat("{{ rate|default:0 }}");
-
         function calculateTotal() {
             const units = document.getElementById('units').value || 0;
             document.getElementById('totalAmount').innerText = (units * ratePerUnit).toFixed(2);
         }
-
         document.addEventListener("DOMContentLoaded", function () {
             const today = new Date().toISOString().split('T')[0];
             document.getElementById('booking_date').setAttribute('min', today);
             calculateTotal();
         });
     </script>
+</body>
 
-{% endblock %}
+</html>

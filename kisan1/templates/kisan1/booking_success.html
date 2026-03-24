@@ -1,12 +1,9 @@
-<<<<<<< HEAD
-﻿{% extends "base.html" %}
-=======
->>>>>>> e269057f31acc877883c73872c721f061bc906e8
-{% load static %}
+﻿{% load static %}
 {% load i18n %}
+<!DOCTYPE html>
+<html lang="en">
 
-{% block content %}
-
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ title }} | Kisan Asara</title>
@@ -105,6 +102,7 @@
             font-weight: 700;
         }
 
+        /* Yellow Warning Box */
         .info-box {
             background: #fff9e6;
             border: 1px solid #f39c12;
@@ -124,6 +122,7 @@
             flex-wrap: wrap;
         }
 
+        /* Buttons exactly as you had them */
         .btn-track {
             padding: 14px 25px;
             background: #00796b;
@@ -214,13 +213,9 @@
             transform: translateY(-2px);
         }
     </style>
-<<<<<<< HEAD
-=======
-    <link rel="stylesheet" href="{% static 'css/responsive_overrides.css' %}" />
-
 </head>
->>>>>>> e269057f31acc877883c73872c721f061bc906e8
 
+<body>
     <button onclick="window.history.back()" class="back-btn"
         style="position:fixed;top:16px;left:16px;z-index:9999;">Back</button>
     <div class="leaf" style="left: 10%; animation-delay: 0s;"></div>
@@ -249,4 +244,6 @@
         </div>
     </div>
 
-{% endblock %}
+</body>
+
+</html>

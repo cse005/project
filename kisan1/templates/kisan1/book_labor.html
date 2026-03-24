@@ -1,17 +1,8 @@
-<<<<<<< HEAD
-﻿{% extends "base.html" %}
-{% load i18n %}
-
-{% block title %}{% trans "Hire Labor | Kisan Asara" %}{% endblock %}
-
-{% block content %}
-=======
-{% load i18n %}
-{% load static %}
+﻿{% load i18n %}
 <!DOCTYPE html>
 <html lang="en">
->>>>>>> e269057f31acc877883c73872c721f061bc906e8
 
+<head>
     <meta charset="UTF-8">
     <title>{% trans "Hire Labor | Kisan Asara" %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -38,6 +29,7 @@
             align-items: center;
             overflow-x: hidden;
 
+            /* 3D METALLIC GLOSSY GREEN SWIRL BACKGROUND */
             background-color: #010a02;
             background-image:
                 radial-gradient(circle at 30% 70%, rgba(25, 171, 64, 0.6) 0%, transparent 45%),
@@ -57,6 +49,7 @@
             }
         }
 
+        /* Premium Glassmorphism Booking Card */
         .booking-card {
             background: rgba(255, 255, 255, 0.92);
             backdrop-filter: blur(20px);
@@ -84,6 +77,7 @@
             }
         }
 
+        /* Provider Info Box */
         .provider-info {
             background: rgba(46, 125, 50, 0.05);
             border-left: 6px solid var(--prime-green);
@@ -122,6 +116,7 @@
             color: #111;
         }
 
+        /* Form Styling */
         .form-group {
             margin-bottom: 20px;
         }
@@ -164,6 +159,7 @@
             gap: 20px;
         }
 
+        /* Total Amount Box */
         .total-box {
             background: #111;
             padding: 20px;
@@ -194,6 +190,7 @@
             gap: 5px;
         }
 
+        /* Action Buttons */
         .btn-hire {
             background: linear-gradient(135deg, #118a28, #0a5a1a);
             color: white;
@@ -238,6 +235,7 @@
             transform: translateX(-3px);
         }
 
+
         .back-btn {
             position: fixed;
             top: 20px;
@@ -267,24 +265,21 @@
             transform: translateY(-2px);
         }
     </style>
-<<<<<<< HEAD
-=======
-    <link rel="stylesheet" href="{% static 'css/responsive_overrides.css' %}" />
-
 </head>
->>>>>>> e269057f31acc877883c73872c721f061bc906e8
 
+<body>
     <button onclick="window.history.back()" class="back-btn"
         style="position:fixed;top:16px;left:16px;z-index:9999;">Back</button>
-
     <div class="booking-card">
         <div class="provider-info">
             <h3>{{ laborer.user.name }}</h3>
             <p><i class="fas fa-map-marker-alt"></i> {% trans "Location:" %} <span>{{ laborer.user.village }}</span></p>
             <p><i class="fas fa-screwdriver-wrench"></i> {% trans "Skills:" %} <span>{{ laborer.skills }}</span></p>
             <p><i class="fas fa-wallet"></i> {% trans "Wages:" %}
+
                 <span>Rs. {{ laborer.wage_amount }} / {{ laborer.wage_type }}</span>
             </p>
+
         </div>
 
         <form method="POST">
@@ -292,7 +287,8 @@
 
             <div class="form-group">
                 <label>{% trans "Quantity" %} ({{ laborer.wage_type|cut:"Per " }}s) {% trans "Required" %}</label>
-                <input type="number" name="duration" id="duration" min="1" value="1" required oninput="calculateTotal()">
+                <input type="number" name="duration" id="duration" min="1" value="1" required
+                    oninput="calculateTotal()">
             </div>
 
             <div class="input-row">
@@ -332,6 +328,7 @@
     </div>
 
     <script>
+        // Keep your original logic exactly as is
         const wageAmount = parseFloat("{{ laborer.wage_amount }}");
 
         function calculateTotal() {
@@ -341,6 +338,7 @@
         }
 
         document.addEventListener("DOMContentLoaded", function () {
+            // Lock past dates
             const dateInput = document.getElementById('booking_date');
             if (dateInput) {
                 const today = new Date();
@@ -351,6 +349,7 @@
                 dateInput.setAttribute('min', minDate);
             }
 
+            // Time validation logic
             const timeInput = document.getElementById('start_time');
             if (timeInput) {
                 timeInput.addEventListener('change', function () {
@@ -368,5 +367,6 @@
             }
         });
     </script>
+</body>
 
-{% endblock %}
+</html>
