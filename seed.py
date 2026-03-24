@@ -1,3 +1,12 @@
+import os
+import django
+
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'farmer_project.settings')
+django.setup()
+
+
+
+
 from kisan1.models import PincodeMapping
 from kisan1.pincode_data import PINCODE_DATA
 from django.core.exceptions import ValidationError
