@@ -1,4 +1,4 @@
-﻿{% load static %}
+{% load static %}
 {% load i18n %}
 <!DOCTYPE html>
 <html lang="en">
@@ -91,6 +91,8 @@
         .otp-meta .otp-row { display: flex; justify-content: space-between; }
         .btn-verify:disabled { opacity: 0.6; cursor: not-allowed; }
     </style>
+    <link rel="stylesheet" href="{% static 'css/responsive_overrides.css' %}" />
+
 </head>
 
 <body>

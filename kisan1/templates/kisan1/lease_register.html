@@ -1,4 +1,4 @@
-﻿{% load i18n %}
+{% load i18n %}
 {% load static %}
 <!DOCTYPE html>
 <html lang="{{ LANGUAGE_CODE|default:'en' }}">
@@ -236,6 +236,8 @@
             transform: translateY(-2px);
         }
     </style>
+    <link rel="stylesheet" href="{% static 'css/responsive_overrides.css' %}" />
+
 </head>
 
 <body>

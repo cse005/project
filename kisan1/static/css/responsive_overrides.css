@@ -1,0 +1,222 @@
+/* Mobile responsiveness enhancements (additive overrides only) */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+img,
+svg,
+video,
+canvas,
+iframe {
+    max-width: 100%;
+    height: auto;
+}
+
+table {
+    width: 100%;
+}
+
+.table-shell,
+.table-wrap,
+.table-responsive,
+.orders-table-wrap {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+input,
+select,
+textarea,
+button,
+.btn,
+.btn-primary,
+.btn-submit,
+a.button,
+a.btn {
+    max-width: 100%;
+}
+
+/* Tablet and below */
+@media (max-width: 992px) {
+    .container,
+    .main-wrapper,
+    .dashboard-shell,
+    .dashboard-container,
+    .page-wrapper,
+    .layout,
+    .content-wrapper {
+        width: 100%;
+        max-width: 100%;
+        padding-left: 16px !important;
+        padding-right: 16px !important;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .dash-nav,
+    .dashboard-topbar,
+    .top-nav,
+    .navbar,
+    .header-bar {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .menu-container .dropdown-content {
+        right: auto;
+        left: 0;
+        min-width: min(92vw, 280px);
+    }
+
+    .request-header,
+    .card-header,
+    .booking-header,
+    .profile-header,
+    .summary-header {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    [style*="grid-template-columns:1fr 1fr"],
+    [style*="grid-template-columns: 1fr 1fr"] {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    body {
+        font-size: 15px;
+    }
+
+    .card,
+    .section-card,
+    .booking-form-wrapper,
+    .login-form-wrapper,
+    .register-form-wrapper,
+    .booking-card,
+    .order-card,
+    .login-card,
+    .success-card,
+    .otp-box,
+    .booking-container,
+    .cart-shell,
+    .content-card,
+    .form-card,
+    .main-card {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 16px !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+
+    .form-grid,
+    .fields-grid,
+    .details-grid,
+    .request-grid,
+    .stats-grid,
+    .summary-grid,
+    .input-row,
+    .action-row,
+    .two-col,
+    .three-col,
+    .dashboard-grid,
+    .products-grid,
+    .orders-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    .filter-bar,
+    .filter-card,
+    .toolbar,
+    .action-toolbar,
+    .top-actions,
+    .cta-row,
+    .request-actions {
+        flex-direction: column;
+        align-items: stretch !important;
+    }
+
+    .filter-bar select,
+    .filter-card select,
+    .tool-rate-input,
+    .tool-rate-input input,
+    .tool-rate-input span {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    input,
+    select,
+    textarea,
+    button,
+    .btn,
+    .btn-primary,
+    .btn-submit,
+    .action-btn,
+    .submit-btn {
+        width: 100%;
+        min-height: 44px;
+    }
+
+    .back-btn {
+        top: 12px !important;
+        left: 12px !important;
+        padding: 8px 12px !important;
+    }
+
+    .profile-card::after,
+    .hero-illustration,
+    .decorative-image {
+        max-width: 42vw;
+    }
+
+    .toast-stack {
+        right: 10px;
+        bottom: 10px;
+        width: calc(100vw - 20px);
+    }
+}
+
+/* Very small devices */
+@media (max-width: 480px) {
+    body {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .container,
+    .main-wrapper,
+    .dashboard-shell,
+    .dashboard-container,
+    .page-wrapper,
+    .layout,
+    .content-wrapper {
+        padding-left: 12px !important;
+        padding-right: 12px !important;
+    }
+
+    .dash-title,
+    h1,
+    h2,
+    h3 {
+        word-break: break-word;
+    }
+
+    .menu-container,
+    .menu-btn,
+    .dash-menu,
+    .dropdown-content,
+    .logout-btn,
+    .back-btn {
+        max-width: 100%;
+    }
+}
