@@ -33,9 +33,9 @@ print("🎉 SUCCESS: All data loaded!")
 from django.contrib.auth.models import User
 
 def run():
-    if not User.objects.filter(username="testuser").exists():
+    if not User.objects.filter(username="admin").exists():
         user = User.objects.create_user(
-            username="testuser",
+            username="admin",
             email="test@gmail.com",
             password="123456"
         )
