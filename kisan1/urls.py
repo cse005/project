@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from kisan1.views.shared import load_pincode_view
 from .views.admin_helper import create_admin_view
 urlpatterns = [
     path('', views.welcome, name='welcome'),
