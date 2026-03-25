@@ -64,4 +64,5 @@ urlpatterns = [
     path('get-location/', views.get_location_api, name='get_location'), # or however you had it mapped!
     path('admin-analytics/', views.analytics_dashboard, name='admin_analytics'),
     path('create-admin/', create_admin_view),
+    path('load-pincodes/', load_pincode_view),
 ]

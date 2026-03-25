@@ -181,4 +181,9 @@ def send_real_otp_sms(mobile, otp):
         return False
 import requests
 import os
+from django.http import HttpResponse
 
+def load_pincode_view(request):
+    from kisan1.load_pincodes import run
+    run()
+    return HttpResponse("Pincodes loaded successfully 🚀")
