@@ -39,9 +39,15 @@ def run():
             email="test@gmail.com",
             password="123456"
         )
-        user.is_staff = True
-        user.is_superuser = True
-        user.save()
-        print("Superuser created")
+        print("User created")
     else:
+        user = User.objects.get(username="admin")
         print("User already exists")
+
+    # ALWAYS update permissions
+    user.is_staff = True
+    user.is_superuser = True
+    user.set_password("123456")  # ensure password works
+    user.save()
+
+    print("Admin access granted")
