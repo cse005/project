@@ -1,4 +1,4 @@
 pip install -r requirements.txt
 python manage.py collectstatic --noinput
 python manage.py migrate
-python seed.py
+python manage.py shell < seed.py

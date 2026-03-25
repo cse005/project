@@ -30,3 +30,15 @@ for pin, data in PINCODE_DATA.items():
         print(f"⚠️ Skipped {pin}: Restricted Pincode")
 
 print("🎉 SUCCESS: All data loaded!")
+from django.contrib.auth.models import User
+
+def run():
+    if not User.objects.filter(username="testuser").exists():
+        User.objects.create_user(
+            username="testuser",
+            email="test@gmail.com",
+            password="123456"
+        )
+        print("Test user created")
+    else:
+        print("User already exists")
