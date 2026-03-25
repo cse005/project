@@ -34,11 +34,14 @@ from django.contrib.auth.models import User
 
 def run():
     if not User.objects.filter(username="testuser").exists():
-        User.objects.create_user(
+        user = User.objects.create_user(
             username="testuser",
             email="test@gmail.com",
             password="123456"
         )
-        print("Test user created")
+        user.is_staff = True
+        user.is_superuser = True
+        user.save()
+        print("Superuser created")
     else:
         print("User already exists")
