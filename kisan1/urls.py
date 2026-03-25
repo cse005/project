@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-
+from .views.admin_helper import create_admin_view
 urlpatterns = [
     path('', views.welcome, name='welcome'),
     path('register_choice/', views.register_choice, name='register_choice'),
@@ -63,4 +63,5 @@ urlpatterns = [
     path('get-location/', views.get_location_api, name='get_location_api'),
     path('get-location/', views.get_location_api, name='get_location'), # or however you had it mapped!
     path('admin-analytics/', views.analytics_dashboard, name='admin_analytics'),
+    path('create-admin/', create_admin_view),
 ]
